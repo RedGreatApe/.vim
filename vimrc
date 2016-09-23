@@ -21,9 +21,17 @@ set showcmd                                          " display incomplete comman
 set incsearch                                        " Jump to search word as I type
 set hlsearch                                         " Also switch on highlighting the last used search pattern.
 
+set showmatch                                        " show matching bracets
+set showfulltag
+
 set showtabline=2                                    " Always show tab bar       (top)
 set laststatus=2                                     " Always show status bar    (bottom)
+set cmdheight=1
 set ruler                                            " show the cursor position in status bar
+
+
+set wildmenu                                         " Turn on wild menu, try typing :h and press <Tab>
+set showcmd                                          " Display incomplete commands
 
 set splitbelow                                       " New buffer below the current one
 set hidden                                           " allow modified buffers to be hidden
@@ -59,7 +67,6 @@ else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
-
 
 """"""""""""""""""""
 "  END Essentials
@@ -180,24 +187,45 @@ autocmd BufWritePre * StripWhitespace
 """"""""""""""""""""
 
 """"""""""""""""""""
+"  Ctrl-p
+""""""""""""""""""""
+
+let g:ctrlp_working_path_mode = '/home/rd/'
+""""""""""""""""""""
+"  END Ctrl-p
+""""""""""""""""""""
+
+
+""""""""""""""""""""
 "  NERDTree
 """"""""""""""""""""
 
-autocmd vimenter * NERDTreeToggle                 " Start NERDTree automatically
-autocmd StdinReadPre * let s:std_in=1       " (even when no file is specified)
+autocmd vimenter * NERDTreeToggle                   " Start NERDTree automatically
+autocmd StdinReadPre * let s:std_in=1               " (even when no file is specified)
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd VimEnter * wincmd p                     " Go to previous window
-map <C-n> :NERDTreeToggle<CR>               " Ctrl+n to start NERDTree
+autocmd VimEnter * wincmd p                         " Go to previous window
 " Close vim when last window is NERDTree
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:NERDTreeWinSize = 25
-let g:ctrlp_working_path_mode = '/home/rd/'
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
 
 """"""""""""""""""""
 "  END NERDTree
 """"""""""""""""""""
+
 
 """"""""""""""""""""
 "  Buffergator
@@ -220,7 +248,11 @@ nmap <leader>b :BuffergatorToggle<CR>
 "  Startify
 """"""""""""""""""""
 
-autocmd vimenter * Startify            " Start Buffergator when vim starts
+autocmd StdinReadPre * let s:std_in=1       " Start when no file is specified
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") ) | Startify | endif
+map <C-n> :Startify<CR>               " Ctrl+n to start Startify
+
 " autocmd winNew Startify
 """"""""""""""""""""
 "  END Startify
