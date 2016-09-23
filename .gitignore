@@ -1,0 +1,9 @@
+#  Temporary files  #
+#####################
+
+*.pyo
+*.pyc
+*~
+*.bak
+*.swp
+*#
