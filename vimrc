@@ -1,3 +1,10 @@
+"
+"                       __   _(_)_ __ ___  _ __ ___
+"                       \ \ / / | '_ ` _ \| '__/ __|
+"                        \ V /| | | | | | | | | (__
+"                       (_)_/ |_|_| |_| |_|_|  \___|
+"
+
 set nocompatible                                     " Be VIMproved
 
 set mouse=a                                          " Enable mouse
@@ -58,10 +65,13 @@ let &listchars .= "precedes:<,nbsp:\u00b7"           " as these characters
 syntax on                                            " Switch syntax highlighting on
 au BufRead,BufNewFile *.zpt set filetype=html        " Template files (*.zpt) with html syntax
 
-if exists('$TMUX')                                   " change the cursor shape depending on mode
-  let &t_SI  = "\<Esc>Ptmux;\<Esc>\<Esc>]50;"        " see: vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
+
+" change the cursor shape depending on mode
+" see: vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
+if exists('$TMUX')
+  let &t_SI  = "\<Esc>Ptmux;\<Esc>\<Esc>]50;"
   let &t_SI .= "CursorShape=1\x7\<Esc>\\"
-  let &t_EI  = "\<Esc>Ptmux;\<Esc>\<Esc>]50;"        " strings too long, used concatenation :) -red
+  let &t_EI  = "\<Esc>Ptmux;\<Esc>\<Esc>]50;"
   let &t_EI .= "CursorShape=0\x7\<Esc>\\"
 else
   let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -76,17 +86,23 @@ endif
 """"""""""""""""""""
 " Mappings
 """"""""""""""""""""
-nnoremap Y y$                                                       " make Y behave similarly to D and C
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'   " %% Gives directory of current file
+" make Y behave similarly to D and C
+nnoremap Y y$
+" %% Gives directory of current file
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-nmap <C-h> <C-w>h                                                 " Navigate splits more easily
+" Navigate splits more easily
+nmap <C-h> <C-w>h
 nmap <C-j> <C-w>j
 nmap <C-k> <C-w>k
 nmap <C-l> <C-w>l
 
-nmap <C-w>+ <C-w>+<SID>ws                   " Key repeat hack for resizing splits
-nmap <C-w>- <C-w>-<SID>ws                   " <C-w>+++- vs <C-w>+<C-w>+<C-w>-
-nmap <C-w>> <C-w>><SID>ws                   " see: http://www.vim.org/scripts/script.php?script_id=2223
+" Key repeat hack for resizing splits
+" <C-w>+++- vs <C-w>+<C-w>+<C-w>-
+" see: http://www.vim.org/scripts/script.php?script_id=2223
+nmap <C-w>+ <C-w>+<SID>ws
+nmap <C-w>- <C-w>-<SID>ws
+nmap <C-w>> <C-w>><SID>ws
 nmap <C-w>< <C-w><<SID>ws
 nnoremap <script> <SID>ws+ <C-w>+<SID>ws
 nnoremap <script> <SID>ws- <C-w>-<SID>ws
@@ -94,14 +110,21 @@ nnoremap <script> <SID>ws> <C-w>><SID>ws
 nnoremap <script> <SID>ws< <C-w><<SID>ws
 nmap <SID>ws <Nop>
 
-command! Q q " Bind :Q to :qi               " Allow for common typoes
-command! W w " Bind :W to :w                " on quit/write
+" Allow for common typoes
+" on quit/write
+" Bind :Q to :qi
+command! Q q
+" Move current line one line down
+command! W w
 command! Qall qall
 
-nmap <leader>w :w<CR>                       " write file
-nmap <leader>q :bd<CR>                      " Delete buffer
+" write file
+nmap <C-s> :w<CR>
+" close current buffer
+nmap <C-q> :q<CR>
 
-nnoremap <F3> :noh<CR>                      " Clear search highlighting
+" Clear search highlighting
+nnoremap <F3> :noh<CR>
 
 function! g:ToggleColorColumn()
     if &colorcolumn != ''
@@ -112,12 +135,17 @@ function! g:ToggleColorColumn()
 endfunction
 nnoremap <silent><F6> :call g:ToggleColorColumn()<CR>
 
-inoremap <C-U> <C-G>u<C-U>                                      " CTRL-U in insert mode deletes a lot!
-                                                                " Use CTRL-G u  to first break undo,
-                                                                " so that you can undo CTRL-U
-                                                                " after inserting a line break.
+" CTRL-U in insert mode deletes a lot!
+" Use CTRL-G u  to first break undo,
+" so that you can undo CTRL-U
+" after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
 
 
+" Move current line one line down
+map - ddp
+" Move current line one line up
+map _ ddkkp
 """"""""""""""""""""
 " END Mappings
 """"""""""""""""""""
@@ -130,7 +158,7 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'vim-perl/vim-perl'                " Perl syntax
     Plug 'vim-perl/vim-perl6'               " Perl6 syntax
-    Plug 'kien/ctrlp.vim'                   " CtrlP filesearch?
+    Plug 'ctrlpvim/ctrlp.vim'               " CtrlP filesearch?
     Plug 'ntpeters/vim-better-whitespace'   " Whitespace Highlighting.
     Plug 'scrooloose/nerdtree'              " Filesystem tree
     Plug 'Xuyuanp/nerdtree-git-plugin'      " NERDTree git plugin
@@ -190,7 +218,7 @@ autocmd BufWritePre * StripWhitespace
 "  Ctrl-p
 """"""""""""""""""""
 
-let g:ctrlp_working_path_mode = '/home/rd/'
+" let g:ctrlp_working_path_mode = '~/'
 """"""""""""""""""""
 "  END Ctrl-p
 """"""""""""""""""""
@@ -200,10 +228,13 @@ let g:ctrlp_working_path_mode = '/home/rd/'
 "  NERDTree
 """"""""""""""""""""
 
-autocmd vimenter * NERDTreeToggle                   " Start NERDTree automatically
-autocmd StdinReadPre * let s:std_in=1               " (even when no file is specified)
+" Start NERDTree automatically
+autocmd vimenter * NERDTreeToggle
+" (even when no file is specified)
+autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd VimEnter * wincmd p                         " Go to previous window
+" Go to previous window (main buffer)
+" autocmd VimEnter * wincmd p
 " Close vim when last window is NERDTree
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
@@ -231,14 +262,15 @@ let g:NERDTreeIndicatorMapCustom = {
 "  Buffergator
 """"""""""""""""""""
 
-" autocmd vimenter * BuffergatorToggle            " Start Buffergator when vim starts
-" autocmd VimEnter * wincmd p                     " Go to previous window
+autocmd vimenter * BuffergatorToggle
+" Go to the window on the right
+autocmd VimEnter * wincmd l
 let g:buffergator_viewport_split_policy="b"
 let g:buffergator_split_hsize=5
 let g:buffergator_split_vsize=5
 let g:buffergator_autoupdate=1
 let g:buffergator_show_full_directory_path = 0
-let g:buffergator_suppress_keymaps = 1          " we only use <leader>b so don't claim the others
+let g:buffergator_suppress_keymaps = 1
 nmap <leader>b :BuffergatorToggle<CR>
 """"""""""""""""""""
 "  END Buffergator
@@ -251,10 +283,10 @@ nmap <leader>b :BuffergatorToggle<CR>
 autocmd StdinReadPre * let s:std_in=1       " Start when no file is specified
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") ) | Startify | endif
-map <C-n> :Startify<CR>               " Ctrl+n to start Startify
+" Ctrl+n to start Startify
+map <C-n> <C-w>n:Startify<CR>
 
 " autocmd winNew Startify
 """"""""""""""""""""
 "  END Startify
 """"""""""""""""""""
-

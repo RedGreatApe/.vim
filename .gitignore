@@ -7,3 +7,10 @@
 *.bak
 *.swp
 *#
+
+
+
+#   Plugin Folder   #
+#####################
+
+plugged/
