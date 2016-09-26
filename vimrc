@@ -10,7 +10,11 @@ set nocompatible                                     " Be VIMproved
 let mapleader = "-"
 
 set mouse=a                                          " Enable mouse
-set mousefocus
+if has("mouse_sgr")
+    set ttymouse=sgr
+else
+    set ttymouse=xterm2
+end
 
 set number                                           " Display line numbers
 
@@ -48,7 +52,7 @@ set sidescrolloff=5                                  " lines/chars to keep
 set sidescroll=1                                     " visible before scrolling
 set display+=lastline                                " show the last line that fits in window
 
-set undofile                                         " keep an undo file (undo changes after closing)
+set undofile                                         " keeprv  an undo file (undo changes after closing)
 " set swapfile                                         " Write swap and backup files
 " set backup                                           " keep a backup file (restore to previous version)
 " set directory=$TMPDIR,~/tmp,~/.vim/tmp,/tmp,/var/tmp " Swap file location
