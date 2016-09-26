@@ -55,7 +55,7 @@ set sidescroll=1                                " visible before scrolling
 set display+=lastline                           " show the last line that fits in window
 
 set undofile                                    " keep an undo file (undo changes after closing)
-set nowritebackup
+" set nowritebackup
 set swapfile                                    " Write swap and backup files
 set nobackup                                    " Do not keep backup files
 set directory=$TMPDIR,~/Stuff/vimtmp            " Swap file location
