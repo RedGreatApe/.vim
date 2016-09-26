@@ -5,69 +5,71 @@
 "                       (_)_/ |_|_| |_| |_|_|  \___|
 "
 
-set nocompatible                                     " Be VIMproved
+set nocompatible                                " Be VIMproved
 
 let mapleader = "-"
 
-set mouse=a                                          " Enable mouse
+set mouse=a                                     " Enable mouse
 if has("mouse_sgr")
     set ttymouse=sgr
 else
     set ttymouse=xterm2
 end
 
-set number                                           " Display line numbers
+set number                                      " Display line numbers
+set cursorline
 
-set ignorecase                                       " Use case insensitive search
-set smartcase                                        " except when using capital letters
+set ignorecase                                  " Use case insensitive search
+set smartcase                                   " except when using capital letters
 
-" set autoindent                                       " Keep indentation on new line
-set paste                                            " Always insert with paste enabled... always!
-set tabstop=4                                        " An indentation level every four columns
-set expandtab                                        " Converts all tabs typed into spacess
-set shiftwidth=4                                     " Indent/outdent by four columns
-set backspace=indent,eol,start                       " allow backspacing over everything in insert mode
+" set autoindent                                " Keep indentation on new line
+set paste                                       " Always insert with paste enabled... always!
+set tabstop=4                                   " An indentation level every four columns
+set expandtab                                   " Converts all tabs typed into spacess
+set shiftwidth=4                                " Indent/outdent by four columns
+set backspace=indent,eol,start                  " allow backspacing over everything in insert mode
 
-set history=50                                       " keep 50 lines of command line history
+set history=100                                 " keep 50 lines of command line history
 
-set incsearch                                        " Jump to search word as I type
-set hlsearch                                         " Also switch on highlighting the last used search pattern.
+set incsearch                                   " Jump to search word as I type
+set hlsearch                                    " Also switch on highlighting the last used search pattern.
 
-set showmatch                                        " show matching bracets
+set showmatch                                   " show matching bracets
 set showfulltag
 
-set showtabline=2                                    " Always show tab bar       (top)
-set laststatus=2                                     " Always show status bar    (bottom)
-set cmdheight=1
-set ruler                                            " show the cursor position in status bar
+set showtabline=2                               " Always show tab bar       (top)
+set laststatus=2                                " Always show status bar    (bottom)
+set cmdheight=1                                 " Command line height
+set ruler                                       " show the cursor position in status bar
 
-set wildmenu                                         " Turn on wild menu, try typing :h and press <Tab>
-set showcmd                                          " Display incomplete commands
+set wildmenu                                    " Turn on wild menu, try typing :h and press <Tab>
+set showcmd                                     " Display incomplete commands
 
-set splitbelow                                       " New buffer below the current one
-set hidden                                           " allow modified buffers to be hidden
+set splitbelow                                  " New buffer below the current one
+set hidden                                      " allow modified buffers to be hidden
 
-set scrolloff=1                                      " Controls the number of
-set sidescrolloff=5                                  " lines/chars to keep
-set sidescroll=1                                     " visible before scrolling
-set display+=lastline                                " show the last line that fits in window
+set scrolloff=1                                 " Controls the number of
+set sidescrolloff=5                             " lines/chars to keep
+set sidescroll=1                                " visible before scrolling
+set display+=lastline                           " show the last line that fits in window
 
-set undofile                                         " keeprv  an undo file (undo changes after closing)
-" set swapfile                                         " Write swap and backup files
-" set backup                                           " keep a backup file (restore to previous version)
-" set directory=$TMPDIR,~/tmp,~/.vim/tmp,/tmp,/var/tmp " Swap file location
-" set backupdir=$TMPDIR,~/tmp,~/.vim/tmp,/tmp,/var/tmp " backup file location
+set undofile                                    " keep an undo file (undo changes after closing)
+set nowritebackup
+set swapfile                                    " Write swap and backup files
+set nobackup                                    " Do not keep backup files
+set directory=$TMPDIR,~/Stuff/vimtmp            " Swap file location
+" set backupdir=$TMPDIR,~/Stuff/vimtmp          " backup file location
 
-set tw=79                                            " width of document (used by gd)
-set nowrap                                           " don't automatically wrap on load
-set fo-=t                                            " don't automatically wrap text when typing
+set tw=79                                       " width of document (used by gd)
+set nowrap                                      " don't automatically wrap on load
+set fo-=t                                       " don't automatically wrap text when typing
 
-set list                                             " Show invisible characters
+set list                                        " Show invisible characters
 let &listchars  = "tab:>-,extends:>,"
-let &listchars .= "precedes:<,nbsp:\u00b7"           " as these characters
+let &listchars .= "precedes:<,nbsp:\u00b7"      " as these characters
 
-syntax on                                            " Switch syntax highlighting on
-au BufRead,BufNewFile *.zpt set filetype=html        " Template files (*.zpt) with html syntax
+syntax on                                       " Switch syntax highlighting on
+au BufRead,BufNewFile *.zpt set filetype=html   " Template files (*.zpt) with html syntax
 
 
 " change the cursor shape depending on mode
@@ -253,6 +255,9 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
+" Making it pretty?
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 """"""""""""""""""""
 "  END NERDTree
 """"""""""""""""""""
