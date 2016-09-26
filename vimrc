@@ -17,7 +17,7 @@ else
 end
 
 set number                                      " Display line numbers
-set cursorline
+" set cursorline                                " Causes visual bug (annoying)
 
 set ignorecase                                  " Use case insensitive search
 set smartcase                                   " except when using capital letters
@@ -46,6 +46,7 @@ set wildmenu                                    " Turn on wild menu, try typing 
 set showcmd                                     " Display incomplete commands
 
 set splitbelow                                  " New buffer below the current one
+set splitright
 set hidden                                      " allow modified buffers to be hidden
 
 set scrolloff=1                                 " Controls the number of
