@@ -15,7 +15,7 @@ set number                                           " Display line numbers
 set ignorecase                                       " Use case insensitive search
 set smartcase                                        " except when using capital letters
 
-set autoindent                                       " Keep indentation on new line
+" set autoindent                                       " Keep indentation on new line
 set paste                                            " Always insert with paste enabled... always!
 set tabstop=4                                        " An indentation level every four columns
 set expandtab                                        " Converts all tabs typed into spacess
