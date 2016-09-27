@@ -1,5 +1,3 @@
-
-
 "
 "                       __   _(_)_ __ ___  _ __ ___
 "                       \ \ / / | '_ ` _ \| '__/ __|
@@ -19,7 +17,7 @@ set fo-=t                           " don't automatically wrap text when typing 
 set scrolloff=2                     " 2 lines above/below cursor when scrolling
 set sidescroll=1                    " Minimum number of columns to scroll horizontally
 set sidescrolloff=5                 " 5 characters before cursor when scrolling
-set display+=lastline                                   " show the last line that fits in window
+set display+=lastline               " show the last line that fits in window
 set number                          " show line numbers
 set showmatch                       " show matching bracket (briefly jump)
 set showmode                        " show mode in status bar (insert/replace/...)
@@ -33,7 +31,7 @@ set showtabline=2                   " Always show tab bar       (top)
 set cmdheight=1                     " Command line height
 set matchtime=2                     " show matching bracket for 0.2 seconds
 set matchpairs+=<:>                 " specially for html
-set list                                        " Show invisible characters
+set list                            " Show invisible characters
 let &listchars  = "tab:>-,extends:>,"
 let &listchars .= "precedes:<,nbsp:\u00b7"      " as these characters
 set textwidth=79                    " width of document (used by gd)
@@ -65,7 +63,6 @@ syntax on                                       " Switch syntax highlighting on
 au BufRead,BufNewFile *.zpt set filetype=html   " Template files (*.zpt) with html syntax
 
 " system settings
-set lazyredraw              " no redraws in macros
 set confirm                 " get a dialog when :q, :w, or :wq fails
 set nobackup                " no backup~ files.
 set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'
@@ -158,6 +155,11 @@ nnoremap <silent><F6> :call g:ToggleColorColumn()<CR>
 " so that you can undo CTRL-U
 " after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
+
+" Tab remaps
+nnoremap <Leader>t :tabnew<CR>:Startify<CR>
+nnoremap <Leader>w :tabclose<CR>
+
 """"""""""""""""""""
 " END Mappings
 """"""""""""""""""""
