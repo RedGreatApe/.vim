@@ -1,3 +1,5 @@
+
+
 "
 "                       __   _(_)_ __ ___  _ __ ___
 "                       \ \ / / | '_ ` _ \| '__/ __|
@@ -5,73 +7,80 @@
 "                       (_)_/ |_|_| |_| |_|_|  \___|
 "
 
-set nocompatible                                " Be VIMproved
+" reset to vim-defaults
+if &compatible                      " only if not set before:
+  set nocompatible                  " use vim-defaults instead of vi-defaults (easier, more user friendly)
+endif
 
+" display settings
+set background=dark                 " enable for dark terminals
+set nowrap                          " dont wrap lines
+set fo-=t                           " don't automatically wrap text when typing (fold)
+set scrolloff=2                     " 2 lines above/below cursor when scrolling
+set sidescroll=1                    " Minimum number of columns to scroll horizontally
+set sidescrolloff=5                 " 5 characters before cursor when scrolling
+set display+=lastline                                   " show the last line that fits in window
+set number                          " show line numbers
+set showmatch                       " show matching bracket (briefly jump)
+set showmode                        " show mode in status bar (insert/replace/...)
+set showcmd                         " show typed command in status bar
+set ruler                           " show cursor position in status bar
+set title                           " show file in titlebar
+set wildmenu                        " completion with menu
+set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
+set laststatus=2                    " use 2 lines for the status bar
+set showtabline=2                   " Always show tab bar       (top)
+set cmdheight=1                     " Command line height
+set matchtime=2                     " show matching bracket for 0.2 seconds
+set matchpairs+=<:>                 " specially for html
+set list                                        " Show invisible characters
+let &listchars  = "tab:>-,extends:>,"
+let &listchars .= "precedes:<,nbsp:\u00b7"      " as these characters
+set textwidth=79                    " width of document (used by gd)
+
+" editor settings
+set esckeys                         " map missed escape sequences (enables keypad keys)
+set ignorecase                      " case insensitive searching
+set smartcase                       " but become case sensitive if you type uppercase characters
+set incsearch                       " Jump to search word as I type
+set hlsearch                        " Also switch on highlighting the last used search pattern.
+
+set smartindent                     " smart auto indenting
+set smarttab                        " smart tab handling for indenting
+set magic                           " change the way backslashes are used in search patterns
+set backspace=indent,eol,start      " Allow backspacing over everything in insert mode
+set paste                           " Allow pasting from clipboard in insert mode
+
+set tabstop=4                       " number of spaces a tab counts for
+set shiftwidth=4                    " spaces for autoindents
+set expandtab                       " turn a tabs into spaces
+
+set fileformat=unix                 " file mode is unix
+"set fileformats=unix,dos           " only detect unix file format, displays that ^M with dos files
+
+set splitbelow                      " New buffer below the current one
+set splitright
+
+syntax on                                       " Switch syntax highlighting on
+au BufRead,BufNewFile *.zpt set filetype=html   " Template files (*.zpt) with html syntax
+
+" system settings
+set lazyredraw              " no redraws in macros
+set confirm                 " get a dialog when :q, :w, or :wq fails
+set nobackup                " no backup~ files.
+set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'
+set hidden                  " remember undo after quitting
+set history=100             " keep 100 lines of command history
+set undofile                                    " keep an undo file (undo changes after closing)
+set swapfile                                    " Write swap and backup files
+set directory=$TMPDIR,~/Stuff/vimtmp            " Swap file location
+set mouse=a                 " use mouse
 let mapleader = "-"
-
-set mouse=a                                     " Enable mouse
 if has("mouse_sgr")
     set ttymouse=sgr
 else
     set ttymouse=xterm2
 end
-
-set number                                      " Display line numbers
-" set cursorline                                " Causes visual bug (annoying)
-
-set ignorecase                                  " Use case insensitive search
-set smartcase                                   " except when using capital letters
-
-" set autoindent                                " Keep indentation on new line
-set paste                                       " Always insert with paste enabled... always!
-set tabstop=4                                   " An indentation level every four columns
-set expandtab                                   " Converts all tabs typed into spacess
-set shiftwidth=4                                " Indent/outdent by four columns
-set backspace=indent,eol,start                  " allow backspacing over everything in insert mode
-
-set history=100                                 " keep 50 lines of command line history
-
-set incsearch                                   " Jump to search word as I type
-set hlsearch                                    " Also switch on highlighting the last used search pattern.
-
-set showmatch                                   " show matching bracets
-set showfulltag
-
-set showtabline=2                               " Always show tab bar       (top)
-set laststatus=2                                " Always show status bar    (bottom)
-set cmdheight=1                                 " Command line height
-set ruler                                       " show the cursor position in status bar
-
-set wildmenu                                    " Turn on wild menu, try typing :h and press <Tab>
-set showcmd                                     " Display incomplete commands
-
-set splitbelow                                  " New buffer below the current one
-set splitright
-set hidden                                      " allow modified buffers to be hidden
-
-set scrolloff=1                                 " Controls the number of
-set sidescrolloff=5                             " lines/chars to keep
-set sidescroll=1                                " visible before scrolling
-set display+=lastline                           " show the last line that fits in window
-
-set undofile                                    " keep an undo file (undo changes after closing)
-" set nowritebackup
-set swapfile                                    " Write swap and backup files
-set nobackup                                    " Do not keep backup files
-set directory=$TMPDIR,~/Stuff/vimtmp            " Swap file location
-" set backupdir=$TMPDIR,~/Stuff/vimtmp          " backup file location
-
-set tw=79                                       " width of document (used by gd)
-set nowrap                                      " don't automatically wrap on load
-set fo-=t                                       " don't automatically wrap text when typing
-
-set list                                        " Show invisible characters
-let &listchars  = "tab:>-,extends:>,"
-let &listchars .= "precedes:<,nbsp:\u00b7"      " as these characters
-
-syntax on                                       " Switch syntax highlighting on
-au BufRead,BufNewFile *.zpt set filetype=html   " Template files (*.zpt) with html syntax
-
 
 " change the cursor shape depending on mode
 " see: vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
@@ -172,6 +181,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'               " git stuff
     Plug 'jeetsukumaran/vim-buffergator'    " A buffer of buffers!
     Plug 'mhinz/vim-startify'               " Fancy start screen
+    Plug 'tpope/vim-surround'               " Surroundings!
+    Plug 'tpope/vim-repeat'                 " Repeat plugin actions
+    Plug 'ervandew/supertab'                " tab completion with TAB key
+    "Plug 'mattn/gist-vim'                   " create gists easy needs:
+    "Plug 'mattn/webapi-vim'                 " Omterface tp WEB APIs
 
 call plug#end()
 
