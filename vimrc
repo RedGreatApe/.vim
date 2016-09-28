@@ -12,7 +12,7 @@ endif
 
 " display settings
 set background=dark                 " enable for dark terminals
-set nowrap                          " dont wrap lines
+" set nowrap                          " dont wrap lines
 set fo-=t                           " don't automatically wrap text when typing (fold)
 set scrolloff=2                     " 2 lines above/below cursor when scrolling
 set sidescroll=1                    " Minimum number of columns to scroll horizontally
@@ -34,7 +34,6 @@ set matchpairs+=<:>                 " specially for html
 set list                            " Show invisible characters
 let &listchars  = "tab:>-,extends:>,"
 let &listchars .= "precedes:<,nbsp:\u00b7"      " as these characters
-set textwidth=79                    " width of document (used by gd)
 
 " editor settings
 set esckeys                         " map missed escape sequences (enables keypad keys)
@@ -47,14 +46,10 @@ set smartindent                     " smart auto indenting
 set smarttab                        " smart tab handling for indenting
 set magic                           " change the way backslashes are used in search patterns
 set backspace=indent,eol,start      " Allow backspacing over everything in insert mode
-set paste                           " Allow pasting from clipboard in insert mode
 
 set tabstop=4                       " number of spaces a tab counts for
 set shiftwidth=4                    " spaces for autoindents
 set expandtab                       " turn a tabs into spaces
-
-set fileformat=unix                 " file mode is unix
-"set fileformats=unix,dos           " only detect unix file format, displays that ^M with dos files
 
 set splitbelow                      " New buffer below the current one
 set splitright
@@ -99,8 +94,14 @@ endif
 """"""""""""""""""""
 " Mappings
 """"""""""""""""""""
-" use Enter in insert mode to enter an undo friendly new line (does not seem to work at work)
-inoremap <CR> <esc>o
+" paste toggle
+set pastetoggle=<F10>
+" go to next buffer
+nnoremap gb :bn<CR>
+" use Enter in insert mode to enter an undo friendly new line still doesnt seem to work
+imap <CR> <Esc>o
+" save in insert mode
+imap <C-s> <Esc><C-s>
 " make Y behave similarly to D and C
 nnoremap Y y$
 " %% Gives directory of current file
@@ -159,6 +160,10 @@ inoremap <C-U> <C-G>u<C-U>
 " Tab remaps
 nnoremap <Leader>t :tabnew<CR>:Startify<CR>
 nnoremap <Leader>w :tabclose<CR>
+
+" Do not skip wrapped lines
+nnoremap j gj
+nnoremap k gk
 
 """"""""""""""""""""
 " END Mappings
