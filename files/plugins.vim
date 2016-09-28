@@ -115,6 +115,12 @@ let g:buffergator_suppress_keymaps = 1
 
 
 """"""""""""""""""""
+" CtrlP
+""""""""""""""""""""
+nnoremap <leader>p :CtrlPBuffer<CR>
+
+
+""""""""""""""""""""
 "  Startify
 """"""""""""""""""""
 " New split (horizontal) with Startify in it
