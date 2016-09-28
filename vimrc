@@ -16,3 +16,14 @@ source ~/.vim/files/settings.vim
 source ~/.vim/files/mappings.vim
 
 source ~/.vim/files/plugins.vim
+
+"              _ _ _____ ___  ____   ___
+"             ( | )_   _/ _ \|  _ \ / _ \
+"              V V  | || | | | | | | | | |
+"                   | || |_| | |_| | |_| |
+"                   |_| \___/|____/ \___/
+
+" possible new mappings
+" :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+"
+" :nnoremap <leader>sv :source $MYVIMRC<cr>
