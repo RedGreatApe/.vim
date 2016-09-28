@@ -1,4 +1,4 @@
-"
+"                              _
 "                       __   _(_)_ __ ___  _ __ ___
 "                       \ \ / / | '_ ` _ \| '__/ __|
 "                        \ V /| | | | | | | | | (__
@@ -15,7 +15,10 @@ source ~/.vim/files/settings.vim
 
 source ~/.vim/files/mappings.vim
 
+source ~/.vim/files/abbreviations.vim
+
 source ~/.vim/files/plugins.vim
+
 
 "              _ _ _____ ___  ____   ___
 "             ( | )_   _/ _ \|  _ \ / _ \

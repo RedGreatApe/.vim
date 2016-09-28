@@ -62,7 +62,7 @@ set hidden                  " remember undo after quitting
 set history=100             " keep 100 lines of command history
 set undofile                " keep an undo file (undo changes after closing)
 set swapfile                " Write swap and backup files
-set directory=$TMPDIR       " Swap file location
+set directory=$TMPDIR,~/Stuff/vimtmp       " Swap file location
 set mouse=a                 " use mouse
 if has("mouse_sgr")
     set ttymouse=sgr
