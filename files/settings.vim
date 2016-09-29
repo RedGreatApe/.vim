@@ -9,7 +9,6 @@
 set nocompatible                    " use vim-defaults instead of vi-defaults (easier, more user friendly)
 " Leaader mapping
 let mapleader = "-"
-let maplocalleader = "\\"
 " display settings
 set scrolloff=2                     " 2 lines above/below cursor when scrolling
 set sidescroll=1                    " Minimum number of columns to scroll horizontally
@@ -52,7 +51,6 @@ set splitbelow                      " New split below the current one
 set splitright                      " New split to the right
 
 syntax on                                       " Switch syntax highlighting on
-au BufRead,BufNewFile *.zpt set filetype=html   " Template files (*.zpt) with html syntax
 
 " system settings
 set confirm                 " get a dialog when :q, :w, or :wq fails

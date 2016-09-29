@@ -17,7 +17,10 @@ source ~/.vim/files/mappings.vim
 
 source ~/.vim/files/abbreviations.vim
 
+source ~/.vim/files/autocommands.vim
+
 source ~/.vim/files/plugins.vim
+
 
 
 "              _ _ _____ ___  ____   ___
@@ -25,8 +28,3 @@ source ~/.vim/files/plugins.vim
 "              V V  | || | | | | | | | | |
 "                   | || |_| | |_| | |_| |
 "                   |_| \___/|____/ \___/
-
-" possible new mappings
-" :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-"
-" :nnoremap <leader>sv :source $MYVIMRC<cr>

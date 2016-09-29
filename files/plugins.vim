@@ -28,6 +28,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'ervandew/supertab'                " tab completion with TAB key
     Plug 'tpope/vim-repeat'                 " Repeat plugin actions
 
+    Plug 'wikitopian/hardmode'              " Bring it on!
+
     "Plug 'mattn/gist-vim'                   " create gists easy needs:
     "Plug 'mattn/webapi-vim'                 " Omterface tp WEB APIs
 
@@ -130,3 +132,12 @@ noremap <C-n> <C-w>n:Startify<CR>
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") ) | Startify | endif
+
+
+""""""""""""""""""""
+"  Hard Mode
+""""""""""""""""""""
+let g:HardMode_hardmodeMsg = "Bring it!"
+let g:HardMode_easymodeMsg = "Wuss!"
+nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()

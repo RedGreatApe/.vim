@@ -5,13 +5,34 @@
 "             |_|  |_|\__,_| .__/| .__/|_|_| |_|\__, |___/
 "                          |_|   |_|            |___/
 
+" Breaking bad habbits
+" KONAMI code
+" inoremap <up> <NOP>
+" vnoremap <up> <NOP>
+" inoremap <down> <NOP>
+" vnoremap <down> <NOP>
+" inoremap <left> <NOP>
+" vnoremap <right> <NOP>
+" inoremap <left> <NOP>
+" vnoremap <right> <NOP>
+" B A <Start>
 
-" paste toggle
-set pastetoggle=<F10>
-imap <F10> <Esc><F10>a
+nnoremap <esc> <NOP>
+
 " Clear search highlighting
-nnoremap <F3> :noh<CR>
+nnoremap <space> :noh<CR>
 
+" Toggle set paste
+function! g:ToggleSetPaste()
+    if &paste
+        set nopaste
+    else
+        set paste
+    endif
+endfunction
+nnoremap <silent><Leader>sp :call g:ToggleSetPaste()<CR>
+
+" Toggle colorcolumn
 function! g:ToggleColorColumn()
     if &colorcolumn != ''
         setlocal colorcolumn&
@@ -19,15 +40,28 @@ function! g:ToggleColorColumn()
         setlocal colorcolumn=81,101
     endif
 endfunction
-nnoremap <silent><F6> :call g:ToggleColorColumn()<CR>
+nnoremap <silent><Leader>c :call g:ToggleColorColumn()<CR>
+
+" Quickly surround current word in ()[]{}'"
+" Could be vImproved with commands '< '> (last visual block)
+" nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+" nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+" nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
+" nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
+" nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
 
 " go to next buffer
 nnoremap gb :bn<CR>
-" use Enter in insert mode to enter an undo friendly new line still doesnt seem to work
-imap <CR> <Esc>o
-" save in insert mode
+
 " make Y behave similarly to D and C
 nnoremap Y y$
+" super H and super L (overwriting some stuff)
+noremap H ^
+noremap L $
+
+" Useless left hand...
+inoremap jk <Esc>
+
 " Navigate splits more easily
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -46,7 +80,7 @@ nnoremap <script> <SID>ws+ <C-w>+<SID>ws
 nnoremap <script> <SID>ws- <C-w>-<SID>ws
 nnoremap <script> <SID>ws> <C-w>><SID>ws
 nnoremap <script> <SID>ws< <C-w><<SID>ws
-nnoremap <SID>ws <Nop>
+nnoremap <SID>ws <NOP>
 
 " Allow for common typoes
 " on quit/write
@@ -57,6 +91,7 @@ command! Qa qa
 
 " write file
 nnoremap <C-s> :w<CR>
+" save in insert mode
 imap <C-s> <Esc><C-s>
 
 " Tab remaps
@@ -68,3 +103,8 @@ nnoremap <C-q> :q<CR>
 " Do not skip wrapped lines
 nnoremap j gj
 nnoremap k gk
+
+
+nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
+
+nnoremap <leader>sv :source $MYVIMRC<cr>
