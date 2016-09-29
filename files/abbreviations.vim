@@ -12,10 +12,10 @@
 """""""""""""""""""""
 "  Perl
 """"""""""""""""""""
-augroup filetype_perl
+augroup filetypeperl
     autocmd!
 
-    autocmd FileType perl :iabbrev <buffer> dprint use Data::Printer;
+    autocmd FileType perl :iabbrev <buffer> dp use Data::Printer; p
 
 augroup END
 """""""""""""""""""""

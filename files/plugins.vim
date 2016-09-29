@@ -66,7 +66,7 @@ let g:airline_symbols.paste = 'ρ'
 """""""""""""""""""
 " vim-better-whitespace
 """"""""""""""""""""
-augroup better_whitespace
+augroup betterwhitespace
     autocmd!
     autocmd BufWritePre * StripWhitespace
 augroup END
@@ -75,19 +75,19 @@ augroup END
 """"""""""""""""""""
 "  NERDTree
 """"""""""""""""""""
-augroup NERDTree
+augroup nerdtree
     autocmd!
     " Start NERDTree automatically
     autocmd vimenter * NERDTreeToggle
     " (even when no file is specified)
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 augroup END
 
 noremap <Leader>n :NERDTreeTabsToggle<CR>
 
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:NERDTreeWinSize = 25
 
@@ -107,7 +107,7 @@ let g:NERDTreeIndicatorMapCustom = {
 """"""""""""""""""""
 "  Buffergator
 """"""""""""""""""""
-augroup Buffergator
+augroup buffergator
     autocmd!
     " Start Buffergator when vim starts
     autocmd vimenter * BuffergatorToggle
@@ -137,7 +137,7 @@ nnoremap <leader>p :CtrlPBuffer<CR>
 " New split (horizontal) with Startify in it
 noremap <C-n> <C-w>n:Startify<CR>
 
-augroup Startify
+augroup startify
     autocmd!
     " Start when no file is specified
     autocmd StdinReadPre * let s:std_in=1
@@ -152,7 +152,7 @@ augroup END
 let g:HardMode_hardmodeMsg = "Bring it!"
 let g:HardMode_easymodeMsg = "Wuss!"
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
-augroup Hard_mode
+augroup hardmode
     autocmd!
     autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 augroup END
