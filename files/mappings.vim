@@ -72,15 +72,15 @@ nnoremap <C-l> <C-w>l
 " <C-w>+++- vs <C-w>+<C-w>+<C-w>-
 " see: http://www.vim.org/scripts/script.php?script_id=2223
 " Does not seem to work for a while now
-nnoremap <C-w>+ <C-w>+<SID>ws
-nnoremap <C-w>- <C-w>-<SID>ws
-nnoremap <C-w>> <C-w>><SID>ws
-nnoremap <C-w>< <C-w><<SID>ws
-nnoremap <script> <SID>ws+ <C-w>+<SID>ws
-nnoremap <script> <SID>ws- <C-w>-<SID>ws
-nnoremap <script> <SID>ws> <C-w>><SID>ws
-nnoremap <script> <SID>ws< <C-w><<SID>ws
-nnoremap <SID>ws <NOP>
+" nnoremap <C-w>+ <C-w>+<SID>ws
+" nnoremap <C-w>- <C-w>-<SID>ws
+" nnoremap <C-w>> <C-w>><SID>ws
+" nnoremap <C-w>< <C-w><<SID>ws
+" nnoremap <script> <SID>ws+ <C-w>+<SID>ws
+" nnoremap <script> <SID>ws- <C-w>-<SID>ws
+" nnoremap <script> <SID>ws> <C-w>><SID>ws
+" nnoremap <script> <SID>ws< <C-w><<SID>ws
+" nnoremap <SID>ws <NOP>
 
 " Allow for common typoes
 " on quit/write
@@ -106,5 +106,4 @@ nnoremap k gk
 
 
 nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
-
 nnoremap <leader>sv :source $MYVIMRC<cr>

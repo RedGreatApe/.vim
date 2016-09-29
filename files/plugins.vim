@@ -66,18 +66,24 @@ let g:airline_symbols.paste = 'ρ'
 """""""""""""""""""
 " vim-better-whitespace
 """"""""""""""""""""
-autocmd BufWritePre * StripWhitespace
+augroup better_whitespace
+    autocmd!
+    autocmd BufWritePre * StripWhitespace
+augroup END
 
 
 """"""""""""""""""""
 "  NERDTree
 """"""""""""""""""""
+augroup NERDTree
+    autocmd!
+    " Start NERDTree automatically
+    autocmd vimenter * NERDTreeToggle
+    " (even when no file is specified)
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" Start NERDTree automatically
-autocmd vimenter * NERDTreeToggle
-" (even when no file is specified)
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+augroup END
 
 noremap <Leader>n :NERDTreeTabsToggle<CR>
 
@@ -101,10 +107,13 @@ let g:NERDTreeIndicatorMapCustom = {
 """"""""""""""""""""
 "  Buffergator
 """"""""""""""""""""
-" Start Buffergator when vim starts
-autocmd vimenter * BuffergatorToggle
-" Go to the window on the right
-autocmd VimEnter * wincmd l
+augroup Buffergator
+    autocmd!
+    " Start Buffergator when vim starts
+    autocmd vimenter * BuffergatorToggle
+    " Go to the window on the right
+    autocmd VimEnter * wincmd l
+augroup END
 
 nnoremap <leader>b <C-w>t:BuffergatorToggle<CR><C-w>l
 
@@ -128,10 +137,13 @@ nnoremap <leader>p :CtrlPBuffer<CR>
 " New split (horizontal) with Startify in it
 noremap <C-n> <C-w>n:Startify<CR>
 
-" Start when no file is specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") ) | Startify | endif
+augroup Startify
+    autocmd!
+    " Start when no file is specified
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | endif
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") ) | Startify | endif
+augroup END
 
 
 """"""""""""""""""""
@@ -140,4 +152,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") ) | Startify | en
 let g:HardMode_hardmodeMsg = "Bring it!"
 let g:HardMode_easymodeMsg = "Wuss!"
 nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+augroup Hard_mode
+    autocmd!
+    autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+augroup END

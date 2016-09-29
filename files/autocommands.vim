@@ -17,6 +17,14 @@
 "   :help autocmd-events
 "
 "
-autocmd BufRead,BufNewFile *.zpt set filetype=html   " Template files (*.zpt) with html syntax
-" testing~ for more shortcuts
-autocmd BufRead,BufNewFile * let maplocalleader = "\\"
+"   :augroup testgroup                          " Group autocmds and name them
+"   :    autocmd!                               " Clear previous group (for sourcing)
+"   :    autocmd BufWrite * :echom "Cats"       " The actual autocmds
+"   :augroup END                                " Finish the group
+
+augroup syntax_helper                                   " Set syntax to FileTypes
+    autocmd!
+
+    autocmd BufRead,BufNewFile *.zpt set filetype=html  " *.zpt files to html syntax
+
+augroup END

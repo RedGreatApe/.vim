@@ -12,7 +12,12 @@
 """""""""""""""""""""
 "  Perl
 """"""""""""""""""""
-autocmd FileType perl :iabbrev <buffer> DPrinter 'use Data::Printer;'
+augroup filetype_perl
+    autocmd!
+
+    autocmd FileType perl :iabbrev <buffer> dprint use Data::Printer;
+
+augroup END
 """""""""""""""""""""
 "  Perl6
 """"""""""""""""""""

@@ -50,7 +50,7 @@ set expandtab                       " turn a tabs into spaces
 set splitbelow                      " New split below the current one
 set splitright                      " New split to the right
 
-syntax on                                       " Switch syntax highlighting on
+syntax on                           " Switch syntax highlighting on
 
 " system settings
 set confirm                 " get a dialog when :q, :w, or :wq fails
