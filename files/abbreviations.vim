@@ -9,15 +9,13 @@
 " to create some file specific abbreviations
 
 
-"""""""""""""""""""""
-"  Perl
-""""""""""""""""""""
+" Filetype Perl ----------------------- {{{
 augroup filetypeperl
     autocmd!
-
     autocmd FileType perl :iabbrev <buffer> dp use Data::Printer; p
-
 augroup END
-"""""""""""""""""""""
-"  Perl6
-""""""""""""""""""""
+" }}}
+
+
+" Filetype Perl6 ---------------------- {{{
+" }}}

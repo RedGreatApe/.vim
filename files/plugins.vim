@@ -5,7 +5,7 @@
 "             |_|   |_|\__,_|\__, |_|_| |_|___/
 "                            |___/
 
-
+" Plugin Loading ---------------------- {{{
 call plug#begin('~/.vim/plugged')
 
     Plug 'flazz/vim-colorschemes'           " Vim colorschemes
@@ -34,13 +34,13 @@ call plug#begin('~/.vim/plugged')
     "Plug 'mattn/webapi-vim'                 " Omterface tp WEB APIs
 
 call plug#end()
+" }}}
 
+" Vimscript file settings ---------------------- {{{
 colorscheme badwolf
+" }}}
 
-
-"""""""""""""""""""""
-"  Airline
-""""""""""""""""""""
+" Airline Settings ---------------------- {{{
 let g:airline_detect_modified=1                     " Detects if file has been modified
 let g:airline_detect_paste=1                        " Detects if set paste is enabled
 let g:airline_inactive_collapse=1                   " Inactive windows dont show full path of file
@@ -61,20 +61,16 @@ let g:airline_left_sep = '▶'                        " Separator
 let g:airline_right_sep = '◀'                       " Separator
 let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
+" }}}
 
-
-"""""""""""""""""""
-" vim-better-whitespace
-""""""""""""""""""""
+" Better Whitespace Settings ---------------------- {{{
 augroup betterwhitespace
     autocmd!
     autocmd BufWritePre * StripWhitespace
 augroup END
+" }}}
 
-
-""""""""""""""""""""
-"  NERDTree
-""""""""""""""""""""
+" NERDTree Settings ---------------------- {{{
 augroup nerdtree
     autocmd!
     " Start NERDTree automatically
@@ -83,7 +79,6 @@ augroup nerdtree
     autocmd StdinReadPre * let s:std_in=1
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
     " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
 augroup END
 
 noremap <Leader>n :NERDTreeTabsToggle<CR>
@@ -102,11 +97,9 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
+" }}}
 
-
-""""""""""""""""""""
-"  Buffergator
-""""""""""""""""""""
+" Buffergator Settings ---------------------- {{{
 augroup buffergator
     autocmd!
     " Start Buffergator when vim starts
@@ -115,7 +108,7 @@ augroup buffergator
     autocmd VimEnter * wincmd l
 augroup END
 
-nnoremap <leader>b <C-w>t:BuffergatorToggle<CR><C-w>l
+nnoremap <Leader>b <C-w>t:BuffergatorToggle<CR><C-w>l
 
 let g:buffergator_viewport_split_policy="b"
 let g:buffergator_split_hsize=5
@@ -123,17 +116,13 @@ let g:buffergator_split_vsize=5
 let g:buffergator_autoupdate=1
 let g:buffergator_show_full_directory_path = 0
 let g:buffergator_suppress_keymaps = 1
+" }}}
 
+" CtrlP Settings ---------------------- {{{
+nnoremap <Leader>p :CtrlPBuffer<CR>
+" }}}
 
-""""""""""""""""""""
-" CtrlP
-""""""""""""""""""""
-nnoremap <leader>p :CtrlPBuffer<CR>
-
-
-""""""""""""""""""""
-"  Startify
-""""""""""""""""""""
+" Startify Settings ---------------------- {{{
 " New split (horizontal) with Startify in it
 noremap <C-n> <C-w>n:Startify<CR>
 
@@ -144,15 +133,14 @@ augroup startify
     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | endif
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") ) | Startify | endif
 augroup END
+" }}}
 
-
-""""""""""""""""""""
-"  Hard Mode
-""""""""""""""""""""
+" Hard Mode Settings ---------------------- {{{
 let g:HardMode_hardmodeMsg = "Bring it!"
 let g:HardMode_easymodeMsg = "Wuss!"
-nnoremap <leader>h <Esc>:call ToggleHardMode()<CR>
+nnoremap <Leader>h <Esc>:call ToggleHardMode()<CR>
 augroup hardmode
     autocmd!
     autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 augroup END
+" }}}

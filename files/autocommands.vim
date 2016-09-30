@@ -22,9 +22,18 @@
 "   :    autocmd BufWrite * :echom "Cats"       " The actual autocmds
 "   :augroup END                                " Finish the group
 
+" Syntax Settings ------------------------------ {{{
 augroup syntax_helper                                   " Set syntax to FileTypes
     autocmd!
 
-    autocmd BufRead,BufNewFile *.zpt set filetype=html  " *.zpt files to html syntax
+    autocmd BufRead,BufNewFile *.zpt setlocal filetype=html     " *.zpt files to html syntax
 
 augroup END
+" }}}
+
+" Vimscript file settings ---------------------- {{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim setlocal foldmethod=marker             " fold Vimscript files
+augroup END
+" }}}
