@@ -139,8 +139,8 @@ augroup END
 let g:HardMode_hardmodeMsg = "Bring it!"
 let g:HardMode_easymodeMsg = "Wuss!"
 nnoremap <Leader>h <Esc>:call ToggleHardMode()<CR>
-augroup hardmode
-    autocmd!
-    autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-augroup END
+" augroup hardmode
+"     autocmd!
+"     autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+" augroup END
 " }}}

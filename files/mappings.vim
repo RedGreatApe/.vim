@@ -37,7 +37,7 @@ function! g:ToggleColorColumn()
     endif
 endfunction
 " }}}
-nnoremap <silent><Leader>c :call g:ToggleColorColumn()<CR>
+nnoremap <silent><Leader>cc :call g:ToggleColorColumn()<CR>
 
 " Split Navigation ---------------------- {{{
 nnoremap <C-h> <C-w>h

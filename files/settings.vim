@@ -26,7 +26,7 @@ set wildmenu                        " completion with menu
 set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
 set laststatus=2                    " use 2 lines for the status bar
 set showtabline=2                   " Always show tab bar       (top)
-set cmdheight=1                     " Command line height
+set cmdheight=2                     " Command line height
 set matchtime=2                     " show matching bracket for 0.2 seconds
 set matchpairs+=<:>                 " specially for html
 set list                            " Display invisible characters as:
@@ -41,10 +41,10 @@ set smartcase                       " but become case sensitive if you type uppe
 set incsearch                       " Jump to search word as I type
 set hlsearch                        " Also switch on highlighting the last used search pattern.
 
+set backspace=start,eol,indent
 set smartindent                     " smart auto indenting
 set smarttab                        " smart tab handling for indenting
 set magic                           " change the way backslashes are used in search patterns
-set backspace=indent,eol,start      " Allow backspacing over everything in insert mode
 
 set tabstop=4                       " number of spaces a tab counts for
 set shiftwidth=4                    " spaces for autoindents
@@ -61,7 +61,7 @@ set confirm                 " get a dialog when :q, :w, or :wq fails
 set nobackup                " no backup~ files.
 set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'
 set hidden                  " remember undo after quitting
-set history=100             " keep 100 lines of command history
+set history=1000            " keep 100 lines of command history
 set undofile                " keep an undo file (undo changes after closing)
 set swapfile                " Write swap and backup files
 set directory=$TMPDIR,~/Stuff/vimtmp       " Swap file location
