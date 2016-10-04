@@ -15,6 +15,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'               " git stuff
 
     Plug 'ctrlpvim/ctrlp.vim'               " CtrlP filesearch?
+    Plug 'mileszs/ack.vim'                  " Ack in vim!
     Plug 'scrooloose/nerdtree'              " Filesystem tree
     Plug 'Xuyuanp/nerdtree-git-plugin'      " NERDTree git plugin
     Plug 'jistr/vim-nerdtree-tabs'          " NERDTree with tabs!
@@ -27,6 +28,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'               " Surroundings!
     Plug 'ervandew/supertab'                " tab completion with TAB key
     Plug 'tpope/vim-repeat'                 " Repeat plugin actions
+    Plug 'duff/vim-scratch'                 " Scratch window, wont be saved
 
     Plug 'wikitopian/hardmode'              " Bring it on!
 
@@ -124,7 +126,7 @@ nnoremap <Leader>p :CtrlPBuffer<CR>
 
 " Startify Settings ---------------------- {{{
 " New split (horizontal) with Startify in it
-noremap <C-n> <C-w>n:Startify<CR>
+noremap <C-n> <C-w>v:Startify<CR>
 
 augroup startify
     autocmd!
@@ -144,3 +146,6 @@ nnoremap <Leader>h <Esc>:call ToggleHardMode()<CR>
 "     autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 " augroup END
 " }}}
+
+" Scratch Settigns ------------------------ {{{
+nnoremap <Leader>sc :Sscratch<CR><C-w>L

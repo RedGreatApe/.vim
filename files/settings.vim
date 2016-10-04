@@ -11,12 +11,14 @@ set nocompatible                    " use vim-defaults instead of vi-defaults (e
 let mapleader="-"
 
 " Display Settings ---------------------- {{{
-set scrolloff=2                     " 2 lines above/below cursor when scrolling
+set scrolloff=3                     " 2 lines above/below cursor when scrolling
 set sidescroll=1                    " Minimum number of columns to scroll horizontally
 set sidescrolloff=5                 " 5 characters before cursor when scrolling
 set display+=lastline               " show the last line that fits in window
 set number                          " show line numbers
+" set relativenumber                 " show line number relative to current line
 set cursorline                      " Highlight current line
+set visualbell                      " Visual alarm, instead of cpu beep
 set showmatch                       " show matching bracket (briefly jump)
 set showmode                        " show mode in status bar (insert/replace/...)
 set showcmd                         " show typed command in status bar
@@ -30,33 +32,41 @@ set cmdheight=2                     " Command line height
 set matchtime=2                     " show matching bracket for 0.2 seconds
 set matchpairs+=<:>                 " specially for html
 set list                            " Display invisible characters as:
-let &listchars  = "tab:>-,extends:>,"
-let &listchars .= "precedes:<,nbsp:\u00b7"      " as these characters
+set listchars=tab:▸\
 " }}}
 
 " Editor Settings ----------------------- {{{
+set wrap
+set textwidth=79
+set formatoptions=qrn1
 set esckeys                         " map missed escape sequences (enables keypad keys)
+set gdefault                        " Always global substitutions
 set ignorecase                      " case insensitive searching
 set smartcase                       " but become case sensitive if you type uppercase characters
 set incsearch                       " Jump to search word as I type
 set hlsearch                        " Also switch on highlighting the last used search pattern.
 
-set backspace=start,eol,indent
+set backspace=start,eol,indent      " Can backspace over everything (hard mode changes this)
 set smartindent                     " smart auto indenting
+set autoindent
 set smarttab                        " smart tab handling for indenting
 set magic                           " change the way backslashes are used in search patterns
 
 set tabstop=4                       " number of spaces a tab counts for
 set shiftwidth=4                    " spaces for autoindents
+set softtabstop=4
 set expandtab                       " turn a tabs into spaces
 
 set splitbelow                      " New split below the current one
 set splitright                      " New split to the right
 
+set encoding=utf-8                  " Self explanatory
+
 syntax on                           " Switch syntax highlighting on
 " }}}
 
 " System Settings  ---------------------- {{{
+set ttyfast                 " Fast terminal, redrawing
 set confirm                 " get a dialog when :q, :w, or :wq fails
 set nobackup                " no backup~ files.
 set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'
@@ -83,4 +93,3 @@ else
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 " }}}
-

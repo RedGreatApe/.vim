@@ -6,15 +6,26 @@
 "                          |_|   |_|            |___/
 
 " KONAMI Code ---------------------- {{{
-" inoremap <up> <NOP>
-" vnoremap <up> <NOP>
-" inoremap <down> <NOP>
-" vnoremap <down> <NOP>
-" inoremap <left> <NOP>
-" vnoremap <right> <NOP>
-" inoremap <left> <NOP>
-" vnoremap <right> <NOP>
+inoremap <up> <NOP>
+vnoremap <up> <NOP>
+inoremap <down> <NOP>
+vnoremap <down> <NOP>
+inoremap <left> <NOP>
+vnoremap <right> <NOP>
+inoremap <left> <NOP>
+vnoremap <right> <NOP>
 " B A <Start>
+
+nnoremap <up> <NOP>
+nnoremap <down> <NOP>
+nnoremap <left> <NOP>
+nnoremap <right> <NOP>
+" }}}
+
+" Who needs a help key ------------------ {{{
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
 " }}}
 
 " Toggle Set Paste ---------------------- {{{
@@ -79,7 +90,6 @@ nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " }}}
 
-nnoremap <esc> <NOP>
 " Clear search highlighting
 nnoremap <space> :noh<CR>
 " go to next buffer
@@ -100,3 +110,6 @@ nnoremap <C-s> :w<CR>
 imap <C-s> <Esc><C-s>
 " close current buffer
 nnoremap <C-q> :q<CR>
+" use tab key to match bracket pairs
+nnoremap <tab> %
+vnoremap <tab> %

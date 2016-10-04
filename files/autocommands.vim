@@ -37,3 +37,10 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker             " fold Vimscript files
 augroup END
 " }}}
+
+" Save on focus lost --------------------------- {{{
+augroup focus_lost
+    autocmd!
+    autocmd FocusLost * :wa
+augroup END
+" }}}
