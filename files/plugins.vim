@@ -6,41 +6,41 @@
 "                            |___/
 
 " Plugin Loading ---------------------- {{{
-call plug#begin('~/.vim/plugged')
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
 
-    Plug 'flazz/vim-colorschemes'           " Vim colorschemes
-
-    Plug 'vim-perl/vim-perl'                " Perl syntax
-    Plug 'vim-perl/vim-perl6'               " Perl6 syntax
-    Plug 'tpope/vim-fugitive'               " git stuff
-
-    Plug 'ctrlpvim/ctrlp.vim'               " CtrlP filesearch?
-    Plug 'mileszs/ack.vim'                  " Ack in vim!
-    Plug 'scrooloose/nerdtree'              " Filesystem tree
-    Plug 'Xuyuanp/nerdtree-git-plugin'      " NERDTree git plugin
-    Plug 'jistr/vim-nerdtree-tabs'          " NERDTree with tabs!
-    Plug 'vim-airline/vim-airline'          " Status bar
-    Plug 'vim-airline/vim-airline-themes'   " themes for Status bar
-    Plug 'jeetsukumaran/vim-buffergator'    " A buffer of buffers!
-    Plug 'mhinz/vim-startify'               " Fancy start screen
-
-    Plug 'ntpeters/vim-better-whitespace'   " Whitespace Highlighting.
-    Plug 'tpope/vim-surround'               " Surroundings!
-    Plug 'ervandew/supertab'                " tab completion with TAB key
-    Plug 'tpope/vim-repeat'                 " Repeat plugin actions
-    Plug 'duff/vim-scratch'                 " Scratch window, wont be saved
-    Plug 'sjl/gundo.vim'                    " Undo tree viewer
-
-    Plug 'wikitopian/hardmode'              " Bring it on!
-
-    "Plug 'mattn/gist-vim'                   " create gists easy needs:
-    "Plug 'mattn/webapi-vim'                 " Omterface tp WEB APIs
-
-call plug#end()
+" Loaded plugins:  :read !ls ~/.vim/bundle
+" ack.vim                   Ack in vim!
+" badwolf                   Badwolf theme
+" ctrlp.vim                 File/Buffer/MRU search
+" gist-vim                  Make gists easy (codesharing)
+" gundo.vim                 Undo tree viewer
+" hardmode                  Bring it!
+" nerdtree                  Filesystem tree
+" nerdtree-git-plugin       NERDTree git plugin
+" supertab                  Tab completion with tab key (lol)
+" vim-airline               Status bar
+" vim-airline-themes        Themes for vim-airline
+" vim-better-whitespace     Whitespace Highlighting and Stripping
+" vim-buffergator           Buffer of buffers!
+" vim-fugitive              Git stuff
+" vim-nerdtree-tabs         NERDTree with tabs!
+" vim-pathogen              Plugin manageer
+" vim-perl                  Perl syntax
+" vim-perl6                 Perl6 syntax
+" vim-repeat                Repeat plugin actions
+" vim-scratch               Scratch window
+" vim-startify              Fancy start screen
+" vim-surround              Surroundings (brackets)
+" webapi-vim                Interface to WEB APIs
 " }}}
 
-" Colorschemes settings ---------------------- {{{
+" Badwolf settings ---------------------- {{{
 colorscheme badwolf
+" Make the gutters darker than the background.
+let g:badwolf_darkgutter = 1
+" Turn on CSS properties highlighting
+let g:badwolf_css_props_highlight = 1
 " }}}
 
 " Airline Settings ---------------------- {{{
@@ -154,4 +154,8 @@ nnoremap <Leader>sc :Sscratch<CR><C-w>L
 
 " Gundo Settings -------------------------- {{{
 nnoremap <F5> :GundoToggle<CR>
+let g:gundo_width = 30
+let g:gundo_preview_height = 20
+let g:gundo_right = 1
+let g:gundo_preview_bottom = 1
 " }}}
