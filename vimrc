@@ -11,19 +11,22 @@
 "     |_| |_|\___|_|  \___| |_.__/ \___| |____/|_|  \__,_|\__, |\___/|_| |_|___(_)
 "                                                         |___/
 
-source ~/.vim/files/settings.vim
 
+set nocompatible            " use vim-defaults instead of vi-defaults
+let mapleader="-"           " Leader mapping
+
+" Sources ------------------------------- {{{
 source ~/.vim/files/abbreviations.vim
-
 source ~/.vim/files/autocommands.vim
-
 source ~/.vim/files/mappings.vim
-
 source ~/.vim/files/plugins.vim
-
+source ~/.vim/files/settings.vim
+" }}}
 
 "              _ _ _____ ___  ____   ___
 "             ( | )_   _/ _ \|  _ \ / _ \
 "              V V  | || | | | | | | | | |
 "                   | || |_| | |_| | |_| |
 "                   |_| \___/|____/ \___/
+"
+"       source ~/.vim/files/functions.vim       ?

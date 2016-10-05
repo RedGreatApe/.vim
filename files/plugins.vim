@@ -29,6 +29,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'ervandew/supertab'                " tab completion with TAB key
     Plug 'tpope/vim-repeat'                 " Repeat plugin actions
     Plug 'duff/vim-scratch'                 " Scratch window, wont be saved
+    Plug 'sjl/gundo.vim'                    " Undo tree viewer
 
     Plug 'wikitopian/hardmode'              " Bring it on!
 
@@ -38,7 +39,7 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 " }}}
 
-" Vimscript file settings ---------------------- {{{
+" Colorschemes settings ---------------------- {{{
 colorscheme badwolf
 " }}}
 
@@ -149,3 +150,8 @@ nnoremap <Leader>h <Esc>:call ToggleHardMode()<CR>
 
 " Scratch Settigns ------------------------ {{{
 nnoremap <Leader>sc :Sscratch<CR><C-w>L
+" }}}
+
+" Gundo Settings -------------------------- {{{
+nnoremap <F5> :GundoToggle<CR>
+" }}}

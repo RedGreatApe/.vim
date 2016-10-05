@@ -80,16 +80,6 @@ command! W w
 command! Qa qa
 " }}}
 
-" Tab Remaps ---------------------- {{{
-nnoremap <Leader>t :tabnew<CR>:Startify<CR>
-nnoremap <Leader>w :tabclose<CR>
-" }}}
-
-" VIMRC editing/sourcing ---------------------- {{{
-nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-" }}}
-
 " Clear search highlighting
 nnoremap <space> :noh<CR>
 " go to next buffer
@@ -97,8 +87,8 @@ nnoremap gb :bn<CR>
 " make Y behave similarly to D and C
 nnoremap Y y$
 " super H and super L (overwriting some stuff)
-noremap H ^
-noremap L $
+" noremap H ^
+" noremap L $
 " Useless left hand...
 inoremap jk <Esc>
 " Do not skip wrapped lines
@@ -113,3 +103,18 @@ nnoremap <C-q> :q<CR>
 " use tab key to match bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
+
+" Format all the text (perfect for manpages)
+nnoremap <Leader>fo gggqGgg
+" Get a manpage and put it into current buffer
+nnoremap <Leader>man :read !man<space>
+
+" Tab Remaps ---------------------- {{{
+nnoremap <Leader>t :tabnew<CR>:Startify<CR>
+nnoremap <Leader>w :tabclose<CR>
+" }}}
+
+" VIMRC editing/sourcing ---------------------- {{{
+nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+" }}}

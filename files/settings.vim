@@ -1,14 +1,9 @@
-"             ____       _   _   _
-"            / ___|  ___| |_| |_(_)_ __   __ _ ___
-"            \___ \ / _ \ __| __| | '_ \ / _` / __|
-"             ___) |  __/ |_| |_| | | | | (_| \__ \
-"            |____/ \___|\__|\__|_|_| |_|\__, |___/
+"              ____       _   _   _
+"             / ___|  ___| |_| |_(_)_ __   __ _ ___
+"             \___ \ / _ \ __| __| | '_ \ / _` / __|
+"              ___) |  __/ |_| |_| | | | | (_| \__ \
+"             |____/ \___|\__|\__|_|_| |_|\__, |___/
 "                                        |___/
-
-" reset to vim-defaults
-set nocompatible                    " use vim-defaults instead of vi-defaults (easier, more user friendly)
-" Leaader mapping
-let mapleader="-"
 
 " Display Settings ---------------------- {{{
 set scrolloff=3                     " 2 lines above/below cursor when scrolling
@@ -37,7 +32,7 @@ set listchars=tab:▸\
 
 " Editor Settings ----------------------- {{{
 set wrap
-set textwidth=79
+" set textwidth=79
 set formatoptions=qrn1
 set esckeys                         " map missed escape sequences (enables keypad keys)
 set gdefault                        " Always global substitutions
@@ -81,6 +76,7 @@ if has("mouse_sgr")
 else
     set ttymouse=xterm2
 end
+
                             " change the cursor shape depending on mode
                             " see: vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
 if exists('$TMUX')

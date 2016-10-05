@@ -1,8 +1,8 @@
-"             _         _                                                      _
-"            / \  _   _| |_ ___   ___ ___  _ __ ___  _ __ ___   __ _ _ __   __| |___
-"           / _ \| | | | __/ _ \ / __/ _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` / __|
-"          / ___ \ |_| | || (_) | (_| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
-"         /_/   \_\__,_|\__\___/ \___\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
+"                 _         _                                                      _
+"                / \  _   _| |_ ___   ___ ___  _ __ ___  _ __ ___   __ _ _ __   __| |___
+"               / _ \| | | | __/ _ \ / __/ _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` / __|
+"              / ___ \ |_| | || (_) | (_| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
+"             /_/   \_\__,_|\__\___/ \___\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
 "
 "
 "      :autocmd BufNewFile * :write
@@ -18,7 +18,7 @@
 "
 "
 "   :augroup testgroup                          " Group autocmds and name them
-"   :    autocmd!                               " Clear previous group (for sourcing)
+"   :    autocmd!                               " Clear previous group (when re-sourcing)
 "   :    autocmd BufWrite * :echom "Cats"       " The actual autocmds
 "   :augroup END                                " Finish the group
 
@@ -38,9 +38,16 @@ augroup filetype_vim
 augroup END
 " }}}
 
-" Save on focus lost --------------------------- {{{
-augroup focus_lost
+" Help window ---------------------------------- {{{
+augroup help_window
     autocmd!
-    autocmd FocusLost * :wa
+    autocmd FileType help wincmd L
 augroup END
+" }}}
+
+" Save on focus lost --------------------------- {{{
+" augroup focus_lost
+"     autocmd!
+"     autocmd FocusLost * :wa
+" augroup END
 " }}}
