@@ -118,3 +118,5 @@ nnoremap <Leader>w :tabclose<CR>
 nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " }}}
+
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
