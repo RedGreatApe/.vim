@@ -61,15 +61,15 @@ nnoremap <C-l> <C-w>l
 " <C-w>+++- vs <C-w>+<C-w>+<C-w>-
 " see: http://www.vim.org/scripts/script.php?script_id=2223
 " Does not seem to work for a while now
-" nnoremap <C-w>+ <C-w>+<SID>ws
-" nnoremap <C-w>- <C-w>-<SID>ws
-" nnoremap <C-w>> <C-w>><SID>ws
-" nnoremap <C-w>< <C-w><<SID>ws
-" nnoremap <script> <SID>ws+ <C-w>+<SID>ws
-" nnoremap <script> <SID>ws- <C-w>-<SID>ws
-" nnoremap <script> <SID>ws> <C-w>><SID>ws
-" nnoremap <script> <SID>ws< <C-w><<SID>ws
-" nnoremap <SID>ws <NOP>
+nmap <C-w>+ <C-w>+<SID>ws
+nmap <C-w>- <C-w>-<SID>ws
+nmap <C-w>> <C-w>><SID>ws
+nmap <C-w>< <C-w><<SID>ws
+nmap <script> <SID>ws+ <C-w>+<SID>ws
+nmap <script> <SID>ws- <C-w>-<SID>ws
+nmap <script> <SID>ws> <C-w>><SID>ws
+nmap <script> <SID>ws< <C-w><<SID>ws
+nmap <SID>ws <NOP>
 " }}}
 
 " Command Typos ---------------------- {{{
@@ -82,24 +82,33 @@ command! Qa qa
 
 " Clear search highlighting
 nnoremap <space> :noh<CR>
+
 " go to next buffer
 nnoremap gb :bn<CR>
+
 " make Y behave similarly to D and C
 nnoremap Y y$
+
 " super H and super L (overwriting some stuff)
 " noremap H ^
 " noremap L $
+
 " Useless left hand...
 inoremap jk <Esc>
+
 " Do not skip wrapped lines
 nnoremap j gj
 nnoremap k gk
+
 " write file
 nnoremap <C-s> :w<CR>
+
 " save in insert mode
 imap <C-s> <Esc><C-s>
+
 " close current buffer
 nnoremap <C-q> :q<CR>
+
 " use tab key to match bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
@@ -119,4 +128,7 @@ nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " }}}
 
+" in command line, %% means filepath (without filename)
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+" Ctrl+b used to change buffers
+nnoremap <C-b> <C-^>

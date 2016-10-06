@@ -149,7 +149,7 @@ nnoremap <Leader>h <Esc>:call ToggleHardMode()<CR>
 " }}}
 
 " Scratch Settigns ------------------------ {{{
-nnoremap <Leader>sc :Sscratch<CR><C-w>L
+nnoremap <Leader>sc :Scratch<CR>
 " }}}
 
 " Gundo Settings -------------------------- {{{

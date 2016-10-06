@@ -27,12 +27,14 @@ set cmdheight=2                     " Command line height
 set matchtime=2                     " show matching bracket for 0.2 seconds
 set matchpairs+=<:>                 " specially for html
 set list                            " Display invisible characters as:
-set listchars=tab:▸\
+set listchars=tab:▸\                " Tabs as ▸\\\\
+                                    " Every character after  column 80 is highlighted
+let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 " }}}
 
 " Editor Settings ----------------------- {{{
 set wrap
-" set textwidth=79
+" set textwidth=80
 set formatoptions=qrn1
 set esckeys                         " map missed escape sequences (enables keypad keys)
 set gdefault                        " Always global substitutions
@@ -65,7 +67,7 @@ set ttyfast                 " Fast terminal, redrawing
 set confirm                 " get a dialog when :q, :w, or :wq fails
 set nobackup                " no backup~ files.
 set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'
-set hidden                  " remember undo after quitting
+set hidden                  " able to close modified buffers without saving
 set history=1000            " keep 100 lines of command history
 set undofile                " keep an undo file (undo changes after closing)
 set swapfile                " Write swap and backup files
