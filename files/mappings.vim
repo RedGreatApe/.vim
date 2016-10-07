@@ -28,6 +28,19 @@ nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 " }}}
 
+" Toggle Relativenumber ----------------- {{{
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunc
+
+nnoremap <Leader>rn :call NumberToggle()<cr>
+
+
+
 " Toggle Set Paste ---------------------- {{{
 function! g:ToggleSetPaste()
     if &paste
@@ -100,11 +113,10 @@ inoremap jk <Esc>
 nnoremap j gj
 nnoremap k gk
 
-" write file
-nnoremap <C-s> :w<CR>
-
-" save in insert mode
+" Save with Ctrl+s
+nnoremap <C-s> :update<CR>
 imap <C-s> <Esc><C-s>
+vmap <C-s> <Esc><C-s>
 
 " close current buffer
 nnoremap <C-q> :q<CR>

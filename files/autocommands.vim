@@ -45,9 +45,23 @@ augroup help_window
 augroup END
 " }}}
 
+
+" Only for the GUI
+" version and a few console versions where this
+" can be detected.
 " Save on focus lost --------------------------- {{{
-" augroup focus_lost
-"     autocmd!
-"     autocmd FocusLost * :wa
-" augroup END
+augroup focus_lost
+    autocmd!
+    autocmd FocusLost * :wa
+augroup END
+" }}}
+
+" Relativenumber ------------------ {{{
+augroup rnu_focus_change
+    autocmd!
+    autocmd FocusLost * :set norelativenumber
+    autocmd FocusGained * :set relativenumber
+    autocmd InsertEnter * :set norelativenumber
+    autocmd InsertLeave * :set relativenumber
+augroup END
 " }}}
