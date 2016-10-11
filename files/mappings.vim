@@ -38,7 +38,7 @@ function! NumberToggle()
 endfunc
 
 nnoremap <Leader>rn :call NumberToggle()<cr>
-" }}}
+
 
 
 " Toggle Set Paste ---------------------- {{{

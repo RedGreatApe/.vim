@@ -16,11 +16,11 @@ set nocompatible            " use vim-defaults instead of vi-defaults
 let mapleader="-"           " Leader mapping
 
 " Sources ------------------------------- {{{
-source ~/.vim/files/settings.vim
 source ~/.vim/files/abbreviations.vim
 source ~/.vim/files/autocommands.vim
 source ~/.vim/files/mappings.vim
 source ~/.vim/files/plugins.vim
+source ~/.vim/files/settings.vim
 " }}}
 
 "              _ _ _____ ___  ____   ___
