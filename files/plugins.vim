@@ -37,13 +37,12 @@ execute pathogen#infect()
 
 " Badwolf settings ---------------------- {{{
 colorscheme badwolf
-" Make the gutters darker than the background.
-let g:badwolf_darkgutter = 1
-" Turn on CSS properties highlighting
-let g:badwolf_css_props_highlight = 1
+let g:badwolf_darkgutter = 1          " Make the gutters darker than the background.
+let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting
 " }}}
 
 " Airline Settings ---------------------- {{{
+set noshowmode                                      " Vim displays mode (if in Insert, or Visual, etc), disable this
 let g:airline_detect_modified=1                     " Detects if file has been modified
 let g:airline_detect_paste=1                        " Detects if set paste is enabled
 let g:airline_inactive_collapse=1                   " Inactive windows dont show full path of file
@@ -74,21 +73,23 @@ augroup END
 " }}}
 
 " NERDTree Settings ---------------------- {{{
-augroup nerdtree
-    autocmd!
-    " Start NERDTree automatically
-    autocmd vimenter * NERDTreeToggle
-    " (even when no file is specified)
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-    " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-augroup END
+" augroup nerdtree
+"     autocmd!
+"     " Start NERDTree automatically
+"     autocmd vimenter * NERDTreeToggle
+"     " (even when no file is specified)
+"     autocmd StdinReadPre * let s:std_in=1
+"     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"     " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" augroup END
 
-noremap <Leader>n :NERDTreeTabsToggle<CR>
+noremap <Leader>n :NERDTreeToggle<CR>
+noremap <Leader>N :NERDTreeTabsToggle<CR>
 
-let g:nerdtree_tabs_open_on_console_startup = 1
+
+" let g:nerdtree_tabs_open_on_console_startup = 1
 let g:NERDTreeWinSize = 25
-
+let g:NERDTreeMouseMode = 1
 let g:NERDTreeIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
@@ -103,13 +104,13 @@ let g:NERDTreeIndicatorMapCustom = {
 " }}}
 
 " Buffergator Settings ---------------------- {{{
-augroup buffergator
-    autocmd!
-    " Start Buffergator when vim starts
-    autocmd vimenter * BuffergatorToggle
-    " Go to the window on the right
-    autocmd VimEnter * wincmd l
-augroup END
+" augroup buffergator
+"     autocmd!
+"     " Start Buffergator when vim starts
+"     autocmd vimenter * BuffergatorToggle
+"     " Go to the window on the right
+"     autocmd VimEnter * wincmd l
+" augroup END
 
 nnoremap <Leader>b <C-w>t:BuffergatorToggle<CR><C-w>l
 
@@ -158,4 +159,14 @@ let g:gundo_width = 30
 let g:gundo_preview_height = 20
 let g:gundo_right = 1
 let g:gundo_preview_bottom = 1
+" }}}
+
+" Gist vim Settings ------------------------{{{
+" case insensitive :P
+cabbrev gist Gist
+let g:gist_clip_command = 'xclip -selection clipboard'  " -c option puts it on clipboard
+let g:gist_detect_filetype = 1                          " Detect filetype from filename
+let g:gist_open_browser_after_post = 1                  " open browser after post
+let g:gist_show_privates = 1                            " :Gist -l shows private gists
+let g:gist_post_private = 1                             " gists are private by default
 " }}}

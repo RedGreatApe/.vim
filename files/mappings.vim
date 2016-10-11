@@ -96,8 +96,9 @@ command! Qa qa
 " Clear search highlighting
 nnoremap <space> :noh<CR>
 
-" go to next buffer
+" Buffer navigation
 nnoremap gb :bn<CR>
+nnoremap GB :bp<CR>
 
 " make Y behave similarly to D and C
 nnoremap Y y$
@@ -122,8 +123,9 @@ vmap <C-s> <Esc><C-s>
 nnoremap <C-q> :q<CR>
 
 " use tab key to match bracket pairs
-nnoremap <tab> %
-vnoremap <tab> %
+" <tab> is the same as CTRL+i  which is used for jumps
+" nnoremap <tab> %
+" vnoremap <tab> %
 
 " Format all the text (perfect for manpages)
 nnoremap <Leader>fo gggqGgg
@@ -144,3 +146,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Ctrl+b used to change buffers
 nnoremap <C-b> <C-^>
+
+nnoremap / /\v
+
+" Add mappings for <Tab> and Shift+<Tab> for indenting?
+" Maybe?

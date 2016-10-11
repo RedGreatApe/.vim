@@ -25,9 +25,7 @@
 " Syntax Settings ------------------------------ {{{
 augroup syntax_helper                                   " Set syntax to FileTypes
     autocmd!
-
     autocmd BufRead,BufNewFile *.zpt setlocal filetype=html     " *.zpt files to html syntax
-
 augroup END
 " }}}
 
@@ -41,14 +39,13 @@ augroup END
 " Help window ---------------------------------- {{{
 augroup help_window
     autocmd!
-    autocmd FileType help wincmd L
+    autocmd FileType help wincmd L                          " Open in most right vertical split
+    autocmd FileType help set number                        " With number
+    autocmd FileType help set relativenumber                " With relativenumber
 augroup END
 " }}}
 
-
-" Only for the GUI
-" version and a few console versions where this
-" can be detected.
+" Only for the GUI version and a few console versions where this can be detected.
 " Save on focus lost --------------------------- {{{
 augroup focus_lost
     autocmd!

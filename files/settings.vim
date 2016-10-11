@@ -8,6 +8,7 @@
 " Display Settings ---------------------- {{{
 set cmdheight=2                     " Command line height
 set cursorline                      " Highlight current line
+set cursorcolumn                    " Highlight current column
 set display+=lastline               " show the last line that fits in window
 set laststatus=2                    " use 2 lines for the status bar
 set list                            " Display invisible characters as:
@@ -28,6 +29,7 @@ set title                           " show file in titlebar
 set visualbell                      " Visual alarm, instead of cpu beep
 set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
 set wildmenu                        " completion with menu
+set nofoldenable                    " Do not fold by default
                                     " Every character after  column 80 is highlighted
 let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 " }}}
@@ -36,9 +38,9 @@ let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 set esckeys                         " map missed escape sequences (enables keypad keys)
 set formatoptions=qrn1
 set gdefault                        " Always global substitutions
-set hlsearch                        " Also switch on highlighting the last used search pattern.
+set hlsearch                        " Highlight all matches in file when performing search
 set ignorecase                      " case insensitive searching
-set incsearch                       " Jump to search word as I type
+set incsearch                       " Highlight the next match while still typing the pattern
 set smartcase                       " but become case sensitive if you type uppercase characters
 set wrap
 
@@ -55,6 +57,8 @@ set tabstop=4                       " number of spaces a tab counts for
 
 set splitbelow                      " New split below the current one
 set splitright                      " New split to the right
+
+set suffixesadd+=.pl,.pm,pl6,pm6
 
 set encoding=utf-8                  " Self explanatory
 
