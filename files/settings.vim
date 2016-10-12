@@ -67,6 +67,7 @@ syntax enable                       " Switch syntax highlighting on
 
 " System Settings  ---------------------- {{{
 set confirm                 " get a dialog when :q, :w, or :wq fails
+set undodir=$TMPDIR,~/Stuff/vimtmp       " Swap file location
 set directory=$TMPDIR,~/Stuff/vimtmp       " Swap file location
 set hidden                  " able to close modified buffers without saving
 set history=1000            " keep 100 lines of command history
