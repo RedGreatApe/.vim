@@ -10,7 +10,7 @@ set cmdheight=2                     " Command line height
 set cursorline                      " Highlight current line
 set cursorcolumn                    " Highlight current column
 set display+=lastline               " show the last line that fits in window
-set laststatus=2                    " use 2 lines for the status bar
+set laststatus=2                    " Always show the status bar
 set list                            " Display invisible characters as:
 set listchars=tab:▸\                " Tabs as ▸\\\\
 set matchpairs+=<:>                 " specially for html
@@ -62,7 +62,7 @@ set suffixesadd+=.pl,.pm,pl6,pm6
 
 set encoding=utf-8                  " Self explanatory
 
-syntax on                           " Switch syntax highlighting on
+syntax enable                       " Switch syntax highlighting on
 " }}}
 
 " System Settings  ---------------------- {{{
