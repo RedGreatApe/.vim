@@ -146,7 +146,11 @@ nnoremap <Leader>h <Esc>:call ToggleHardMode()<CR>
 " }}}
 
 " Scratch Settigns ------------------------ {{{
-nnoremap <Leader>sc :Scratch<CR>
+let g:scratch_height = 0.2
+let g:scratch_persistence_file = '~/Stuff/vimtmp/scratch.vim'
+let g:scratch_insert_autohide = 0
+
+nnoremap <Leader>gs :Scratch<CR>
 " }}}
 
 " Gundo Settings -------------------------- {{{
