@@ -27,16 +27,19 @@ set sidescroll=1                    " Minimum number of columns to scroll horizo
 set sidescrolloff=5                 " 5 characters before cursor when scrolling
 set title                           " show file in titlebar
 set visualbell                      " Visual alarm, instead of cpu beep
-set wildignore=*.o,*.obj,*.bak,*.exe,*.py[co],*.swp,*~,*.pyc,.svn
+set wildignore+=*.o,*.obj,*.bak     " Files matching these patterns
+set wildignore+=*.exe,*.py[co]      " will be ignored when expanding wildcards
+set wildignore+=*.swp,*~,*.pyc,.svn
 set wildmenu                        " completion with menu
 set nofoldenable                    " Do not fold by default
+
                                     " Every character after  column 80 is highlighted
 let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 " }}}
 
 " Editor Settings ----------------------- {{{
 set esckeys                         " map missed escape sequences (enables keypad keys)
-set formatoptions=qrn1
+set formatoptions=qrn1              " format options (I use them on <leader>fo )
 set gdefault                        " Always global substitutions
 set hlsearch                        " Highlight all matches in file when performing search
 set ignorecase                      " case insensitive searching
@@ -44,7 +47,8 @@ set incsearch                       " Highlight the next match while still typin
 set smartcase                       " but become case sensitive if you type uppercase characters
 set wrap
 
-set autoindent
+set pastetoggle=<F5>                " Toggle set paste
+set autoindent                      " Automatically indent every new line
 set backspace=start,eol,indent      " Can backspace over everything (hard mode changes this)
 set magic                           " change the way backslashes are used in search patterns
 set smartindent                     " smart auto indenting
@@ -58,10 +62,8 @@ set tabstop=4                       " number of spaces a tab counts for
 set splitbelow                      " New split below the current one
 set splitright                      " New split to the right
 
-set suffixesadd+=.pl,.pm,pl6,pm6
-
+set suffixesadd+=.pl,.pm,pl6,pm6    " For openning perl files with gf
 set encoding=utf-8                  " Self explanatory
-
 syntax enable                       " Switch syntax highlighting on
 " }}}
 

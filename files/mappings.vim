@@ -42,15 +42,15 @@ nnoremap <Leader>rn :call NumberToggle()<cr>
 
 
 " Toggle Set Paste ---------------------- {{{
-function! g:ToggleSetPaste()
-    if &paste
-        set nopaste
-    else
-        set paste
-    endif
-endfunction
+" function! g:ToggleSetPaste()
+"     if &paste
+"         set nopaste
+"     else
+"         set paste
+"     endif
+" endfunction
 " }}}
-nnoremap <silent><Leader>sp :call g:ToggleSetPaste()<CR>
+" nnoremap <silent><Leader>sp :call g:ToggleSetPaste()<CR>
 
 " Toggle ColorColumn ---------------------- {{{
 function! g:ToggleColorColumn()
