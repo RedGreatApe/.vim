@@ -74,8 +74,8 @@
     path = bundle/vim-repeat
     url = git://github.com/tpope/vim-repeat
 
-[submodule "scratch"]
-    path = bundle/scratch
+[submodule "scratch.vim"]
+    path = bundle/scratch.vim
     url = git://github.com/mtth/scratch.vim
 
 [submodule "vim-startify"]
