@@ -98,7 +98,7 @@ nnoremap <space> :noh<CR>
 
 " Buffer navigation
 nnoremap gb :bn<CR>
-nnoremap GB :bp<CR>
+nnoremap gB :bp<CR>
 
 " make Y behave similarly to D and C
 nnoremap Y y$
@@ -144,8 +144,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " in command line, %% means filepath (without filename)
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-" Ctrl+b used to change buffers
-nnoremap <C-b> <C-^>
 
 nnoremap / /\v
 

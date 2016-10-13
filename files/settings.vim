@@ -6,6 +6,7 @@
 "                                        |___/
 
 " Display Settings ---------------------- {{{
+set t_ut=                           " fixes the drawing issue while using tmux
 set cmdheight=2                     " Command line height
 set cursorline                      " Highlight current line
 set cursorcolumn                    " Highlight current column
