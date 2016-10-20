@@ -48,7 +48,7 @@ set incsearch                       " Highlight the next match while still typin
 set smartcase                       " but become case sensitive if you type uppercase characters
 set wrap
 
-set pastetoggle=<F5>                " Toggle set paste
+set pastetoggle=<F3>                " Toggle set paste
 set autoindent                      " Automatically indent every new line
 set backspace=start,eol,indent      " Can backspace over everything (hard mode changes this)
 set magic                           " change the way backslashes are used in search patterns

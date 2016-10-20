@@ -56,8 +56,8 @@ augroup END
 " Relativenumber ------------------ {{{
 augroup rnu_focus_change
     autocmd!
-    autocmd FocusLost * :set norelativenumber
-    autocmd FocusGained * :set relativenumber
+"    autocmd FocusLost * :set norelativenumber
+"    autocmd FocusGained * :set relativenumber
     autocmd InsertEnter * :set norelativenumber
     autocmd InsertLeave * :set relativenumber
 augroup END
