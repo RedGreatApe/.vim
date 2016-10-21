@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sp current | sed -n -e 's/^.*Artist\s* //p'

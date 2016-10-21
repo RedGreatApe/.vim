@@ -1,0 +1,29 @@
+#!/bin/sh
+
+LSEP=
+LSEPE=
+RSEP=
+RSEPE=
+
+CLOCK=◷
+CALENDAR=☼
+MUSIC=♫
+
+WIDTH=${1}
+
+SMALL=80
+MEDIUM=140
+
+if [ "$WIDTH" -gt "$MEDIUM" ]; then
+    # sp current | sed -n -e 's/^.*Ariist\s* //p'
+  MPD="#[fg=colour254,bg=default,nobold,noitalics,nounderscore]$RSEP#[fg=colour16,bg=colour254,bold,noitalics,nounderscore] $MUSIC  $(currentartist) - $(currenttitle)"
+  date_colour='colour252'
+fi
+
+if [ "$WIDTH" -ge "$SMALL" ]; then
+  UNAME="#[fg=colour254,bg=colour236,nobold,noitalics,nounderscore]$RSEP#[fg=colour16,bg=colour254,bold,noitalics,nounderscore] $(whoami)@$(uname -n)"
+fi
+DATE="#[fg=colour236,bg=colour254,nobold,noitalics,nounderscore]$RSEP#[fg=colour254,bg=colour236,nobold,noitalics,nounderscore] $CALENDAR $(date +'%d/%m/%y')"
+TIME="#[fg=colour254,bg=colour236,nobold,noitalics,nounderscore]$RSEPE#[fg=colour254,bg=colour236,bold,noitalics,nounderscore] $CLOCK $(date +'%H:%M')"
+
+echo "$MPD $DATE $TIME $UNAME " | sed 's/ *$/ /g'
