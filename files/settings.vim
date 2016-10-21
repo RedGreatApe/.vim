@@ -70,12 +70,12 @@ syntax enable                       " Switch syntax highlighting on
 
 " System Settings  ---------------------- {{{
 set confirm                 " get a dialog when :q, :w, or :wq fails
-set undodir=$TMPDIR,~/Stuff/vimtmp       " Swap file location
-set directory=$TMPDIR,~/Stuff/vimtmp       " Swap file location
+set undodir=$TMPDIR " ,~/Stuff/vimtmp       " Swap file location
+set directory=$TMPDIR " ,~/Stuff/vimtmp       " Swap file location
 set hidden                  " able to close modified buffers without saving
 set history=1000            " keep 100 lines of command history
 set nobackup                " no backup~ files.
-set swapfile                " Write swap and backup files
+" set swapfile                " Write swap and backup files
 set ttyfast                 " Fast terminal, redrawing
 set undofile                " keep an undo file (undo changes after closing)
 set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'

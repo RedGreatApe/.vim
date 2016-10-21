@@ -49,7 +49,7 @@ let g:airline_inactive_collapse=0                   " Inactive windows dont show
 let g:airline_theme='badwolf'                       " Airline theme
 let g:airline_powerline_fonts = 1                   " Automatically populate g:airline_symbols
 
-let g:airline_section_c = '%{strftime("%c")}'
+" let g:airline_section_c = '%{strftime("%c")}'
 let g:airline_section_y = 'BN: %{bufnr("%")}'
 
 let g:airline#extensions#tabline#enabled = 1        " Smart tabline

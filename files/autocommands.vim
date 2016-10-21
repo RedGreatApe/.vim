@@ -49,15 +49,15 @@ augroup END
 " Save on focus lost --------------------------- {{{
 augroup focus_lost
     autocmd!
-    autocmd FocusLost * :wa
+    "autocmd FocusLost * :wa
 augroup END
 " }}}
 
 " Relativenumber ------------------ {{{
 augroup rnu_focus_change
     autocmd!
-"    autocmd FocusLost * :set norelativenumber
-"    autocmd FocusGained * :set relativenumber
+"     autocmd FocusLost * :set norelativenumber
+"     autocmd FocusGained * :set relativenumber
     autocmd InsertEnter * :set norelativenumber
     autocmd InsertLeave * :set relativenumber
 augroup END

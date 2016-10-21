@@ -145,6 +145,8 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " in command line, %% means filepath (without filename)
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
+" in command line, :sudow changes to (sudo write)
+cnoremap <expr> sudow 'w !sudo tee % > /dev/null'
 nnoremap / /\v
 
 " Add mappings for <Tab> and Shift+<Tab> for indenting?
