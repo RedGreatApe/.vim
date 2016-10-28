@@ -74,15 +74,19 @@ nnoremap <C-l> <C-w>l
 " <C-w>+++- vs <C-w>+<C-w>+<C-w>-
 " see: http://www.vim.org/scripts/script.php?script_id=2223
 " Does not seem to work for a while now
-nmap <C-w>+ <C-w>+<SID>ws
-nmap <C-w>- <C-w>-<SID>ws
-nmap <C-w>> <C-w>><SID>ws
-nmap <C-w>< <C-w><<SID>ws
-nmap <script> <SID>ws+ <C-w>+<SID>ws
-nmap <script> <SID>ws- <C-w>-<SID>ws
-nmap <script> <SID>ws> <C-w>><SID>ws
-nmap <script> <SID>ws< <C-w><<SID>ws
-nmap <SID>ws <NOP>
+
+nmap          <C-W>+     <C-W>+<SID>ws
+nmap          <C-W>-     <C-W>-<SID>ws
+nn <script>   <SID>ws+   <C-W>+<SID>ws
+nn <script>   <SID>ws-   <C-W>-<SID>ws
+nmap          <C-W>>     <C-W>><SID>ws
+nmap          <C-W><     <C-W><<SID>ws
+nn <script>   <SID>ws>   <C-W>><SID>ws
+nn <script>   <SID>ws<   <C-W><<SID>ws
+
+nmap          <SID>ws    <Nop>
+
+
 " }}}
 
 " Command Typos ---------------------- {{{

@@ -7,6 +7,12 @@
 
 " Plugin Loading ---------------------- {{{
 runtime bundle/vim-pathogen/autoload/pathogen.vim
+
+" set runtimepath+=/usr/lib/python3.4/site-packages/powerline/bindings/vim
+" set fillchars+=stl:\ ,stlnc:\
+" python from powerline.vim import setup as powerline_setup
+" python powerline_setup()
+" python del powerline_setup
 execute pathogen#infect()
 
 " Loaded plugins:  :read !ls ~/.vim/bundle
@@ -42,21 +48,25 @@ let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting
 " }}}
 
 " Airline Settings ---------------------- {{{
-set noshowmode                                      " Vim displays mode (if in Insert, or Visual, etc), disable this
 let g:airline_detect_modified=1                     " Detects if file has been modified
 let g:airline_detect_paste=1                        " Detects if set paste is enabled
 let g:airline_inactive_collapse=0                   " Inactive windows dont show full path of file
 let g:airline_theme='badwolf'                       " Airline theme
 let g:airline_powerline_fonts = 1                   " Automatically populate g:airline_symbols
-
+"
 " let g:airline_section_c = '%{strftime("%c")}'
 let g:airline_section_y = 'BN: %{bufnr("%")}'
-
+"
 let g:airline#extensions#tabline#enabled = 1        " Smart tabline
-
+"
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.paste = 'ρ'
 " }}}

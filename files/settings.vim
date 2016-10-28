@@ -33,6 +33,7 @@ set wildignore+=*.exe,*.py[co]      " will be ignored when expanding wildcards
 set wildignore+=*.swp,*~,*.pyc,.svn
 set wildmenu                        " completion with menu
 set nofoldenable                    " Do not fold by default
+set noshowmode                                      " Vim displays mode (if in Insert, or Visual, etc), disable this
 
                                     " Every character after  column 80 is highlighted
 let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
@@ -80,12 +81,12 @@ set ttyfast                 " Fast terminal, redrawing
 set undofile                " keep an undo file (undo changes after closing)
 set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'
 
-set mouse=a                 " use mouse
-if has("mouse_sgr")
-    set ttymouse=sgr
-else
-    set ttymouse=xterm2
-end
+set mouse=""                 " disabling mouse
+" if has("mouse_sgr")
+"     set ttymouse=sgr
+" else
+"     set ttymouse=xterm2
+" end
 
                             " change the cursor shape depending on mode
                             " see: http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
