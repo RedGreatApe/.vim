@@ -14,31 +14,6 @@ runtime bundle/vim-pathogen/autoload/pathogen.vim
 " python powerline_setup()
 " python del powerline_setup
 execute pathogen#infect()
-
-" Loaded plugins:  :read !ls ~/.vim/bundle
-" ack.vim                   Ack in vim!
-" badwolf                   Badwolf theme
-" ctrlp.vim                 File/Buffer/MRU search
-" gist-vim                  Make gists easy (codesharing)
-" gundo.vim                 Undo tree viewer
-" hardmode                  Bring it!
-" nerdtree                  Filesystem tree
-" nerdtree-git-plugin       NERDTree git plugin
-" supertab                  Tab completion with tab key (lol)
-" vim-airline               Status bar
-" vim-airline-themes        Themes for vim-airline
-" vim-better-whitespace     Whitespace Highlighting and Stripping
-" vim-buffergator           Buffer of buffers!
-" vim-fugitive              Git stuff
-" vim-nerdtree-tabs         NERDTree with tabs!
-" vim-pathogen              Plugin manageer
-" vim-perl                  Perl syntax
-" vim-perl6                 Perl6 syntax
-" vim-repeat                Repeat plugin actions
-" vim-scratch               Scratch window
-" vim-startify              Fancy start screen
-" vim-surround              Surroundings (brackets)
-" webapi-vim                Interface to WEB APIs
 " }}}
 
 " Badwolf settings ---------------------- {{{
@@ -58,6 +33,10 @@ let g:airline_powerline_fonts = 1                   " Automatically populate g:a
 let g:airline_section_y = 'BN: %{bufnr("%")}'
 "
 let g:airline#extensions#tabline#enabled = 1        " Smart tabline
+let g:airline#extensions#tabline#buffers_label = 'Buffers'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let airline#extensions#tabline#disable_refresh = 1
+let g:airline#extensions#tmuxline#enabled = 0
 "
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}

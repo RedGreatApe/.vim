@@ -89,3 +89,7 @@
 [submodule "webapi-vim"]
     path = bundle/webapi-vim
     url = git://github.com/mattn/webapi-vim
+
+[submodule "tmux-airline"]
+    path = bundle/tmux-airline
+    url = git://github.com/edkolev/tmuxline.vim

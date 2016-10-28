@@ -15,15 +15,14 @@ SMALL=80
 MEDIUM=140
 
 if [ "$WIDTH" -gt "$MEDIUM" ]; then
-    # sp current | sed -n -e 's/^.*Ariist\s* //p'
-  MPD="#[fg=colour254,bg=default,nobold,noitalics,nounderscore]$RSEP#[fg=colour16,bg=colour254,bold,noitalics,nounderscore] $MUSIC  $(currentartist) - $(currenttitle)"
+  MPD="#[fg=colour154,bg=colour235,nobold,nounderscore,noitalics]$RSEP#[fg=colour232,bg=colour154,nobold,noitalics,nounderscore] $MUSIC  $(currentartist) - $(currenttitle)"
   date_colour='colour252'
 fi
 
 if [ "$WIDTH" -ge "$SMALL" ]; then
-  UNAME="#[fg=colour254,bg=colour236,nobold,noitalics,nounderscore]$RSEP#[fg=colour16,bg=colour254,bold,noitalics,nounderscore] $(whoami)@$(uname -n)"
+  UNAME="#[fg=colour154,bg=colour238,nobold,nounderscore,noitalics]$RSEP#[fg=colour232,bg=colour154,noitalics,nounderscore] $(whoami)@$(uname -n)"
 fi
-DATE="#[fg=colour236,bg=colour254,nobold,noitalics,nounderscore]$RSEP#[fg=colour254,bg=colour236,nobold,noitalics,nounderscore] $CALENDAR $(date +'%d/%m/%y')"
-TIME="#[fg=colour254,bg=colour236,nobold,noitalics,nounderscore]$RSEPE#[fg=colour254,bg=colour236,bold,noitalics,nounderscore] $CLOCK $(date +'%H:%M')"
+DATETIME="#[fg=colour238,bg=colour154,nobold,nounderscore,noitalics]$RSEP#[fg=colour222,bg=colour238] $CALENDAR $(date +'%d/%m/%y') $RSEPE $CLOCK $(date +'%H:%M')"
 
-echo "$MPD $DATE $TIME $UNAME " | sed 's/ *$/ /g'
+echo "$MPD $DATETIME $UNAME " | sed 's/ *$/ /g'
+
