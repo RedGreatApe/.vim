@@ -33,8 +33,11 @@ set wildignore+=*.exe,*.py[co]      " will be ignored when expanding wildcards
 set wildignore+=*.swp,*~,*.pyc,.svn
 set wildmenu                        " completion with menu
 set nofoldenable                    " Do not fold by default
-set noshowmode                                      " Vim displays mode (if in Insert, or Visual, etc), disable this
-
+set noshowmode                      " Vim displays mode (if in Insert, or Visual, etc), disable this
+" set guioptions-=m                   " remove the menubar in gVim
+" set guioptions-=r                   " remove the right scrollbar in gVim
+" set guioptions-=L                   " remove the left scrollbar in gVim
+" set guioptions-=T                   " remove the toolbar in gVim
                                     " Every character after  column 80 is highlighted
 let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 " }}}
