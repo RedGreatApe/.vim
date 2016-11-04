@@ -22,6 +22,10 @@ let g:badwolf_darkgutter = 1          " Make the gutters darker than the backgro
 let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting
 " }}}
 
+" Bufferline Settings ---------------------- {{{
+let g:bufferline_echo=0
+" }}}
+
 " Airline Settings ---------------------- {{{
 let g:airline_detect_modified=1                     " Detects if file has been modified
 let g:airline_detect_paste=1                        " Detects if set paste is enabled
@@ -32,12 +36,16 @@ let g:airline_powerline_fonts = 1                   " Automatically populate g:a
 " let g:airline_section_c = '%{strftime("%c")}'
 let g:airline_section_y = 'BN: %{bufnr("%")}'
 "
+let g:airline#extensions#ctrlp#color_template = 'visual'
+let g:airline#extensions#bufferline#enabled = 1     " bufferline
+
 let g:airline#extensions#tabline#enabled = 1        " Smart tabline
 let g:airline#extensions#tabline#buffers_label = 'Buffers'
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let airline#extensions#tabline#disable_refresh = 1
+let g:airline#extensions#tabline#buffer_nr_show = 0
+let airline#extensions#tabline#disable_refresh = 0
+
 let g:airline#extensions#tmuxline#enabled = 0
-"
+
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
@@ -68,11 +76,13 @@ augroup END
 "     " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " augroup END
 
-noremap <Leader>n :NERDTreeToggle<CR>
-noremap <Leader>N :NERDTreeTabsToggle<CR>
+noremap <Leader>N :NERDTreeToggle<CR>
+noremap <Leader>n :NERDTreeTabsToggle<CR>
 
 
 " let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_open_on_gui_startup = 0
+
 let g:NERDTreeWinSize = 25
 let g:NERDTreeMouseMode = 1
 let g:NERDTreeIndicatorMapCustom = {

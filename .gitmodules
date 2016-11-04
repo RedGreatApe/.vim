@@ -93,3 +93,15 @@
 [submodule "tmux-airline"]
     path = bundle/tmux-airline
     url = git://github.com/edkolev/tmuxline.vim
+
+[submodule "incsearch"]
+    path = bundle/incsearch.vim
+    url = git://github.com/haya14busa/incsearch.vim
+
+[submodule "vim-bufferline"]
+    path = bundle/vim-bufferline
+    url = git://github.com/bling/vim-bufferline
+
+[submodule "vim-tmux"]
+    path = bundle/vim-tmux
+    url = git://github.com/bling/vim-bufferline

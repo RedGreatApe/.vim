@@ -6,7 +6,7 @@
 "                                        |___/
 
 " Display Settings ---------------------- {{{
-set t_ut=                           " fixes the drawing issue while using tmux
+set t_ut=                           " fixes the drawing issue while using tmux (Most of the time)
 set cmdheight=2                     " Command line height
 set cursorline                      " Highlight current line
 set cursorcolumn                    " Highlight current column
@@ -34,10 +34,10 @@ set wildignore+=*.swp,*~,*.pyc,.svn
 set wildmenu                        " completion with menu
 set nofoldenable                    " Do not fold by default
 set noshowmode                      " Vim displays mode (if in Insert, or Visual, etc), disable this
-" set guioptions-=m                   " remove the menubar in gVim
-" set guioptions-=r                   " remove the right scrollbar in gVim
-" set guioptions-=L                   " remove the left scrollbar in gVim
-" set guioptions-=T                   " remove the toolbar in gVim
+set guioptions-=m                   " remove the menubar in gVim
+set guioptions-=r                   " remove the right scrollbar in gVim
+set guioptions-=L                   " remove the left scrollbar in gVim
+set guioptions-=T                   " remove the toolbar in gVim
                                     " Every character after  column 80 is highlighted
 let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 " }}}
@@ -84,7 +84,8 @@ set ttyfast                 " Fast terminal, redrawing
 set undofile                " keep an undo file (undo changes after closing)
 set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'
 
-set mouse=""                 " disabling mouse
+set mouse=a                 " disabling mouse
+set mousehide               " hide when characters are typed
 " if has("mouse_sgr")
 "     set ttymouse=sgr
 " else

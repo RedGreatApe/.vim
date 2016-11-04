@@ -97,12 +97,13 @@ command! W w
 command! Qa qa
 " }}}
 
-" Clear search highlighting
-nnoremap <space> :noh<CR>
-
 " Buffer navigation
-nnoremap gb :bn<CR>
-nnoremap gB :bp<CR>
+nnoremap <silent> <Left> :bprevious<CR>
+nnoremap <silent> <Right> :bnext<CR>
+nnoremap <silent> <Up> :tabprevious<CR>
+nnoremap <silent> <Down> :tabnext<CR>
+" nnoremap gb :bn<CR>
+" nnoremap gB :bp<CR>
 
 " make Y behave similarly to D and C
 nnoremap Y y$
@@ -113,6 +114,7 @@ nnoremap Y y$
 
 " Useless left hand...
 inoremap jk <Esc>
+inoremap kj <Esc>
 
 " Do not skip wrapped lines
 nnoremap j gj
@@ -131,15 +133,21 @@ nnoremap <C-q> :q<CR>
 " nnoremap <tab> %
 " vnoremap <tab> %
 
-" Format all the text (perfect for manpages)
-nnoremap <Leader>fo gggqGgg
 " Get a manpage and put it into current buffer
 nnoremap <Leader>man :read !man<space>
+" Format all the text (perfect for manpages)
+nnoremap <Leader>fo gggqGgg
 
 " Tab Remaps ---------------------- {{{
 nnoremap <Leader>t :tabnew<CR>:Startify<CR>
 nnoremap <Leader>w :tabclose<CR>
 " }}}
+
+" Split Remaps ---------------------- {{{
+nnoremap <Leader>v :vsplit<CR>
+nnoremap <Leader>s :split<CR>
+" }}}
+
 
 " VIMRC editing/sourcing ---------------------- {{{
 nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
@@ -151,7 +159,40 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " in command line, :sudow changes to (sudo write)
 cnoremap <expr> sudow 'w !sudo tee % > /dev/null'
-nnoremap / /\v
 
 " Add mappings for <Tab> and Shift+<Tab> for indenting?
 " Maybe?
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+" Clear search highlighting
+nnoremap <space> :noh<CR>
+
+" Sane regex {{{
+nnoremap / /\v
+nnoremap ? ?\v
+vnoremap / /\v
+vnoremap ? ?\v
+" }}}
+
+" auto center {{{
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
+nnoremap <silent> <C-o> <C-o>zz
+nnoremap <silent> <C-i> <C-i>zz
+" }}}
+
+" Visual Star {{{
+xnoremap * :<C-u>call <SID>VSetSearch('/')<CR>/<C-R>=@/<CR><CR>
+xnoremap # :<C-u>call <SID>VSetSearch('?')<CR>?<C-R>=@/<CR><CR>
+
+function! s:VSetSearch(cmdtype)
+    let temp = @s
+    norm! gv"sy
+    let @/ = '\V' . substitute(escape(@s, a:cmdtype.'\'), '\n', '\\n', 'g')
+    let @s = temp
+endfunction
+" }}}
