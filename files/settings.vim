@@ -10,10 +10,11 @@ set t_ut=                           " fixes the drawing issue while using tmux (
 set cmdheight=2                     " Command line height
 set cursorline                      " Highlight current line
 set cursorcolumn                    " Highlight current column
-set display+=lastline               " show the last line that fits in window
+" set display+=lastline               " show the last line that fits in window
 set laststatus=2                    " Always show the status bar
 set list                            " Display invisible characters as:
 set listchars=tab:▸\                " Tabs as ▸\\\\
+set showmatch                       " show matching bracket (briefly jump)
 set matchpairs+=<:>                 " specially for html
 set matchtime=2                     " show matching bracket for 0.2 seconds
 set number                          " show line numbers
@@ -21,7 +22,6 @@ set relativenumber                  " show line number relative to current line
 set ruler                           " show cursor position in status bar
 set scrolloff=3                     " 2 lines above/below cursor when scrolling
 set showcmd                         " show typed command in status bar
-set showmatch                       " show matching bracket (briefly jump)
 set showmode                        " show mode in status bar (insert/replace/...)
 set showtabline=2                   " Always show tab bar       (top)
 set sidescroll=1                    " Minimum number of columns to scroll horizontally
@@ -34,6 +34,7 @@ set wildignore+=*.swp,*~,*.pyc,.svn
 set wildmenu                        " completion with menu
 set nofoldenable                    " Do not fold by default
 set noshowmode                      " Vim displays mode (if in Insert, or Visual, etc), disable this
+
 set guioptions-=m                   " remove the menubar in gVim
 set guioptions-=r                   " remove the right scrollbar in gVim
 set guioptions-=L                   " remove the left scrollbar in gVim
@@ -44,7 +45,7 @@ let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 
 " Editor Settings ----------------------- {{{
 set esckeys                         " map missed escape sequences (enables keypad keys)
-set formatoptions=qrn1              " format options (I use them on <leader>fo )
+set formatoptions=qn1               " format options (I use them on <leader>fo ) (removed r, annyoing on comments)
 set gdefault                        " Always global substitutions
 set hlsearch                        " Highlight all matches in file when performing search
 set ignorecase                      " case insensitive searching
@@ -74,12 +75,12 @@ syntax enable                       " Switch syntax highlighting on
 
 " System Settings  ---------------------- {{{
 set confirm                 " get a dialog when :q, :w, or :wq fails
-set undodir=$TMPDIR " ,~/Stuff/vimtmp       " Swap file location
-set directory=$TMPDIR " ,~/Stuff/vimtmp       " Swap file location
-set hidden                  " able to close modified buffers without saving
+set undodir=$TMPDIR         " Swap file location
+set directory=$TMPDIR       " Swap file location
+set hidden                  " able to hide modified buffers without saving
 set history=1000            " keep 100 lines of command history
 set nobackup                " no backup~ files.
-" set swapfile                " Write swap and backup files
+set noswapfile              " Write swap and backup files
 set ttyfast                 " Fast terminal, redrawing
 set undofile                " keep an undo file (undo changes after closing)
 set viminfo='20,\"500       " copy registers after quitting -- 20 jump links, regs up to 500 lines'
@@ -94,6 +95,7 @@ set mousehide               " hide when characters are typed
 
                             " change the cursor shape depending on mode
                             " see: http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
+                            " Does not seem to work anymore (in terminal)
 if exists('$TMUX')
   let &t_SI  = "\<Esc>Ptmux;\<Esc>\<Esc>]50;"
   let &t_SI .= "CursorShape=1\x7\<Esc>\\"

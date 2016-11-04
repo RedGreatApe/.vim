@@ -15,17 +15,10 @@ vnoremap <right> <NOP>
 inoremap <left> <NOP>
 vnoremap <right> <NOP>
 " B A <Start>
-
 nnoremap <up> <NOP>
 nnoremap <down> <NOP>
 nnoremap <left> <NOP>
 nnoremap <right> <NOP>
-" }}}
-
-" Who needs a help key ------------------ {{{
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
 " }}}
 
 " Toggle Relativenumber ----------------- {{{
@@ -38,19 +31,7 @@ function! NumberToggle()
 endfunc
 
 nnoremap <Leader>rn :call NumberToggle()<cr>
-
-
-
-" Toggle Set Paste ---------------------- {{{
-" function! g:ToggleSetPaste()
-"     if &paste
-"         set nopaste
-"     else
-"         set paste
-"     endif
-" endfunction
 " }}}
-" nnoremap <silent><Leader>sp :call g:ToggleSetPaste()<CR>
 
 " Toggle ColorColumn ---------------------- {{{
 function! g:ToggleColorColumn()
@@ -60,21 +41,11 @@ function! g:ToggleColorColumn()
         setlocal colorcolumn=81,101
     endif
 endfunction
-" }}}
-nnoremap <silent><Leader>cc :call g:ToggleColorColumn()<CR>
 
-" Split Navigation ---------------------- {{{
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+nnoremap <silent><Leader>cc :call g:ToggleColorColumn()<CR>
 " }}}
 
 " Resizing Splits ---------------------- {{{
-" <C-w>+++- vs <C-w>+<C-w>+<C-w>-
-" see: http://www.vim.org/scripts/script.php?script_id=2223
-" Does not seem to work for a while now
-
 nmap          <C-W>+     <C-W>+<SID>ws
 nmap          <C-W>-     <C-W>-<SID>ws
 nn <script>   <SID>ws+   <C-W>+<SID>ws
@@ -83,106 +54,73 @@ nmap          <C-W>>     <C-W>><SID>ws
 nmap          <C-W><     <C-W><<SID>ws
 nn <script>   <SID>ws>   <C-W>><SID>ws
 nn <script>   <SID>ws<   <C-W><<SID>ws
-
 nmap          <SID>ws    <Nop>
-
-
 " }}}
 
-" Command Typos ---------------------- {{{
-" on quit/write
-" Bind :Q to :qi
+" Save and Quit ---------------------- {{{
 command! Q q
 command! W w
 command! Qa qa
+nnoremap <C-s> :update<CR>
+imap <C-s> <Esc><C-s>
+vmap <C-s> <Esc><C-s>
+nnoremap <C-q> :q<CR>
 " }}}
 
-" Buffer navigation
+" Buffer, Window (splits) and Tab navigation {{{
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
 nnoremap <silent> <Left> :bprevious<CR>
 nnoremap <silent> <Right> :bnext<CR>
 nnoremap <silent> <Up> :tabprevious<CR>
 nnoremap <silent> <Down> :tabnext<CR>
-" nnoremap gb :bn<CR>
-" nnoremap gB :bp<CR>
-
-" make Y behave similarly to D and C
-nnoremap Y y$
-
-" super H and super L (overwriting some stuff)
-" noremap H ^
-" noremap L $
-
-" Useless left hand...
-inoremap jk <Esc>
-inoremap kj <Esc>
-
 " Do not skip wrapped lines
 nnoremap j gj
 nnoremap k gk
 
-" Save with Ctrl+s
-nnoremap <C-s> :update<CR>
-imap <C-s> <Esc><C-s>
-vmap <C-s> <Esc><C-s>
-
-" close current buffer
-nnoremap <C-q> :q<CR>
-
-" use tab key to match bracket pairs
-" <tab> is the same as CTRL+i  which is used for jumps
-" nnoremap <tab> %
-" vnoremap <tab> %
-
-" Get a manpage and put it into current buffer
-nnoremap <Leader>man :read !man<space>
-" Format all the text (perfect for manpages)
-nnoremap <Leader>fo gggqGgg
-
-" Tab Remaps ---------------------- {{{
 nnoremap <Leader>t :tabnew<CR>:Startify<CR>
 nnoremap <Leader>w :tabclose<CR>
-" }}}
 
-" Split Remaps ---------------------- {{{
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
+
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+cnoremap <expr> sudow 'w !sudo tee % > /dev/null'
 " }}}
 
+" Editing {{{
+nnoremap Y y$
+inoremap jk <Esc>
+inoremap kj <Esc>
+" undo and carriage return
+inoremap <cr> <C-g>u<cr>
 
-" VIMRC editing/sourcing ---------------------- {{{
 nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " }}}
 
-" in command line, %% means filepath (without filename)
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+" Searching {{{
+nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
 
-" in command line, :sudow changes to (sudo write)
-cnoremap <expr> sudow 'w !sudo tee % > /dev/null'
-
-" Add mappings for <Tab> and Shift+<Tab> for indenting?
-" Maybe?
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-
-" Clear search highlighting
-nnoremap <space> :noh<CR>
-
-" Sane regex {{{
-nnoremap / /\v
-nnoremap ? ?\v
-vnoremap / /\v
-vnoremap ? ?\v
+" Sane regex {{{                Incsearch.vim replaced these, will revise
+" nnoremap / /\v
+" nnoremap ? ?\v
+" vnoremap / /\v
+" vnoremap ? ?\v
 " }}}
 
 " auto center {{{
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
-nnoremap <silent> g# g#zz
-nnoremap <silent> <C-o> <C-o>zz
-nnoremap <silent> <C-i> <C-i>zz
+"nnoremap <silent> n nzz
+"nnoremap <silent> N Nzz
+"nnoremap <silent> * *zz
+"nnoremap <silent> # #zz
+"nnoremap <silent> g* g*zz
+"nnoremap <silent> g# g#zz
+"nnoremap <silent> <C-o> <C-o>zz
+"nnoremap <silent> <C-i> <C-i>zz
 " }}}
 
 " Visual Star {{{
@@ -196,3 +134,10 @@ function! s:VSetSearch(cmdtype)
     let @s = temp
 endfunction
 " }}}
+
+" }}}
+
+" Get a manpage and put it into current buffer
+nnoremap <Leader>man :read !man<space>
+" Format all the text (perfect for manpages)
+nnoremap <Leader>fo gggqGgg

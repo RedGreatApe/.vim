@@ -8,14 +8,12 @@
 " Autocommands and abbreviations could be combined
 " to create some file specific abbreviations
 
-
 " Filetype Perl ----------------------- {{{
 augroup filetypeperl
     autocmd!
     autocmd FileType perl :iabbrev <buffer> dp use Data::Printer; p
 augroup END
 " }}}
-
 
 " Filetype Perl6 ---------------------- {{{
 " }}}

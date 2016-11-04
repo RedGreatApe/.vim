@@ -7,12 +7,6 @@
 
 " Plugin Loading ---------------------- {{{
 runtime bundle/vim-pathogen/autoload/pathogen.vim
-
-" set runtimepath+=/usr/lib/python3.4/site-packages/powerline/bindings/vim
-" set fillchars+=stl:\ ,stlnc:\
-" python from powerline.vim import setup as powerline_setup
-" python powerline_setup()
-" python del powerline_setup
 execute pathogen#infect()
 " }}}
 
@@ -35,16 +29,6 @@ let g:airline_powerline_fonts = 1                   " Automatically populate g:a
 "
 " let g:airline_section_c = '%{strftime("%c")}'
 let g:airline_section_y = 'BN: %{bufnr("%")}'
-"
-let g:airline#extensions#ctrlp#color_template = 'visual'
-let g:airline#extensions#bufferline#enabled = 1     " bufferline
-
-let g:airline#extensions#tabline#enabled = 1        " Smart tabline
-let g:airline#extensions#tabline#buffers_label = 'Buffers'
-let g:airline#extensions#tabline#buffer_nr_show = 0
-let airline#extensions#tabline#disable_refresh = 0
-
-let g:airline#extensions#tmuxline#enabled = 0
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -56,6 +40,14 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.paste = 'ρ'
+
+let g:airline#extensions#ctrlp#color_template = 'visual'
+let g:airline#extensions#bufferline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffers_label = 'Buffers'
+let g:airline#extensions#tabline#buffer_nr_show = 0
+let airline#extensions#tabline#disable_refresh = 0
+let g:airline#extensions#tmuxline#enabled = 0
 " }}}
 
 " Better Whitespace Settings ---------------------- {{{
@@ -66,21 +58,8 @@ augroup END
 " }}}
 
 " NERDTree Settings ---------------------- {{{
-" augroup nerdtree
-"     autocmd!
-"     " Start NERDTree automatically
-"     autocmd vimenter * NERDTreeToggle
-"     " (even when no file is specified)
-"     autocmd StdinReadPre * let s:std_in=1
-"     autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"     " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" augroup END
-
 noremap <Leader>N :NERDTreeToggle<CR>
 noremap <Leader>n :NERDTreeTabsToggle<CR>
-
-
-" let g:nerdtree_tabs_open_on_console_startup = 1
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
 let g:NERDTreeWinSize = 25
@@ -99,14 +78,6 @@ let g:NERDTreeIndicatorMapCustom = {
 " }}}
 
 " Buffergator Settings ---------------------- {{{
-" augroup buffergator
-"     autocmd!
-"     " Start Buffergator when vim starts
-"     autocmd vimenter * BuffergatorToggle
-"     " Go to the window on the right
-"     autocmd VimEnter * wincmd l
-" augroup END
-
 nnoremap <Leader>b <C-w>t:BuffergatorToggle<CR><C-w>l
 
 let g:buffergator_viewport_split_policy="b"
@@ -138,10 +109,6 @@ augroup END
 let g:HardMode_hardmodeMsg = "Bring it!"
 let g:HardMode_easymodeMsg = "Wuss!"
 nnoremap <Leader>h <Esc>:call ToggleHardMode()<CR>
-" augroup hardmode
-"     autocmd!
-"     autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-" augroup END
 " }}}
 
 " Scratch Settigns ------------------------ {{{
@@ -161,11 +128,24 @@ let g:gundo_preview_bottom = 1
 " }}}
 
 " Gist vim Settings ------------------------{{{
-" case insensitive :P
 cabbrev gist Gist
 let g:gist_clip_command = 'xclip -selection clipboard'  " -c option puts it on clipboard
 let g:gist_detect_filetype = 1                          " Detect filetype from filename
 let g:gist_open_browser_after_post = 1                  " open browser after post
 let g:gist_show_privates = 1                            " :Gist -l shows private gists
 let g:gist_post_private = 1                             " gists are private by default
+" }}}
+
+" Incsearch.vim {{{
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+let g:incsearch#auto_nohlsearch = 1
+
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
 " }}}
