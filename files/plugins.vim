@@ -142,10 +142,10 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 let g:incsearch#auto_nohlsearch = 1
 
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
+map n  <Plug>(incsearch-nohl-n) zz :set hlsearch<CR>
+map N  <Plug>(incsearch-nohl-N) zz :set hlsearch<CR>
+map *  <Plug>(incsearch-nohl-*) zz :set hlsearch<CR>
+map #  <Plug>(incsearch-nohl-#) zz :set hlsearch<CR>
+map g* <Plug>(incsearch-nohl-g*) zz :set hlsearch<CR>
+map g# <Plug>(incsearch-nohl-g#) zz :set hlsearch<CR>
 " }}}

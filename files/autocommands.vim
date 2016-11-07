@@ -62,3 +62,10 @@ augroup rnu_focus_change
     autocmd InsertLeave * :set relativenumber
 augroup END
 " }}}
+
+" Detect file modified elserwere ----------------{{{
+augroup prompt_file_reload
+    autocmd!
+    autocmd CursorHold, checktime
+augroup END
+" }}}

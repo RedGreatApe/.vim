@@ -22,7 +22,6 @@ set relativenumber                  " show line number relative to current line
 set ruler                           " show cursor position in status bar
 set scrolloff=3                     " 2 lines above/below cursor when scrolling
 set showcmd                         " show typed command in status bar
-set showmode                        " show mode in status bar (insert/replace/...)
 set showtabline=2                   " Always show tab bar       (top)
 set sidescroll=1                    " Minimum number of columns to scroll horizontally
 set sidescrolloff=5                 " 5 characters before cursor when scrolling
@@ -46,7 +45,6 @@ let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 " Editor Settings ----------------------- {{{
 set esckeys                         " map missed escape sequences (enables keypad keys)
 set formatoptions=qn1               " format options (I use them on <leader>fo ) (removed r, annyoing on comments)
-set gdefault                        " Always global substitutions
 set hlsearch                        " Highlight all matches in file when performing search
 set ignorecase                      " case insensitive searching
 set incsearch                       " Highlight the next match while still typing the pattern
