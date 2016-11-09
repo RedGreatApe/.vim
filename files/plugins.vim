@@ -42,12 +42,10 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.paste = 'ρ'
 
 let g:airline#extensions#ctrlp#color_template = 'visual'
-let g:airline#extensions#bufferline#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffers_label = 'Buffers'
 let g:airline#extensions#tabline#buffer_nr_show = 0
 let airline#extensions#tabline#disable_refresh = 0
-let g:airline#extensions#tmuxline#enabled = 0
 " }}}
 
 " Better Whitespace Settings ---------------------- {{{
@@ -116,7 +114,7 @@ let g:scratch_height = 0.2
 let g:scratch_persistence_file = '~/Stuff/vimtmp/scratch.vim'
 let g:scratch_insert_autohide = 0
 
-nnoremap <Leader>gs :Scratch<CR>
+nnoremap <Leader>sc :Scratch<CR>
 " }}}
 
 " Gundo Settings -------------------------- {{{

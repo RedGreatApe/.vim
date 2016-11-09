@@ -141,3 +141,10 @@ endfunction
 nnoremap <Leader>man :read !man<space>
 " Format all the text (perfect for manpages)
 nnoremap <Leader>fo gggqGgg
+
+" Map <leader>g to do a grep of the WORD under cursor,
+" :silent execute is to avoid vim output
+" grep! to not jump to first result
+" :copen opens result in quickfix
+" <C-l> redraws window
+" nnoremap <Leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR><C-l>

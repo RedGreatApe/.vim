@@ -64,8 +64,8 @@ augroup END
 " }}}
 
 " Detect file modified elserwere ----------------{{{
-augroup prompt_file_reload
-    autocmd!
-    autocmd CursorHold, checktime
-augroup END
+" augroup prompt_file_reload
+"     autocmd!
+"     autocmd CursorHold checktime
+" augroup END
 " }}}

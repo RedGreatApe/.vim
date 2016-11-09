@@ -1,7 +1,3 @@
-[submodule "ack"]
-    path = bundle/ack.vim
-    url = git://github.com/mileszs/ack.vim
-
 [submodule "badwolf"]
     path = bundle/badwolf
     url = git://github.com/sjl/badwolf
@@ -17,10 +13,6 @@
 [submodule "gundo"]
     path = bundle/gundo.vim
     url = git://github.com/sjl/gundo.vim
-
-[submodule "hardmode"]
-    path = bundle/hardmode
-    url = git://github.com/wikitopian/hardmode
 
 [submodule "nerdtree"]
     path = bundle/nerdtree
@@ -62,14 +54,6 @@
     path = bundle/vim-pathogen
     url = git://github.com/tpope/vim-pathogen
 
-[submodule "vim-perl"]
-    path = bundle/vim-perl
-    url = git://github.com/vim-perl/vim-perl
-
-[submodule "vim-perl6"]
-    path = bundle/vim-perl6
-    url = git://github.com/vim-perl/vim-perl6
-
 [submodule "vim-repeat"]
     path = bundle/vim-repeat
     url = git://github.com/tpope/vim-repeat
@@ -90,17 +74,9 @@
     path = bundle/webapi-vim
     url = git://github.com/mattn/webapi-vim
 
-[submodule "tmux-airline"]
-    path = bundle/tmux-airline
-    url = git://github.com/edkolev/tmuxline.vim
-
 [submodule "incsearch"]
     path = bundle/incsearch.vim
     url = git://github.com/haya14busa/incsearch.vim
-
-[submodule "vim-bufferline"]
-    path = bundle/vim-bufferline
-    url = git://github.com/bling/vim-bufferline
 
 [submodule "vim-tmux"]
     path = bundle/vim-tmux
