@@ -16,10 +16,6 @@ let g:badwolf_darkgutter = 1          " Make the gutters darker than the backgro
 let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting
 " }}}
 
-" Bufferline Settings ---------------------- {{{
-let g:bufferline_echo=0
-" }}}
-
 " Airline Settings ---------------------- {{{
 let g:airline_detect_modified=1                     " Detects if file has been modified
 let g:airline_detect_paste=1                        " Detects if set paste is enabled
@@ -46,6 +42,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffers_label = 'Buffers'
 let g:airline#extensions#tabline#buffer_nr_show = 0
 let airline#extensions#tabline#disable_refresh = 0
+let g:airline#extensions#bufferline#enabled = 0
+" need this one anyways
+let g:bufferline_echo=0
 " }}}
 
 " Better Whitespace Settings ---------------------- {{{
