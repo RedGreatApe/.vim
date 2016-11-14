@@ -55,8 +55,8 @@ augroup END
 " }}}
 
 " NERDTree Settings ---------------------- {{{
-noremap <Leader>N :NERDTreeToggle<CR>
-noremap <Leader>n :NERDTreeTabsToggle<CR>
+noremap <Leader>D :NERDTreeToggle<CR>
+noremap <Leader>d :NERDTreeTabsToggle<CR>
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
 let g:NERDTreeWinSize = 25
@@ -91,7 +91,8 @@ nnoremap <Leader>p :CtrlPBuffer<CR>
 
 " Startify Settings ---------------------- {{{
 " New split (horizontal) with Startify in it
-noremap <C-n> <C-w>v:Startify<CR>
+noremap <Leader>n :Startify<CR>
+noremap <Leader>N <C-w>v:Startify<CR>
 
 augroup startify
     autocmd!

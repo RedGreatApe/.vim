@@ -98,7 +98,7 @@ inoremap kj <Esc>
 " undo and carriage return
 inoremap <cr> <C-g>u<cr>
 
-nnoremap <leader>ev :args ~/.vimrc ~/.vim/files/*<cr>
+nnoremap <leader>ev :args $MYVIMRC ~/.vim/files/*<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 " }}}
 
