@@ -102,12 +102,6 @@ augroup startify
 augroup END
 " }}}
 
-" Hard Mode Settings ---------------------- {{{
-let g:HardMode_hardmodeMsg = "Bring it!"
-let g:HardMode_easymodeMsg = "Wuss!"
-nnoremap <Leader>h <Esc>:call ToggleHardMode()<CR>
-" }}}
-
 " Scratch Settigns ------------------------ {{{
 let g:scratch_height = 0.2
 let g:scratch_persistence_file = '~/Stuff/vimtmp/scratch.vim'

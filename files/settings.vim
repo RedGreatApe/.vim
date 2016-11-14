@@ -90,17 +90,3 @@ set mousehide               " hide when characters are typed
 " else
 "     set ttymouse=xterm2
 " end
-
-                            " change the cursor shape depending on mode
-                            " see: http://vim.wikia.com/wiki/Change_cursor_shape_in_different_modes
-                            " Does not seem to work anymore (in terminal)
-if exists('$TMUX')
-  let &t_SI  = "\<Esc>Ptmux;\<Esc>\<Esc>]50;"
-  let &t_SI .= "CursorShape=1\x7\<Esc>\\"
-  let &t_EI  = "\<Esc>Ptmux;\<Esc>\<Esc>]50;"
-  let &t_EI .= "CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-" }}}
