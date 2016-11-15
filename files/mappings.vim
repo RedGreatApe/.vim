@@ -22,15 +22,7 @@ nnoremap <right> <NOP>
 " }}}
 
 " Toggle Relativenumber ----------------- {{{
-function! NumberToggle()
-    if(&relativenumber == 1)
-        set norelativenumber
-    else
-        set relativenumber
-    endif
-endfunc
-
-nnoremap <Leader>rn :call NumberToggle()<cr>
+nnoremap <Leader>rn :setlocal relativenumber!<cr>
 " }}}
 
 " Toggle ColorColumn ---------------------- {{{
