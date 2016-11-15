@@ -141,3 +141,8 @@ map #  <Plug>(incsearch-nohl-#) zz :set hlsearch<CR>
 map g* <Plug>(incsearch-nohl-g*) zz :set hlsearch<CR>
 map g# <Plug>(incsearch-nohl-g#) zz :set hlsearch<CR>
 " }}}
+
+" Vim Task {{{
+nnoremap <silent> <buffer> <leader>cl :call Toggle_task_status()<CR>
+imap <silent> <buffer> <leader>cl <C-o><leader>cl
+" }}}

@@ -58,3 +58,9 @@
 [submodule "bundle/incsearch"]
 	path = bundle/incsearch
 	url = git://github.com/haya14busa/incsearch.vim
+[submodule "bundle/task"]
+	path = bundle/task
+	url = git://github.com/samsonw/vim-task
+[submodule "bundle/sneak"]
+	path = bundle/sneak
+	url = git://github.com/justinmk/vim-sneak
