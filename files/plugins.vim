@@ -8,6 +8,7 @@
 " Plugin Loading ---------------------- {{{
 runtime bundle/pathogen/autoload/pathogen.vim
 execute pathogen#infect()
+filetype plugin on
 " }}}
 
 " Badwolf settings ---------------------- {{{

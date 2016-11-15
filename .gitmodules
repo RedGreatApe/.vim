@@ -64,3 +64,6 @@
 [submodule "bundle/sneak"]
 	path = bundle/sneak
 	url = git://github.com/justinmk/vim-sneak
+[submodule "/home/rd/.vim/bundle/terminus"]
+	path = /home/rd/.vim/bundle/terminus
+	url = git://github.com/wincent/terminus

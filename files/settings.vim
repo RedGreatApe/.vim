@@ -68,7 +68,7 @@ set splitright                      " New split to the right
 
 set suffixesadd+=.pl,.pm,pl6,pm6    " For openning perl files with gf
 set encoding=utf-8                  " Self explanatory
-syntax enable                       " Switch syntax highlighting on
+syntax on                           " Switch syntax highlighting on
 " }}}
 
 " System Settings  ---------------------- {{{
