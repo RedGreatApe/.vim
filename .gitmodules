@@ -3,81 +3,81 @@
     url = git://github.com/sjl/badwolf
 
 [submodule "ctrlp"]
-    path = bundle/ctrlp.vim
+    path = bundle/ctrlp
     url = git://github.com/ctrlpvim/ctrlp.vim
 
-[submodule "gist-vim"]
-    path = bundle/gist-vim
+[submodule "gist"]
+    path = bundle/gist
     url = git://github.com/mattn/gist-vim
 
 [submodule "gundo"]
-    path = bundle/gundo.vim
+    path = bundle/gundo
     url = git://github.com/sjl/gundo.vim
 
 [submodule "nerdtree"]
     path = bundle/nerdtree
     url = git://github.com/scrooloose/nerdtree
 
-[submodule "nerdtree-git-plugin"]
-    path = bundle/nerdtree-git-plugin
+[submodule "nerdtree-git"]
+    path = bundle/nerdtree-git
     url = git://github.com/Xuyuanp/nerdtree-git-plugin
 
 [submodule "supertab"]
     path = bundle/supertab
     url = git://github.com/ervandew/supertab
 
-[submodule "vim-airline"]
-    path = bundle/vim-airline
+[submodule "airline"]
+    path = bundle/airline
     url = git://github.com/vim-airline/vim-airline
 
-[submodule "vim-airline-themes"]
-    path = bundle/vim-airline-themes
+[submodule "airline-themes"]
+    path = bundle/airline-themes
     url = git://github.com/vim-airline/vim-airline-themes
 
-[submodule "vim-better-whitespace"]
-    path = bundle/vim-better-whitespace
+[submodule "better-whitespace"]
+    path = bundle/better-whitespace
     url = git://github.com/ntpeters/vim-better-whitespace
 
-[submodule "vim-buffergator"]
-    path = bundle/vim-buffergator
+[submodule "buffergator"]
+    path = bundle/buffergator
     url = git://github.com/jeetsukumaran/vim-buffergator
 
-[submodule "vim-fugitive"]
-    path = bundle/vim-fugitive
+[submodule "fugitive"]
+    path = bundle/fugitive
     url = git://github.com/tpope/vim-fugitive
 
-[submodule "vim-nerdtree-tabs"]
-    path = bundle/vim-nerdtree-tabs
+[submodule "nerdtree-tabs"]
+    path = bundle/nerdtree-tabs
     url = git://github.com/jistr/vim-nerdtree-tabs
 
-[submodule "vim-pathogen"]
-    path = bundle/vim-pathogen
+[submodule "pathogen"]
+    path = bundle/pathogen
     url = git://github.com/tpope/vim-pathogen
 
-[submodule "vim-repeat"]
-    path = bundle/vim-repeat
+[submodule "repeat"]
+    path = bundle/repeat
     url = git://github.com/tpope/vim-repeat
 
-[submodule "scratch.vim"]
-    path = bundle/scratch.vim
+[submodule "scratch"]
+    path = bundle/scratch
     url = git://github.com/mtth/scratch.vim
 
-[submodule "vim-startify"]
-    path = bundle/vim-startify
+[submodule "startify"]
+    path = bundle/startify
     url = git://github.com/mhinz/vim-startify
 
-[submodule "vim-surround"]
-    path = bundle/vim-surround
+[submodule "surround"]
+    path = bundle/surround
     url = git://github.com/tpope/vim-surround
 
-[submodule "webapi-vim"]
-    path = bundle/webapi-vim
+[submodule "webapi"]
+    path = bundle/webapi
     url = git://github.com/mattn/webapi-vim
 
 [submodule "incsearch"]
-    path = bundle/incsearch.vim
+    path = bundle/incsearch
     url = git://github.com/haya14busa/incsearch.vim
 
-[submodule "vim-tmux"]
-    path = bundle/vim-tmux
+[submodule "tmux"]
+    path = bundle/tmux
     url = git://github.com/bling/vim-bufferline
