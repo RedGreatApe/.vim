@@ -58,3 +58,6 @@
 [submodule "bundle/vinegar"]
 	path = bundle/vinegar
 	url = git://github.com/tpope/vim-vinegar
+[submodule "bundle/terminus"]
+	path = bundle/terminus
+	url = git://github.com/wincent/terminus
