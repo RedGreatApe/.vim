@@ -13,7 +13,7 @@
 
 
 set nocompatible            " use vim-defaults instead of vi-defaults
-let mapleader="-"           " Leader mapping
+let mapleader="ß"           " Leader mapping
 
 " Sources ------------------------------- {{{
 source ~/.vim/files/settings.vim

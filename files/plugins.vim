@@ -56,23 +56,23 @@ augroup END
 " }}}
 
 " NERDTree Settings ---------------------- {{{
-noremap <Leader>D :NERDTreeToggle<CR>
-noremap <Leader>d :NERDTreeTabsToggle<CR>
-let g:nerdtree_tabs_open_on_gui_startup = 0
-
-let g:NERDTreeWinSize = 25
-let g:NERDTreeMouseMode = 1
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
+" noremap <Leader>D :NERDTreeToggle<CR>
+" noremap <Leader>d :NERDTreeTabsToggle<CR>
+" let g:nerdtree_tabs_open_on_gui_startup = 0
+"
+" let g:NERDTreeWinSize = 25
+" let g:NERDTreeMouseMode = 1
+" let g:NERDTreeIndicatorMapCustom = {
+"     \ "Modified"  : "✹",
+"     \ "Staged"    : "✚",
+"     \ "Untracked" : "✭",
+"     \ "Renamed"   : "➜",
+"     \ "Unmerged"  : "═",
+"     \ "Deleted"   : "✖",
+"     \ "Dirty"     : "✗",
+"     \ "Clean"     : "✔︎",
+"     \ "Unknown"   : "?"
+"     \ }
 " }}}
 
 " Buffergator Settings ---------------------- {{{
@@ -146,4 +146,8 @@ map g# <Plug>(incsearch-nohl-g#) zz :set hlsearch<CR>
 " Vim Task {{{
 nnoremap <silent> <buffer> <leader>cl :call Toggle_task_status()<CR>
 imap <silent> <buffer> <leader>cl <C-o><leader>cl
+" }}}
+
+" Vinegar Settings {{{
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 " }}}
