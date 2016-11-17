@@ -12,7 +12,7 @@ filetype plugin on
 " }}}
 
 " Badwolf settings ---------------------- {{{
-colorscheme badwolf
+colorscheme alduin
 let g:badwolf_darkgutter = 1          " Make the gutters darker than the background.
 let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting
 " }}}
@@ -150,4 +150,8 @@ imap <silent> <buffer> <leader>cl <C-o><leader>cl
 
 " Vinegar Settings {{{
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+" }}}
+
+" Terminus Settings {{{
+let g:TerminusFocusReporting = 0
 " }}}

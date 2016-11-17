@@ -67,6 +67,7 @@ nnoremap <C-l> <C-w>l
 
 nnoremap <silent> <Left> :bprevious<CR>
 nnoremap <silent> <Right> :bnext<CR>
+nnoremap <silent> gb :bnext<CR>
 nnoremap <silent> <Up> :tabprevious<CR>
 nnoremap <silent> <Down> :tabnext<CR>
 " Do not skip wrapped lines
@@ -85,8 +86,9 @@ cnoremap <expr> sudow 'w !sudo tee % > /dev/null'
 
 " Editing {{{
 nnoremap Y y$
-inoremap jk <Esc>
-inoremap kj <Esc>
+" commented since caps-lock-key is now ESC and Ctrl
+" inoremap jk <Esc>
+" inoremap kj <Esc>
 " undo and carriage return
 inoremap <cr> <C-g>u<cr>
 
