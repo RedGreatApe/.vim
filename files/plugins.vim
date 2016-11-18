@@ -155,3 +155,8 @@ let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 " Terminus Settings {{{
 let g:TerminusFocusReporting = 0
 " }}}
+
+" Matchit Settings {{{
+packadd! matchit
+let b:match_ignorecase = 1
+" }}}
