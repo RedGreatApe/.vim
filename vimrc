@@ -1,3 +1,9 @@
+"=============================================================================
+" Description: RedGreatApe's vimrc
+" Author: RedGreatApe
+" Really: René De Alvarado
+" URL: https://github.com/redgreatape/.vim
+"=============================================================================
 "                              _
 "                       __   _(_)_ __ ___  _ __ ___
 "                       \ \ / / | '_ ` _ \| '__/ __|
@@ -12,7 +18,7 @@
 "                                                         |___/
 
 
-set nocompatible            " use vim-defaults instead of vi-defaults
+if &compatible | set nocompatible | endif
 let g:mapleader="ß"           " Leader mapping
 
 " Sources ------------------------------- {{{
@@ -20,6 +26,9 @@ source ~/.vim/files/settings.vim
 source ~/.vim/files/abbreviations.vim
 source ~/.vim/files/autocommands.vim
 source ~/.vim/files/mappings.vim
+if has("nvim")
+    source ~/.vim/files/neovim.vim
+endif
 source ~/.vim/files/plugins.vim
 " }}}
 

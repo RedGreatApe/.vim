@@ -10,7 +10,7 @@ set t_ut=                           " fixes the drawing issue while using tmux (
 set cmdheight=2                     " Command line height
 set cursorline                      " Highlight current line
 set cursorcolumn                    " Highlight current column
-" set display+=lastline               " show the last line that fits in window
+set display+=lastline               " show the last line that fits in window
 set laststatus=2                    " Always show the status bar
 set list                            " Display invisible characters as:
 set listchars=tab:▸\                " Tabs as ▸\\\\
@@ -20,7 +20,7 @@ set matchtime=2                     " show matching bracket for 0.2 seconds
 set number                          " show line numbers
 set relativenumber                  " show line number relative to current line
 set ruler                           " show cursor position in status bar
-set scrolloff=3                     " 2 lines above/below cursor when scrolling
+set scrolloff=1                     " 2 lines above/below cursor when scrolling
 set showcmd                         " show typed command in status bar
 set showtabline=2                   " Always show tab bar       (top)
 set sidescroll=1                    " Minimum number of columns to scroll horizontally
@@ -31,9 +31,11 @@ set wildignore+=*.o,*.obj,*.bak     " Files matching these patterns
 set wildignore+=*.exe,*.py[co]      " will be ignored when expanding wildcards
 set wildignore+=*.swp,*~,*.pyc,.svn
 set wildmenu                        " completion with menu
+set wildmode=longest,full
 set nofoldenable                    " Do not fold by default
 set noshowmode                      " Vim displays mode (if in Insert, or Visual, etc), disable this
 
+" gvim minimal interface
 set guioptions-=m                   " remove the menubar in gVim
 set guioptions-=r                   " remove the right scrollbar in gVim
 set guioptions-=L                   " remove the left scrollbar in gVim

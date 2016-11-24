@@ -68,6 +68,7 @@ nnoremap <C-l> <C-w>l
 nnoremap <silent> <Left> :bprevious<CR>
 nnoremap <silent> <Right> :bnext<CR>
 nnoremap <silent> gb :bnext<CR>
+nnoremap <silent> bg :bnext<CR>
 nnoremap <silent> <Up> :tabprevious<CR>
 nnoremap <silent> <Down> :tabnext<CR>
 " Do not skip wrapped lines
@@ -82,6 +83,12 @@ nnoremap <Leader>s :split<CR>
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <expr> sudow 'w !sudo tee % > /dev/null'
+
+
+" Command line History {{{
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+" }}}
 " }}}
 
 " Editing {{{
@@ -107,14 +114,14 @@ nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
 " }}}
 
 " auto center {{{
-"nnoremap <silent> n nzz
-"nnoremap <silent> N Nzz
-"nnoremap <silent> * *zz
-"nnoremap <silent> # #zz
-"nnoremap <silent> g* g*zz
-"nnoremap <silent> g# g#zz
-"nnoremap <silent> <C-o> <C-o>zz
-"nnoremap <silent> <C-i> <C-i>zz
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+nnoremap <silent> g# g#zz
+nnoremap <silent> <C-o> <C-o>zz
+nnoremap <silent> <C-i> <C-i>zz
 " }}}
 
 " Visual Star {{{
@@ -142,3 +149,14 @@ nnoremap <Leader>fo gggqGgg
 " :copen opens result in quickfix
 " <C-l> redraws window
 " nnoremap <Leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR><C-l>
+
+
+" Repeat on every line {{{
+" repeat last command for each line of a visual selection
+vnoremap . :normal .<CR>
+" replay @q macro for each line of a visual selection
+vnoremap @q :normal @q<CR>
+"}}}
+
+" Don't use register by x
+nnoremap x "_x

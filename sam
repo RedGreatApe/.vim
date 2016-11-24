@@ -1,9 +1,0 @@
-#!/bin/bash
-tmux has-session -t RD
-if [ $? != 0 ]
-then
-    st -t Samuel -e tmuxinator.ruby2.1 start RD
-else
-    st -t Samuel -e tmux attach
-fi
-

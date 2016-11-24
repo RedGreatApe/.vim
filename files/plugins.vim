@@ -11,10 +11,15 @@ execute pathogen#infect()
 filetype plugin on
 " }}}
 
-" Badwolf settings ---------------------- {{{
-colorscheme alduin
-let g:badwolf_darkgutter = 1          " Make the gutters darker than the background.
-let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting
+" Colorscheme settings ---------------------- {{{
+"    currently Alduin
+let g:alduin_Shout_Become_Ethereal = 0   " black background
+let g:alduin_Contract_Vampirism = 0      " gray to black @ 5pm
+let g:alduin_Shout_Aura_Whisper = 0      " underline matching parens
+let g:alduin_Shout_Fire_Breath = 0       " adds dark red color
+let g:alduin_Shout_Animal_Allegiance = 0 " removes background from Strings
+let g:alduin_Shout_Clear_Skies = 0       " removes cursorline
+colorscheme alduin                       " dark gray background
 " }}}
 
 " Airline Settings ---------------------- {{{
@@ -55,37 +60,6 @@ augroup betterwhitespace
 augroup END
 " }}}
 
-" NERDTree Settings ---------------------- {{{
-" noremap <Leader>D :NERDTreeToggle<CR>
-" noremap <Leader>d :NERDTreeTabsToggle<CR>
-" let g:nerdtree_tabs_open_on_gui_startup = 0
-"
-" let g:NERDTreeWinSize = 25
-" let g:NERDTreeMouseMode = 1
-" let g:NERDTreeIndicatorMapCustom = {
-"     \ "Modified"  : "✹",
-"     \ "Staged"    : "✚",
-"     \ "Untracked" : "✭",
-"     \ "Renamed"   : "➜",
-"     \ "Unmerged"  : "═",
-"     \ "Deleted"   : "✖",
-"     \ "Dirty"     : "✗",
-"     \ "Clean"     : "✔︎",
-"     \ "Unknown"   : "?"
-"     \ }
-" }}}
-
-" Buffergator Settings ---------------------- {{{
-nnoremap <Leader>b <C-w>t:BuffergatorToggle<CR><C-w>l
-
-let g:buffergator_viewport_split_policy="b"
-let g:buffergator_split_hsize=5
-let g:buffergator_split_vsize=5
-let g:buffergator_autoupdate=1
-let g:buffergator_show_full_directory_path = 0
-let g:buffergator_suppress_keymaps = 1
-" }}}
-
 " CtrlP Settings ---------------------- {{{
 nnoremap <Leader>p :CtrlPBuffer<CR>
 " }}}
@@ -104,59 +78,25 @@ augroup startify
 augroup END
 " }}}
 
-" Scratch Settigns ------------------------ {{{
-let g:scratch_height = 0.2
-let g:scratch_persistence_file = '~/Stuff/vimtmp/scratch.vim'
-let g:scratch_insert_autohide = 0
+" Undotree Settings {{{
+nnoremap <silent> <F5> :UndotreeToggle<CR>
+nnoremap <silent> <F6> :UndotreeFocus<CR>
+let g:undotree_WindowLayout = 4
+let g:undotree_SetFocusWhenToggle = 0
+let g:undotree_RelativeTimestamp = 1
+let g:undotree_HighlightChangedText = 1
 
-nnoremap <Leader>sc :Scratch<CR>
-" }}}
-
-" Gundo Settings -------------------------- {{{
-nnoremap <F5> :GundoToggle<CR>
-let g:gundo_width = 30
-let g:gundo_preview_height = 20
-let g:gundo_right = 1
-let g:gundo_preview_bottom = 1
-" }}}
-
-" Gist vim Settings ------------------------{{{
-cabbrev gist Gist
-let g:gist_clip_command = 'xclip -selection clipboard'  " -c option puts it on clipboard
-let g:gist_detect_filetype = 1                          " Detect filetype from filename
-let g:gist_open_browser_after_post = 1                  " open browser after post
-let g:gist_show_privates = 1                            " :Gist -l shows private gists
-let g:gist_post_private = 1                             " gists are private by default
-" }}}
-
-" Incsearch.vim {{{
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-let g:incsearch#auto_nohlsearch = 1
-
-map n  <Plug>(incsearch-nohl-n) zz :set hlsearch<CR>
-map N  <Plug>(incsearch-nohl-N) zz :set hlsearch<CR>
-map *  <Plug>(incsearch-nohl-*) zz :set hlsearch<CR>
-map #  <Plug>(incsearch-nohl-#) zz :set hlsearch<CR>
-map g* <Plug>(incsearch-nohl-g*) zz :set hlsearch<CR>
-map g# <Plug>(incsearch-nohl-g#) zz :set hlsearch<CR>
-" }}}
-
-" Vim Task {{{
-nnoremap <silent> <buffer> <leader>cl :call Toggle_task_status()<CR>
-imap <silent> <buffer> <leader>cl <C-o><leader>cl
+function! g:Undotree_CustomMap()
+    nmap <buffer> k <plug>UndotreeGoNextState
+    nmap <buffer> j <plug>UndotreeGoPreviousState
+endfunc
 " }}}
 
 " Vinegar Settings {{{
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 " }}}
 
-" Terminus Settings {{{
-let g:TerminusFocusReporting = 0
-" }}}
-
 " Matchit Settings {{{
-packadd! matchit
-let b:match_ignorecase = 1
+" packadd! matchit
+" let b:match_ignorecase = 1
 " }}}
