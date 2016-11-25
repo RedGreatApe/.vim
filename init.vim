@@ -89,12 +89,13 @@ call dein#begin('/home/rd/.config/nvim/dein.vim')
     call dein#add('Townk/vim-autoclose')
     call dein#add('ntpeters/vim-better-whitespace')
     call dein#add('ctrlpvim/ctrlp.vim')
-    call dein#add('tpope/vim-repeat')
     call dein#add('justinmk/vim-sneak')
     call dein#add('mhinz/vim-startify')
     call dein#add('tpope/vim-surround')
-    call dein#add('mbbill/undotree')
+    call dein#add('tpope/vim-repeat')
     call dein#add('tpope/vim-vinegar')
+    call dein#add('mbbill/undotree')
+    call dein#add('vim-perl/vim-perl')
     " call dein#add('')
 call dein#end()
 filetype plugin indent on
@@ -276,9 +277,28 @@ augroup END
 " }}}
 
 " Detect file modified elserwere {{{
-augroup filechanged
+augroup AutoSwap
     autocmd!
-    autocmd FileChangedShell * echom "Warning: File changed on disk"
+    autocmd SwapExists *  call AS_HandleSwapfile(expand('<afile>:p'), v:swapname)
+augroup END
+
+function! AS_HandleSwapfile (filename, swapname)
+    " if swapfile is older than file itself, just get rid of it
+    if getftime(v:swapname) < getftime(a:filename)
+        call delete(v:swapname)
+        let v:swapchoice = 'e'
+    endif
+endfunction
+autocmd BufWritePost,BufReadPost,BufLeave *
+            \ if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
+
+augroup checktime
+    autocmd!
+    if !has("gui_running")
+        "silent! necessary otherwise throws errors when using command
+        "line window.
+        autocmd BufEnter,CursorMoved,CursorMovedI,FocusGained,BufEnter,FocusLost,WinLeave * checktime
+    endif
 augroup END
 " }}}
 " }}}
