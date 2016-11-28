@@ -160,3 +160,7 @@ vnoremap @q :normal @q<CR>
 
 " Don't use register by x
 nnoremap x "_x
+
+" del key now works inside vim
+map <C-?> <del>
+map! <C-?> <del>

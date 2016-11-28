@@ -31,6 +31,10 @@ let g:mapleader="ß"
 " Terminal buffer size
 let g:terminal_scrollback_buffer_size = 100000
 
+" Cursor shape
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+
+
 set laststatus=2     " Always show the status bar
 set number           " show line numbers
 set relativenumber   " show line number relative to current line
@@ -83,18 +87,19 @@ call dein#begin('/home/rd/.config/nvim/dein.vim')
     call dein#add('Shougo/dein.vim')
 
     call dein#add('airblade/vim-gitgutter')
-    call dein#add('Shougo/deoplete.nvim')
-    call dein#add('vim-airline/vim-airline')
     call dein#add('AlessandroYorba/Alduin')
-    call dein#add('Townk/vim-autoclose')
-    call dein#add('ntpeters/vim-better-whitespace')
     call dein#add('ctrlpvim/ctrlp.vim')
     call dein#add('justinmk/vim-sneak')
-    call dein#add('mhinz/vim-startify')
-    call dein#add('tpope/vim-surround')
-    call dein#add('tpope/vim-repeat')
-    call dein#add('tpope/vim-vinegar')
     call dein#add('mbbill/undotree')
+    call dein#add('mhinz/vim-startify')
+    call dein#add('ntpeters/vim-better-whitespace')
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('Townk/vim-autoclose')
+    call dein#add('tpope/vim-repeat')
+    call dein#add('tpope/vim-surround')
+    call dein#add('tpope/vim-vinegar')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
     call dein#add('vim-perl/vim-perl')
     " call dein#add('')
 call dein#end()
@@ -122,7 +127,7 @@ colorscheme alduin                       " dark gray background
 let g:airline_detect_modified=1                     " Detects if file has been modified
 let g:airline_detect_paste=1                        " Detects if set paste is enabled
 let g:airline_inactive_collapse=1                   " Inactive windows dont show full path of file
-" let g:airline_theme='badwolf'                       " Airline theme
+let g:airline_theme='badwolf'                       " Airline theme
 let g:airline_powerline_fonts = 1                   " Automatically populate g:airline_symbols
 
 " let g:airline_section_c = '%{strftime("%c")}'
@@ -148,6 +153,20 @@ let airline#extensions#tabline#disable_refresh = 0
 
 " need this one anyways
 " let g:bufferline_echo=0
+let g:airline#extensions#capslock#enabled   = 0
+let g:airline#extensions#csv#enabled        = 0
+let g:airline#extensions#ctrlspace#enabled  = 0
+let g:airline#extensions#eclim#enabled      = 1
+let g:airline#extensions#hunks#enabled      = 0
+let g:airline#extensions#nrrwrgn#enabled    = 0
+let g:airline#extensions#promptline#enabled = 0
+let g:airline#extensions#syntastic#enabled  = 0
+let g:airline#extensions#taboo#enabled      = 0
+let g:airline#extensions#tagbar#enabled     = 0
+let g:airline#extensions#virtualenv#enabled = 0
+let g:airline#extensions#whitespace#enabled = 0
+
+
 " }}}
 
 " Better Whitespace Settings {{{
@@ -195,6 +214,7 @@ let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
 
 " deoplete {{{
 let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
@@ -236,6 +256,13 @@ augroup END
 "               |
 "               The "event" to watch for.
 
+augroup terminal_settings
+    autocmd!
+    autocmd BufEnter term://* startinsert
+    autocmd FileType terminal setlocal nonumber
+    autocmd FileType terminal setlocal norelativenumber
+augroup END
+
 " Syntax Settings {{{
 augroup syntax_helper
     autocmd!
@@ -254,8 +281,8 @@ augroup END
 augroup help_window
     autocmd!
     autocmd FileType help wincmd L                          " Open in most right vertical split
-    autocmd FileType help set number                        " With number
-    autocmd FileType help set relativenumber                " With relativenumber
+    autocmd FileType help setlocal number                        " With number
+    autocmd FileType help setlocal relativenumber                " With relativenumber
 augroup END
 " }}}
 
@@ -386,7 +413,6 @@ inoremap <A-j> <Esc><C-w>j
 inoremap <A-k> <Esc><C-w>k
 inoremap <A-h> <Esc><C-w>h
 inoremap <A-l> <Esc><C-w>l
-autocmd! BufEnter term://* startinsert
 " }}}
 
 " Command line History {{{
@@ -419,5 +445,9 @@ nnoremap <silent> <C-i> <C-i>zz
 
 " Don't use register by x
 nnoremap x "_x
+
+" Del key now works inside neovim
+map <F1> <del>
+map! <F1> <del>
 " }}}
 
