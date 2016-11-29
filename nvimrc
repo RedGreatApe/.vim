@@ -97,6 +97,7 @@ call dein#begin('/home/rd/.config/nvim/dein.vim')
     call dein#add('ntpeters/vim-better-whitespace')     " Better whitespace highlighting for vim
     call dein#add('Shougo/deoplete.nvim')               " Dark powered aasynchronouse completion framework for neovim
     call dein#add('tpope/vim-commentary')               " Comment stuff out
+    call dein#add('tpope/vim-fugitive')                 " A Git wrapper
     call dein#add('tpope/vim-repeat')                   " Enable repeating supported plugin maps with '.'
     call dein#add('tpope/vim-surround')                 " quoting/parenthesizing made simple
     call dein#add('tpope/vim-vinegar')                  " combine with netrw to create a delicious salad dressing
@@ -128,7 +129,7 @@ colorscheme alduin                       " dark gray background
 " Airline Settings {{{
 let g:airline_detect_modified=1                     " Detects if file has been modified
 let g:airline_detect_paste=1                        " Detects if set paste is enabled
-let g:airline_inactive_collapse=1                   " Inactive windows dont show full path of file
+let g:airline_inactive_collapse=0                   " Inactive windows dont show full path of file
 let g:airline_theme='badwolf'                       " Airline theme
 let g:airline_powerline_fonts = 1                   " Automatically populate g:airline_symbols
 
@@ -156,19 +157,19 @@ let g:airline#extensions#tabline#buffer_nr_show = 0
 let airline#extensions#tabline#disable_refresh = 0
 
 " disable unused extensions
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#hunks#enabled      = 0
 let g:airline#extensions#bufferline#enabled = 0
 let g:airline#extensions#capslock#enabled   = 0
 let g:airline#extensions#csv#enabled        = 0
 let g:airline#extensions#ctrlspace#enabled  = 0
 let g:airline#extensions#eclim#enabled      = 0
-let g:airline#extensions#hunks#enabled      = 0
 let g:airline#extensions#nrrwrgn#enabled    = 0
 let g:airline#extensions#promptline#enabled = 0
 let g:airline#extensions#syntastic#enabled  = 0
 let g:airline#extensions#taboo#enabled      = 0
 let g:airline#extensions#tagbar#enabled     = 0
 let g:airline#extensions#virtualenv#enabled = 0
-let g:airline#extensions#whitespace#enabled = 0
 
 " }}}
 
