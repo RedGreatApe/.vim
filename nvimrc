@@ -55,6 +55,7 @@ set softtabstop=4    " number of spaces in tab when editing
 set tabstop=4        " number of visual spaces per tab
 
 set ignorecase       " case insensitive searching
+set smartcase        " unless I use caps
 set incsearch        " Highlight the next match while still typing the pattern
 set pastetoggle=<F3> " Toggle set paste
 
@@ -70,6 +71,8 @@ set hidden           " able to hide modified buffers without saving
 set nobackup         " no backup~ files.
 set noswapfile       " Write swap and backup files
 set undofile         " keep an undo file (undo changes after closing)
+
+set inccommand=split " incremental command live feedback
 
 " highlight text after column 80  (81 inclusive)
 let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
