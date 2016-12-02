@@ -34,45 +34,45 @@ let g:terminal_scrollback_buffer_size = 100000
 " Cursor shape (bar when in insert mode)
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
+set laststatus=2       " Always show the status bar
+set number             " show line numbers
+set relativenumber     " show line number relative to current line
+set cursorline         " Highlight current line
+"set cursorcolumn       " Highlight current column
+set list               " Display invisible characters as:
+set listchars=tab:▸-   " Tabs as ▸----
+set listchars+=trail:· " Trailing space as ·
+set scrolloff=1        " 2 lines above/below cursor when scrolling
+set noshowmode         " Vim displays mode (if in Insert, or Visual, etc), disable this
 
-set laststatus=2     " Always show the status bar
-set number           " show line numbers
-set relativenumber   " show line number relative to current line
-set cursorline       " Highlight current line
-"set cursorcolumn     " Highlight current column
-set list             " Display invisible characters as:
-set listchars=tab:▸\ " Tabs as ▸\\\\
-set scrolloff=1      " 2 lines above/below cursor when scrolling
-set noshowmode       " Vim displays mode (if in Insert, or Visual, etc), disable this
+set cmdheight=2        " Command line height
+set showcmd            " show typed command in status bar
+set showtabline=2      " Always show tab bar       (top)
 
-set cmdheight=2      " Command line height
-set showcmd          " show typed command in status bar
-set showtabline=2    " Always show tab bar       (top)
+set expandtab          " turn a tabs into spaces
+set shiftwidth=4       " spaces for autoindents
+set softtabstop=4      " number of spaces in tab when editing
+set tabstop=4          " number of visual spaces per tab
 
-set expandtab        " turn a tabs into spaces
-set shiftwidth=4     " spaces for autoindents
-set softtabstop=4    " number of spaces in tab when editing
-set tabstop=4        " number of visual spaces per tab
+set ignorecase         " case insensitive searching
+set smartcase          " unless I use caps
+set incsearch          " Highlight the next match while still typing the pattern
+set pastetoggle=<F3>   " Toggle set paste
 
-set ignorecase       " case insensitive searching
-set smartcase        " unless I use caps
-set incsearch        " Highlight the next match while still typing the pattern
-set pastetoggle=<F3> " Toggle set paste
+set splitbelow         " New split below the current one
+set splitright         " New split to the right
 
-set splitbelow       " New split below the current one
-set splitright       " New split to the right
-
-syntax on            " Switch syntax highlighting on
+syntax on              " Switch syntax highlighting on
 set updatetime=250
 
-set noautoread       " together with :checktime (and set confirm), prompt to reload file
-set confirm          " get a dialog when :q, :w, or :wq fails
-set hidden           " able to hide modified buffers without saving
-set nobackup         " no backup~ files.
-set noswapfile       " Write swap and backup files
-set undofile         " keep an undo file (undo changes after closing)
+set noautoread         " together with :checktime (and set confirm), prompt to reload file
+set confirm            " get a dialog when :q, :w, or :wq fails
+set hidden             " able to hide modified buffers without saving
+set nobackup           " no backup~ files.
+set noswapfile         " Write swap and backup files
+set undofile           " keep an undo file (undo changes after closing)
 
-set inccommand=split " incremental command live feedback
+set inccommand=nosplit " incremental command live feedback
 
 " highlight text after column 80  (81 inclusive)
 let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
@@ -108,6 +108,7 @@ call dein#begin('/home/rd/.config/nvim/dein.vim')
     call dein#add('vim-airline/vim-airline-themes')     " A collection of themes for vim-airline
     call dein#add('vim-perl/vim-perl')                  " Support for Perl 5 and Perl 6 in Vim
     " call dein#add('')
+    " tyru/open-browser.vim
 call dein#end()
 filetype plugin indent on
 syntax enable
@@ -231,8 +232,8 @@ inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
 
 " , <Esc>: close popup and exit insert mode
-inoremap <expr> deoplete#smart_close_popup()."\<Esc>"
-inoremap <expr><Esc>  deoplete#smart_close_popup()."\<Esc>"
+inoremap <expr> deoplete#close_popup()."\<Esc>"
+inoremap <expr><Esc> deoplete#close_popup()."\<Esc>"
 
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
