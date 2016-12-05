@@ -427,7 +427,7 @@ noremap <Leader>N <C-w>v:Startify<CR>
 let g:startify_list_order         = [['    Most Recently Used Files.'], 'files',
                                    \ ['    Bookmarks'], 'bookmarks',
                                    \ ['    Sessions'], 'sessions']
-let g:startify_bookmarks          = [{'r': '~/Stuff/daily_routine'}, {'n': '~/.vim/nvimrc'}, {'t': '~/.vim/.tmux.conf'}]
+let g:startify_bookmarks          = [{'r': '~/Stuff/daily_routine'}, {'n': '~/.vim/nvimrc'}, {'t': '~/.vim/tmux.conf.local'}]
 let g:startify_files_number       = 15
 let g:startify_update_oldfiles    = 1
 let g:startify_change_to_dir      = 0
