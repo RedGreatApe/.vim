@@ -236,6 +236,9 @@ tmux_conf_theme_clock_style='24'
 ###    OVERRIDES   ###
 ######################
 
+set -g set-titles on
+set -g set-titles-string '#S ● #W'
+set-option -g default-terminal "screen-256color"
 set-option -g history-limit 100000
 # nvim cursor change
 set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
@@ -260,6 +263,14 @@ set-window-option -g mode-keys vi
 bind-key r source-file ~/.tmux.conf \; display "Configuration Reloaded!"
 
 # Pane navigation with Vi-like keys
+unbind-key M-h
+unbind-key M-j
+unbind-key M-k
+unbind-key M-l
+bind-key -r M-h select-pane -L
+bind-key -r M-j select-pane -D
+bind-key -r M-k select-pane -U
+bind-key -r M-l select-pane -R
 unbind-key h
 unbind-key j
 unbind-key k
@@ -338,8 +349,6 @@ unbind-key -T prefix '"'
 unbind-key -T prefix %
 bind-key -T prefix '"' choose-buffer
 
-#not working: use P
-###################
 bind-key Escape copy-mode
 bind-key p paste-buffer
 bind-key C-v run "tmux set-buffer \"$(xclip -o -selection clipboard)\"; tmux paste-buffer"

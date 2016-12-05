@@ -294,8 +294,8 @@ nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
 " auto center {{{
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
+nnoremap <silent> * *<c-o>zz
+nnoremap <silent> # #<c-o>zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 nnoremap <silent> <C-o> <C-o>zz
@@ -309,6 +309,25 @@ nnoremap x "_x
 " Del key now works inside neovim
 map <F1> <del>
 map! <F1> <del>
+
+
+" System clipboard interaction.  Mostly from:
+" https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+noremap <leader>y "+y
+noremap <leader>p :set paste<CR>"+p<CR>:set nopaste<CR>
+noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
+vnoremap <leader>y "+ygv
+
+" <m-j> and <m-k> to drag lines in any mode
+" noremap ∆ :m+<CR>
+" noremap ˚ :m-2<CR>
+" inoremap ∆ <Esc>:m+<CR>
+" inoremap ˚ <Esc>:m-2<CR>
+" vnoremap ∆ :m'>+<CR>gv
+" vnoremap ˚ :m-2<CR>gv
+
+nnoremap <leader>ls :buffers<CR>
+
 " }}}
 "              ____  _             _
 "             |  _ \| |_   _  __ _(_)_ __  ___
@@ -435,9 +454,9 @@ let g:startify_change_to_vcs_root = 1
 let g:startify_padding_left       = 4
 let g:startify_custom_indices     = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ]
 
-autocmd! User Startified setlocal cursorline
 autocmd! User Startified setlocal number
 autocmd! User Startified setlocal relativenumber
+autocmd! User Startified setlocal cursorline
 " }}}
 
 " Undotree Settings {{{
