@@ -40,7 +40,7 @@ set relativenumber     " show line number relative to current line
 set cursorline         " Highlight current line
 "set cursorcolumn       " Highlight current column
 set list               " Display invisible characters as:
-set listchars=tab:▸-   " Tabs as ▸----
+set listchars=tab:▸-   " Tabs as ▸---
 set listchars+=trail:· " Trailing space as ·
 set scrolloff=1        " 2 lines above/below cursor when scrolling
 set noshowmode         " Vim displays mode (if in Insert, or Visual, etc), disable this
@@ -76,171 +76,6 @@ set inccommand=nosplit " incremental command live feedback
 
 " highlight text after column 80  (81 inclusive)
 let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
-" }}}
-"              ____  _             _
-"             |  _ \| |_   _  __ _(_)_ __  ___
-"             | |_) | | | | |/ _` | | '_ \/ __|
-"             |  __/| | |_| | (_| | | | | \__ \
-"             |_|   |_|\__,_|\__, |_|_| |_|___/
-"                            |___/
-" {{{
-" Plugin Loading {{{
-" using dein.vim
-set runtimepath+=/home/rd/.config/nvim/dein.vim/repos/github.com/Shougo/dein.vim
-call dein#begin('/home/rd/.config/nvim/dein.vim')
-    call dein#add('Shougo/dein.vim')                    " dein.vim manages itself
-
-    call dein#add('airblade/vim-gitgutter')             " git diff symbols in gutter
-    call dein#add('AlessandroYorba/Alduin')             " colorscheme
-    call dein#add('ctrlpvim/ctrlp.vim')                 " Fuzzy file, buffer, mru, tag, etc finder
-    call dein#add('jiangmiao/auto-pairs')               " Insert or delete brackets/parens/etc in pairs
-    call dein#add('justinmk/vim-sneak')                 " The missing motion for Vim (f and t with two characters)
-    call dein#add('mbbill/undotree')                    " Undo tree history visualizer
-    call dein#add('mhinz/vim-startify')                 " The fancy start screen for vim
-    call dein#add('ntpeters/vim-better-whitespace')     " Better whitespace highlighting for vim
-    call dein#add('Shougo/deoplete.nvim')               " Dark powered aasynchronouse completion framework for neovim
-    call dein#add('tpope/vim-commentary')               " Comment stuff out
-    call dein#add('tpope/vim-fugitive')                 " A Git wrapper
-    call dein#add('tpope/vim-repeat')                   " Enable repeating supported plugin maps with '.'
-    call dein#add('tpope/vim-surround')                 " quoting/parenthesizing made simple
-    call dein#add('tpope/vim-vinegar')                  " combine with netrw to create a delicious salad dressing
-    call dein#add('vim-airline/vim-airline')            " Lean & mean status/tabline for vim that's light as air
-    call dein#add('vim-airline/vim-airline-themes')     " A collection of themes for vim-airline
-    call dein#add('vim-perl/vim-perl')                  " Support for Perl 5 and Perl 6 in Vim
-    " call dein#add('')
-    " tyru/open-browser.vim
-call dein#end()
-filetype plugin indent on
-syntax enable
-
-" Install not installed plugins on startup.
-if dein#check_install()
-    call dein#install()
-endif
-" }}}
-
-" Colorscheme settings {{{
-"    currently Alduin
-let g:alduin_Shout_Become_Ethereal = 0   " black background
-let g:alduin_Contract_Vampirism = 0      " gray to black @ 5pm
-let g:alduin_Shout_Aura_Whisper = 0      " underline matching parens
-let g:alduin_Shout_Fire_Breath = 0       " adds dark red color
-let g:alduin_Shout_Animal_Allegiance = 0 " removes background from Strings
-let g:alduin_Shout_Clear_Skies = 0       " removes cursorline
-colorscheme alduin                       " dark gray background
-" }}}
-
-" Airline Settings {{{
-let g:airline_detect_modified=1                     " Detects if file has been modified
-let g:airline_detect_paste=1                        " Detects if set paste is enabled
-let g:airline_inactive_collapse=0                   " Inactive windows dont show full path of file
-let g:airline_theme='badwolf'                       " Airline theme
-let g:airline_powerline_fonts = 1                   " Automatically populate g:airline_symbols
-
-" let g:airline_section_c = '%{strftime("%c")}'
-" show buffer number in airline
-let g:airline_section_y = 'BN: %{bufnr("%")}'
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" airline separators
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.paste = 'ρ'
-
-" some extensions settings
-let g:airline#extensions#ctrlp#color_template = 'visual'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffers_label = 'Buffers'
-let g:airline#extensions#tabline#buffer_nr_show = 0
-let airline#extensions#tabline#disable_refresh = 0
-
-" disable unused extensions
-let g:airline#extensions#whitespace#enabled = 1
-let g:airline#extensions#hunks#enabled      = 0
-let g:airline#extensions#bufferline#enabled = 0
-let g:airline#extensions#capslock#enabled   = 0
-let g:airline#extensions#csv#enabled        = 0
-let g:airline#extensions#ctrlspace#enabled  = 0
-let g:airline#extensions#eclim#enabled      = 0
-let g:airline#extensions#nrrwrgn#enabled    = 0
-let g:airline#extensions#promptline#enabled = 0
-let g:airline#extensions#syntastic#enabled  = 0
-let g:airline#extensions#taboo#enabled      = 0
-let g:airline#extensions#tagbar#enabled     = 0
-let g:airline#extensions#virtualenv#enabled = 0
-
-" }}}
-
-" Better Whitespace Settings {{{
-" Strip trailing whitespaces when saving
-augroup betterwhitespace
-    autocmd!
-    autocmd BufWritePre * StripWhitespace
-augroup END
-" }}}
-
-" CtrlP Settings {{{
-nnoremap <Leader>p :CtrlPBuffer<CR>
-" }}}
-
-" Startify Settings {{{
-noremap <Leader>n :Startify<CR>
-noremap <Leader>N <C-w>v:Startify<CR>
-
-augroup startify
-    autocmd!
-    " Start when no file is specified
-    autocmd StdinReadPre * let s:std_in=1
-    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | Startify | endif
-    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") ) | Startify | endif
-augroup END
-" }}}
-
-" Undotree Settings {{{
-nnoremap <silent> <F5> :UndotreeToggle<CR>
-nnoremap <silent> <F6> :UndotreeFocus<CR>
-let g:undotree_WindowLayout = 4
-let g:undotree_SetFocusWhenToggle = 0
-let g:undotree_RelativeTimestamp = 1
-let g:undotree_HighlightChangedText = 1
-
-" navigate the undotree with k and j
-function! g:Undotree_CustomMap()
-    nmap <buffer> k <plug>UndotreeGoNextState
-    nmap <buffer> j <plug>UndotreeGoPreviousState
-endfunc
-" }}}
-
-" Vinegar Settings {{{
-" hide hidden files
-let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-" }}}
-
-" deoplete {{{
-let g:deoplete#enable_at_startup = 1
-" use <Tab> to navigate the popup
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-
-" , <Esc>: close popup and exit insert mode
-inoremap <expr> deoplete#close_popup()."\<Esc>"
-inoremap <expr><Esc> deoplete#close_popup()."\<Esc>"
-
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
-" }}}
 " }}}
 "                 _    _     _                    _       _   _
 "                / \  | |__ | |__  _ __ _____   _(_) __ _| |_(_) ___  _ __  ___
@@ -290,9 +125,11 @@ augroup END
 
 " Vimscript file settings {{{
 " fold Vimscript files
+" high foldlevel needed for  za  to work
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType vim setlocal foldlevel=999
 augroup END
 " }}}
 
@@ -346,7 +183,8 @@ augroup checktime
     if !has("gui_running")
         "silent! necessary otherwise throws errors when using command
         "line window.
-        autocmd BufEnter,CursorMoved,CursorMovedI,FocusGained,BufEnter,FocusLost,WinLeave * checktime
+        autocmd BufEnter,CursorMoved,CursorMovedI * checktime
+        autocmd FocusGained,BufEnter,FocusLost,WinLeave * checktime
     endif
 augroup END
 " }}}
@@ -444,7 +282,7 @@ cnoremap <C-n> <Down>
 
 " Editing {{{
 nnoremap Y y$
-inoremap <cr> <C-g>u<cr>
+"inoremap <cr> <C-g>u<cr>
 
 nnoremap <leader>ev :args ~/.config/nvim/init.vim<cr>
                                 " ~/.config/nvim/files/*<cr>
@@ -472,4 +310,172 @@ nnoremap x "_x
 map <F1> <del>
 map! <F1> <del>
 " }}}
+"              ____  _             _
+"             |  _ \| |_   _  __ _(_)_ __  ___
+"             | |_) | | | | |/ _` | | '_ \/ __|
+"             |  __/| | |_| | (_| | | | | \__ \
+"             |_|   |_|\__,_|\__, |_|_| |_|___/
+"                            |___/
+" {{{
+" Plugin Loading {{{
+" using dein.vim
+set runtimepath+=/home/rd/.config/nvim/dein.vim/repos/github.com/Shougo/dein.vim
+call dein#begin('/home/rd/.config/nvim/dein.vim')
+    call dein#add('Shougo/dein.vim')                " dein.vim manages itself
 
+    call dein#add('airblade/vim-gitgutter')         " git diff symbols in gutter
+    call dein#add('AlessandroYorba/Alduin')         " colorscheme
+    call dein#add('ctrlpvim/ctrlp.vim')             " Fuzzy file, buffer, mru, tag, etc finder
+    call dein#add('jiangmiao/auto-pairs')           " Insert or delete brackets/parens/etc in pairs
+    call dein#add('justinmk/vim-sneak')             " The missing motion for Vim (f and t with two characters)
+    call dein#add('mbbill/undotree')                " Undo tree history visualizer
+    call dein#add('mhinz/vim-startify')             " The fancy start screen for vim
+    call dein#add('ntpeters/vim-better-whitespace') " Better whitespace highlighting for vim
+    call dein#add('Shougo/deoplete.nvim')           " Dark powered aasynchronouse completion framework for neovim
+    call dein#add('tpope/vim-commentary')           " Comment stuff out
+    call dein#add('tpope/vim-fugitive')             " A Git wrapper
+    call dein#add('tpope/vim-repeat')               " Enable repeating supported plugin maps with '.'
+    call dein#add('tpope/vim-surround')             " quoting/parenthesizing made simple
+    call dein#add('tpope/vim-vinegar')              " combine with netrw to create a delicious salad dressing
+    call dein#add('vim-airline/vim-airline')        " Lean & mean status/tabline for vim that's light as air
+    call dein#add('vim-airline/vim-airline-themes') " A collection of themes for vim-airline
+    " call dein#add('')
+    " tyru/open-browser.vim
+call dein#end()
+filetype plugin indent on
+syntax enable
+
+" Install not installed plugins on startup.
+if dein#check_install()
+    call dein#install()
+endif
+" }}}
+
+" Colorscheme settings {{{
+"    currently Alduin
+let g:alduin_Shout_Become_Ethereal   = 0 " black background
+let g:alduin_Contract_Vampirism      = 0 " gray to black @ 5pm
+let g:alduin_Shout_Aura_Whisper      = 0 " underline matching parens
+let g:alduin_Shout_Fire_Breath       = 0 " adds dark red color
+let g:alduin_Shout_Animal_Allegiance = 0 " removes background from Strings
+let g:alduin_Shout_Clear_Skies       = 0 " removes cursorline
+colorscheme alduin                       " dark gray background
+" }}}
+
+" Airline Settings {{{
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_detect_modified   = 1
+let g:airline_detect_paste      = 1
+let g:airline_inactive_collapse = 0
+let g:airline_theme             = 'badwolf'
+let g:airline_powerline_fonts   = 1
+let g:airline_section_y         = 'BN: %{bufnr("%")}'
+let g:airline_left_sep          = ''
+let g:airline_left_alt_sep      = ''
+let g:airline_right_sep         = ''
+let g:airline_right_alt_sep     = ''
+let g:airline_symbols.readonly  = ''
+let g:airline_symbols.paste     = 'ρ'
+"let g:airline_left_sep          = ''
+"let g:airline_left_alt_sep      = ''
+"let g:airline_right_sep         = ''
+"let g:airline_right_alt_sep     = ''
+
+let g:airline#extensions#ctrlp#color_template   = 'visual'
+let g:airline#extensions#tabline#enabled        = 1
+let g:airline#extensions#tabline#buffers_label  = 'Buffers'
+let g:airline#extensions#tabline#buffer_nr_show = 0
+let airline#extensions#tabline#disable_refresh  = 0
+let g:airline#extensions#whitespace#enabled     = 1
+let g:airline#extensions#hunks#enabled          = 0
+let g:airline#extensions#bufferline#enabled     = 0
+let g:airline#extensions#capslock#enabled       = 0
+let g:airline#extensions#csv#enabled            = 0
+let g:airline#extensions#ctrlspace#enabled      = 0
+let g:airline#extensions#eclim#enabled          = 0
+let g:airline#extensions#nrrwrgn#enabled        = 0
+let g:airline#extensions#promptline#enabled     = 0
+let g:airline#extensions#syntastic#enabled      = 0
+let g:airline#extensions#taboo#enabled          = 0
+let g:airline#extensions#tagbar#enabled         = 0
+let g:airline#extensions#virtualenv#enabled     = 0
+
+" }}}
+
+" Better Whitespace Settings {{{
+" Strip trailing whitespaces when saving
+augroup betterwhitespace
+    autocmd!
+    autocmd BufWritePre * StripWhitespace
+augroup END
+" }}}
+
+" CtrlP Settings {{{
+nnoremap <Leader>p :CtrlPBuffer<CR>
+let g:ctrlp_by_filename         = 1         " <c-d> to toggle
+let g:ctrlp_show_hidden         = 1
+let g:ctrlp_open_multiple_files = '1vj'
+" }}}
+
+" Startify Settings {{{
+noremap <Leader>n :Startify<CR>
+noremap <Leader>N <C-w>v:Startify<CR>
+
+let g:startify_list_order         = [['    Most Recently Used Files.'], 'files',
+                                   \ ['    Bookmarks'], 'bookmarks',
+                                   \ ['    Sessions'], 'sessions']
+let g:startify_bookmarks          = [{'r': '~/Stuff/daily_routine'}, {'n': '~/.vim/nvimrc'}, {'t': '~/.vim/.tmux.conf'}]
+let g:startify_files_number       = 15
+let g:startify_update_oldfiles    = 1
+let g:startify_change_to_dir      = 0
+let g:startify_change_to_vcs_root = 1
+let g:startify_padding_left       = 4
+let g:startify_custom_indices     = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ]
+
+autocmd! User Startified setlocal cursorline
+autocmd! User Startified setlocal number
+autocmd! User Startified setlocal relativenumber
+" }}}
+
+" Undotree Settings {{{
+nnoremap <silent> <F5> :UndotreeToggle<CR>
+nnoremap <silent> <F6> :UndotreeFocus<CR>
+let g:undotree_WindowLayout         = 4
+let g:undotree_SetFocusWhenToggle   = 0
+let g:undotree_RelativeTimestamp    = 1
+let g:undotree_HighlightChangedText = 1
+
+" navigate the undotree with k and j
+function! g:Undotree_CustomMap()
+    nmap <buffer> k <plug>UndotreeGoNextState
+    nmap <buffer> j <plug>UndotreeGoPreviousState
+endfunc
+" }}}
+
+" Vinegar Settings {{{
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+" }}}
+
+" deoplete {{{
+let g:deoplete#enable_at_startup = 1
+" use <Tab> to navigate the popup
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" <BS>: close popup and delete backword char, and reopen popup
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+" <Esc>: close popup and exit insert mode
+inoremap <expr> deoplete#close_popup()."\<Esc>"
+inoremap <expr><Esc> deoplete#close_popup()."\<Esc>"
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+inoremap <expr><CR> deoplete#close_popup()."\<CR>"
+
+function! s:my_cr_function() abort
+  return deoplete#close_popup() . "\<CR>"
+endfunction
+" }}}
+" }}}
