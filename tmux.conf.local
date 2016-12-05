@@ -334,7 +334,7 @@ unbind-key -T copy-mode-vi C-c
 unbind-key =
 unbind-key ]
 
-unbint-key -T prefix '"'
+unbind-key -T prefix '"'
 unbind-key -T prefix %
 bind-key -T prefix '"' choose-buffer
 
