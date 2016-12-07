@@ -260,6 +260,7 @@ nnoremap <Leader>s :split<CR>
 
 " esc to exit to normal mode in terminal emulator
 tnoremap <Esc> <C-\><C-n>
+tnoremap <F1> <del>
 " use Alt keys and directionals {hklj} to change window,
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
@@ -358,6 +359,7 @@ call dein#begin('/home/rd/.config/nvim/dein.vim')
     call dein#add('tpope/vim-vinegar')              " combine with netrw to create a delicious salad dressing
     call dein#add('vim-airline/vim-airline')        " Lean & mean status/tabline for vim that's light as air
     call dein#add('vim-airline/vim-airline-themes') " A collection of themes for vim-airline
+    call dein#add('kshenoy/vim-signature')          " Plugin to toggle, display and navigate marks
     " call dein#add('')
     " tyru/open-browser.vim
 call dein#end()
@@ -376,7 +378,7 @@ let g:alduin_Shout_Become_Ethereal   = 0 " black background
 let g:alduin_Contract_Vampirism      = 0 " gray to black @ 5pm
 let g:alduin_Shout_Aura_Whisper      = 0 " underline matching parens
 let g:alduin_Shout_Fire_Breath       = 0 " adds dark red color
-let g:alduin_Shout_Animal_Allegiance = 0 " removes background from Strings
+let g:alduin_Shout_Animal_Allegiance = 1 " removes background from Strings
 let g:alduin_Shout_Clear_Skies       = 0 " removes cursorline
 colorscheme alduin                       " dark gray background
 " }}}
@@ -496,5 +498,36 @@ inoremap <expr><CR> deoplete#close_popup()."\<CR>"
 function! s:my_cr_function() abort
   return deoplete#close_popup() . "\<CR>"
 endfunction
+" }}}
+
+" vim-signature Settings {{{
+let g:SignatureMap = {
+    \ 'Leader'             :  "m",
+    \ 'PlaceNextMark'      :  "m,",
+    \ 'ToggleMarkAtLine'   :  "m.",
+    \ 'PurgeMarksAtLine'   :  "m-",
+    \ 'DeleteMark'         :  "dm",
+    \ 'PurgeMarks'         :  "m<Space>",
+    \ 'PurgeMarkers'       :  "m<BS>",
+    \ 'GotoNextLineAlpha'  :  "']",
+    \ 'GotoPrevLineAlpha'  :  "'[",
+    \ 'GotoNextSpotAlpha'  :  "`]",
+    \ 'GotoPrevSpotAlpha'  :  "`[",
+    \ 'GotoNextLineByPos'  :  "]'",
+    \ 'GotoPrevLineByPos'  :  "['",
+    \ 'GotoNextSpotByPos'  :  "]`",
+    \ 'GotoPrevSpotByPos'  :  "[`",
+    \ 'GotoNextMarker'     :  "]-",
+    \ 'GotoPrevMarker'     :  "[-",
+    \ 'GotoNextMarkerAny'  :  "]=",
+    \ 'GotoPrevMarkerAny'  :  "[=",
+    \ 'ListBufferMarks'    :  "m/",
+    \ 'ListBufferMarkers'  :  "m?"
+\ }
+
+let g:SignatureIncludeMarkers    = '=!"#$%&/()'
+let g:SignatureMarkTextHLDynamic = 1
+
+
 " }}}
 " }}}
