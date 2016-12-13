@@ -271,10 +271,12 @@ unbind-key M-h
 unbind-key M-j
 unbind-key M-k
 unbind-key M-l
-bind-key -r M-h select-pane -L
-bind-key -r M-j select-pane -D
-bind-key -r M-k select-pane -U
-bind-key -r M-l select-pane -R
+
+unbind-key Right
+unbind-key Left
+unbind-key Down
+unbind-key Up
+
 unbind-key h
 unbind-key j
 unbind-key k

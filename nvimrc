@@ -293,8 +293,8 @@ nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
 " Searching {{{
 nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
 " auto center {{{
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
+nnoremap <silent> n //<CR>zz
+nnoremap <silent> N ??<CR>zz
 nnoremap <silent> * *<c-o>zz
 nnoremap <silent> # #<c-o>zz
 nnoremap <silent> g* g*zz
@@ -454,7 +454,7 @@ let g:startify_update_oldfiles    = 1
 let g:startify_change_to_dir      = 0
 let g:startify_change_to_vcs_root = 1
 let g:startify_padding_left       = 4
-let g:startify_custom_indices     = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ]
+let g:startify_custom_indices     = ['a', 's', 'd', 'f', 'g', ]
 
 autocmd! User Startified setlocal number
 autocmd! User Startified setlocal relativenumber
