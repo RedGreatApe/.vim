@@ -355,6 +355,12 @@ unbind-key -T copy-mode-vi C-c
 unbind-key =
 unbind-key ]
 
+# Shift + arrow keys to switch windows
+unbind-key -T copy-mode-vi S-Left
+unbind-key -T copy-mode-vi S-Right
+bind-key -T copy-mode-vi S-Left  previous-window
+bind-key -T copy-mode-vi S-Right next-window
+
 unbind-key -T prefix '"'
 unbind-key -T prefix %
 bind-key -T prefix '"' choose-buffer

@@ -20,7 +20,7 @@
 "                                         |___/
 " {{{
 if &compatible | set nocompatible | endif
-let g:mapleader="ß"
+" let g:mapleader="\"
 
 " source ~/.config/nvim/files/settings.vim
 " source ~/.config/nvim/files/plugins.vim
@@ -306,6 +306,8 @@ nnoremap <silent> <C-i> <C-i>zz
 
 " Don't use register by x
 nnoremap x "_x
+" forget about ex mode >.>
+nnoremap Q <NOP>
 
 " Del key now works inside neovim
 map <F1> <del>
