@@ -242,6 +242,7 @@ set-option -g default-terminal "screen-256color"
 set-option -g history-limit 100000
 # nvim cursor change
 set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'
+set -g display-time 2000      # slightly longer status messages display time
 
 # Splitting panes (more "intuitively")
 unbind-key |
@@ -281,16 +282,18 @@ unbind-key h
 unbind-key j
 unbind-key k
 unbind-key l
-bind-key -r h select-pane -L
-bind-key -r j select-pane -D
-bind-key -r k select-pane -U
-bind-key -r l select-pane -R
+
+bind-key h select-pane -L
+bind-key j select-pane -D
+bind-key k select-pane -U
+bind-key l select-pane -R
 
 # Use Alt-arrow keys without prefix key to switch panes
 unbind-key -n M-Left
 unbind-key -n M-Right
 unbind-key -n M-Up
 unbind-key -n M-Down
+
 bind-key -n M-Left select-pane -L
 bind-key -n M-Right select-pane -R
 bind-key -n M-Up select-pane -U
@@ -367,7 +370,7 @@ bind-key -T prefix '"' choose-buffer
 
 bind-key Escape copy-mode
 bind-key p paste-buffer
-bind-key C-v run "tmux set-buffer \"$(xclip -o -selection clipboard)\"; tmux paste-buffer"
+bind-key -n C-v run "tmux set-buffer \"$(xclip -o -selection clipboard)\"; tmux paste-buffer"
 bind-key -T copy-mode-vi Escape send-keys -X cancel
 bind-key -T copy-mode-vi Enter send-keys -X cancel
 bind-key -T copy-mode-vi v send-keys -X begin-selection

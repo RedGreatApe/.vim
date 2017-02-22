@@ -75,7 +75,7 @@ set undofile           " keep an undo file (undo changes after closing)
 set inccommand=nosplit " incremental command live feedback
 
 " highlight text after column 80  (81 inclusive)
-let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
+" let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
 " }}}
 "                 _    _     _                    _       _   _
 "                / \  | |__ | |__  _ __ _____   _(_) __ _| |_(_) ___  _ __  ___
@@ -284,9 +284,7 @@ cnoremap <C-n> <Down>
 " Editing {{{
 nnoremap Y y$
 "inoremap <cr> <C-g>u<cr>
-
 nnoremap <leader>ev :args ~/.config/nvim/init.vim<cr>
-                                " ~/.config/nvim/files/*<cr>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
 " }}}
 
@@ -301,6 +299,11 @@ nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 nnoremap <silent> <C-o> <C-o>zz
 nnoremap <silent> <C-i> <C-i>zz
+" }}}
+
+" Buffer search
+nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
+nnoremap <leader>ls :buffers<CR>
 " }}}
 " }}}
 
@@ -321,17 +324,7 @@ noremap <leader>p :set paste<CR>"+p<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
 vnoremap <leader>y "+ygv
 
-" <m-j> and <m-k> to drag lines in any mode
-" noremap ∆ :m+<CR>
-" noremap ˚ :m-2<CR>
-" inoremap ∆ <Esc>:m+<CR>
-" inoremap ˚ <Esc>:m-2<CR>
-" vnoremap ∆ :m'>+<CR>gv
-" vnoremap ˚ :m-2<CR>gv
 
-nnoremap <leader>ls :buffers<CR>
-
-" }}}
 "              ____  _             _
 "             |  _ \| |_   _  __ _(_)_ __  ___
 "             | |_) | | | | |/ _` | | '_ \/ __|
@@ -437,7 +430,7 @@ augroup END
 " }}}
 
 " CtrlP Settings {{{
-nnoremap <Leader>p :CtrlPBuffer<CR>
+" nnoremap <Leader>p :CtrlPBuffer<CR>
 let g:ctrlp_by_filename         = 1         " <c-d> to toggle
 let g:ctrlp_show_hidden         = 1
 let g:ctrlp_open_multiple_files = '1vj'
@@ -447,10 +440,16 @@ let g:ctrlp_open_multiple_files = '1vj'
 noremap <Leader>n :Startify<CR>
 noremap <Leader>N <C-w>v:Startify<CR>
 
-let g:startify_list_order         = [['    Most Recently Used Files.'], 'files',
+let g:startify_list_order         = [
+                                   \ ['    Most Recently Used Files.'], 'files',
                                    \ ['    Bookmarks'], 'bookmarks',
                                    \ ['    Sessions'], 'sessions']
-let g:startify_bookmarks          = [{'r': '~/Stuff/daily_routine'}, {'n': '~/.vim/nvimrc'}, {'t': '~/.vim/tmux.conf.local'}]
+let g:startify_bookmarks          = [
+                                   \ {'r': '~/Stuff/daily_routine'},
+                                   \ {'n': '~/.vim/nvimrc'},
+                                   \ {'t': '~/.vim/tmux.conf.local'},
+                                   \ {'p': '~/.proverc'},
+                                   \ {'c': '~/.bashrc'}, ]
 let g:startify_files_number       = 15
 let g:startify_update_oldfiles    = 1
 let g:startify_change_to_dir      = 0
@@ -502,6 +501,11 @@ function! s:my_cr_function() abort
 endfunction
 " }}}
 
+" fugitive {{{
+cnoremap <expr> gdiff 'Gdiff'
+cnoremap <expr> gblame 'Gblame'
+" }}}
+
 " vim-signature Settings {{{
 let g:SignatureMap = {
     \ 'Leader'             :  "m",
@@ -529,7 +533,5 @@ let g:SignatureMap = {
 
 let g:SignatureIncludeMarkers    = '=!"#$%&/()'
 let g:SignatureMarkTextHLDynamic = 1
-
-
 " }}}
 " }}}
