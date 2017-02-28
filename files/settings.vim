@@ -9,7 +9,6 @@
 set t_ut=                           " fixes the drawing issue while using tmux (Most of the time)
 set cmdheight=2                     " Command line height
 set cursorline                      " Highlight current line
-set cursorcolumn                    " Highlight current column
 set display+=lastline               " show the last line that fits in window
 set laststatus=2                    " Always show the status bar
 set list                            " Display invisible characters as:
