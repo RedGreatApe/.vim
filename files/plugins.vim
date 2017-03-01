@@ -8,7 +8,7 @@
 " Plugin Loading {{{
 " using dein.vim
 set runtimepath+=/home/rd/.vim/repos/github.com/Shougo/dein.vim
-call dein#begin('/home/rd/.config/nvim/dein.vim')
+call dein#begin('/home/rd/.vim')
     call dein#add('Shougo/dein.vim')                " dein.vim manages itself
 
     call dein#add('airblade/vim-gitgutter')         " git diff symbols in gutter
@@ -19,7 +19,6 @@ call dein#begin('/home/rd/.config/nvim/dein.vim')
     call dein#add('mbbill/undotree')                " Undo tree history visualizer
     call dein#add('mhinz/vim-startify')             " The fancy start screen for vim
     call dein#add('ntpeters/vim-better-whitespace') " Better whitespace highlighting for vim
-    call dein#add('Shougo/deoplete.nvim')           " Dark powered aasynchronouse completion framework for neovim
     call dein#add('tpope/vim-commentary')           " Comment stuff out
     call dein#add('tpope/vim-fugitive')             " A Git wrapper
     call dein#add('tpope/vim-repeat')               " Enable repeating supported plugin maps with '.'
@@ -108,6 +107,7 @@ augroup END
 let g:ctrlp_by_filename         = 1         " <c-d> to toggle
 let g:ctrlp_show_hidden         = 1
 let g:ctrlp_open_multiple_files = '1vj'
+let g:ctrlp_cache_dir = $HOME.'/.vim/repos/github.com/ctrlpvim/ctrlp.vim/.cache/'
 " }}}
 
 " Startify Settings {{{
@@ -151,26 +151,6 @@ endfunc
 
 " Vinegar Settings {{{
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-" }}}
-
-" deoplete {{{
-let g:deoplete#enable_at_startup = 1
-" use <Tab> to navigate the popup
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-" <BS>: close popup and delete backword char, and reopen popup
-inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-" <Esc>: close popup and exit insert mode
-inoremap <expr> deoplete#close_popup()."\<Esc>"
-inoremap <expr><Esc> deoplete#close_popup()."\<Esc>"
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-inoremap <expr><CR> deoplete#close_popup()."\<CR>"
-
-function! s:my_cr_function() abort
-  return deoplete#close_popup() . "\<CR>"
-endfunction
 " }}}
 
 " fugitive {{{
