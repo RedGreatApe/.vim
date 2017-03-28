@@ -357,6 +357,8 @@ unbind-key -T copy-mode-vi y
 unbind-key -T copy-mode-vi C-c
 unbind-key =
 unbind-key ]
+unbind-key C-v
+unbind-key -n C-v
 
 # Shift + arrow keys to switch windows
 unbind-key -T copy-mode-vi S-Left
@@ -370,7 +372,7 @@ bind-key -T prefix '"' choose-buffer
 
 bind-key Escape copy-mode
 bind-key p paste-buffer
-bind-key -n C-v run "tmux set-buffer \"$(xclip -o -selection clipboard)\"; tmux paste-buffer"
+bind-key C-v run "tmux set-buffer \"$(xclip -o -selection clipboard)\"; tmux paste-buffer"
 bind-key -T copy-mode-vi Escape send-keys -X cancel
 bind-key -T copy-mode-vi Enter send-keys -X cancel
 bind-key -T copy-mode-vi v send-keys -X begin-selection

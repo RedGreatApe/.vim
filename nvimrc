@@ -305,7 +305,6 @@ nnoremap <silent> <C-i> <C-i>zz
 nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
 nnoremap <leader>ls :buffers<CR>
 " }}}
-" }}}
 
 " Don't use register by x
 nnoremap x "_x
@@ -324,6 +323,7 @@ noremap <leader>p :set paste<CR>"+p<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
 vnoremap <leader>y "+ygv
 
+" }}}
 
 "              ____  _             _
 "             |  _ \| |_   _  __ _(_)_ __  ___
@@ -334,8 +334,8 @@ vnoremap <leader>y "+ygv
 " {{{
 " Plugin Loading {{{
 " using dein.vim
-set runtimepath+=/home/rd/.config/nvim/dein.vim/repos/github.com/Shougo/dein.vim
-call dein#begin('/home/rd/.config/nvim/dein.vim')
+set runtimepath+=$HOME/.config/nvim/repos/github.com/Shougo/dein.vim
+call dein#begin($HOME . "/.config/nvim/")
     call dein#add('Shougo/dein.vim')                " dein.vim manages itself
 
     call dein#add('airblade/vim-gitgutter')         " git diff symbols in gutter

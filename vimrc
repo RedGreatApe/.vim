@@ -19,7 +19,7 @@
 
 
 if &compatible | set nocompatible | endif
-let g:mapleader="ß"           " Leader mapping
+" let g:mapleader="ß"           " Leader mapping
 
 " Sources ------------------------------- {{{
 source ~/.vim/files/settings.vim
