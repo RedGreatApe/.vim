@@ -7,8 +7,8 @@
 
 " Plugin Loading {{{
 " using dein.vim
-set runtimepath+=/home/rd/.vim/repos/github.com/Shougo/dein.vim
-call dein#begin('/home/rd/.vim')
+set runtimepath+=$HOME/.vim/repos/github.com/Shougo/dein.vim
+call dein#begin($HOME . '/.vim')
     call dein#add('Shougo/dein.vim')                " dein.vim manages itself
 
     call dein#add('airblade/vim-gitgutter')         " git diff symbols in gutter
