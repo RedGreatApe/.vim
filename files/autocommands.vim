@@ -65,28 +65,28 @@ augroup END
 
 " Detect file modified elsewhere {{{
 " forgot where i got it from :(
-augroup AutoSwap
-    autocmd!
-    autocmd SwapExists *  call AS_HandleSwapfile(expand('<afile>:p'), v:swapname)
-augroup END
+" augroup AutoSwap
+"     autocmd!
+"     autocmd SwapExists *  call AS_HandleSwapfile(expand('<afile>:p'), v:swapname)
+" augroup END
 
-function! AS_HandleSwapfile (filename, swapname)
-    " if swapfile is older than file itself, just get rid of it
-    if getftime(v:swapname) < getftime(a:filename)
-        call delete(v:swapname)
-        let v:swapchoice = 'e'
-    endif
-endfunction
-autocmd BufWritePost,BufReadPost,BufLeave *
-            \ if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
+" function! AS_HandleSwapfile (filename, swapname)
+"     " if swapfile is older than file itself, just get rid of it
+"     if getftime(v:swapname) < getftime(a:filename)
+"         call delete(v:swapname)
+"         let v:swapchoice = 'e'
+"     endif
+" endfunction
+" autocmd BufWritePost,BufReadPost,BufLeave *
+"             \ if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
 
-augroup checktime
-    autocmd!
-    if !has("gui_running")
-        "silent! necessary otherwise throws errors when using command
-        "line window.
-        autocmd BufEnter,CursorMoved,CursorMovedI * checktime
-        autocmd FocusGained,BufEnter,FocusLost,WinLeave * checktime
-    endif
-augroup END
+" augroup checktime
+"     autocmd!
+"     if !has("gui_running")
+"         "silent! necessary otherwise throws errors when using command
+"         "line window.
+"         autocmd BufEnter,CursorMoved,CursorMovedI * checktime
+"         autocmd FocusGained,BufEnter,FocusLost,WinLeave * checktime
+"     endif
+" augroup END
 " }}}
