@@ -286,6 +286,7 @@ nnoremap Y y$
 "inoremap <cr> <C-g>u<cr>
 nnoremap <leader>ev :args ~/.config/nvim/init.vim<cr>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
+nnoremap <leader>de :setlocal spell spelllang=de_de<cr>
 " }}}
 
 " Searching {{{
