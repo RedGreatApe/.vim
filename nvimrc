@@ -260,7 +260,8 @@ nnoremap <Leader>s :split<CR>
 
 " esc to exit to normal mode in terminal emulator
 tnoremap <Esc> <C-\><C-n>
-tnoremap <F1> <del>
+
+" tnoremap <F1> <del>
 " use Alt keys and directionals {hklj} to change window,
 tnoremap <A-j> <C-\><C-n><C-w>j
 tnoremap <A-k> <C-\><C-n><C-w>k
@@ -313,8 +314,8 @@ nnoremap x "_x
 nnoremap Q <NOP>
 
 " Del key now works inside neovim
-map <F1> <del>
-map! <F1> <del>
+" map <F1> <del>
+" map! <F1> <del>
 
 
 " System clipboard interaction.  Mostly from:
@@ -335,27 +336,28 @@ vnoremap <leader>y "+ygv
 " {{{
 " Plugin Loading {{{
 " using dein.vim
-set runtimepath+=$HOME/.config/nvim/repos/github.com/Shougo/dein.vim
-call dein#begin($HOME . "/.config/nvim/")
-    call dein#add('Shougo/dein.vim')                " dein.vim manages itself
+set runtimepath+=$HOME/.vim/repos/github.com/Shougo/dein.vim
+call dein#begin($HOME . "/.vim")
+    call dein#add('Shougo/dein.vim')                             " dein.vim manages itself
 
-    call dein#add('airblade/vim-gitgutter')         " git diff symbols in gutter
-    call dein#add('AlessandroYorba/Alduin')         " colorscheme
-    call dein#add('ctrlpvim/ctrlp.vim')             " Fuzzy file, buffer, mru, tag, etc finder
-    call dein#add('jiangmiao/auto-pairs')           " Insert or delete brackets/parens/etc in pairs
-    call dein#add('justinmk/vim-sneak')             " The missing motion for Vim (f and t with two characters)
-    call dein#add('mbbill/undotree')                " Undo tree history visualizer
-    call dein#add('mhinz/vim-startify')             " The fancy start screen for vim
-    call dein#add('ntpeters/vim-better-whitespace') " Better whitespace highlighting for vim
-    call dein#add('Shougo/deoplete.nvim')           " Dark powered aasynchronouse completion framework for neovim
-    call dein#add('tpope/vim-commentary')           " Comment stuff out
-    call dein#add('tpope/vim-fugitive')             " A Git wrapper
-    call dein#add('tpope/vim-repeat')               " Enable repeating supported plugin maps with '.'
-    call dein#add('tpope/vim-surround')             " quoting/parenthesizing made simple
-    call dein#add('tpope/vim-vinegar')              " combine with netrw to create a delicious salad dressing
-    call dein#add('vim-airline/vim-airline')        " Lean & mean status/tabline for vim that's light as air
-    call dein#add('vim-airline/vim-airline-themes') " A collection of themes for vim-airline
-    call dein#add('kshenoy/vim-signature')          " Plugin to toggle, display and navigate marks
+    call dein#add('airblade/vim-gitgutter')                      " git diff symbols in gutter
+    call dein#add('AlessandroYorba/Alduin')                      " colorscheme
+    call dein#add('ctrlpvim/ctrlp.vim')                          " Fuzzy file, buffer, mru, tag, etc finder
+    call dein#add('jiangmiao/auto-pairs')                        " Insert or delete brackets/parens/etc in pairs
+    call dein#add('justinmk/vim-sneak')                          " The missing motion for Vim (f and t with two characters)
+    call dein#add('mbbill/undotree')                             " Undo tree history visualizer
+    call dein#add('mhinz/vim-startify')                          " The fancy start screen for vim
+    call dein#add('ntpeters/vim-better-whitespace')              " Better whitespace highlighting for vim
+    call dein#add('Shougo/deoplete.nvim')                        " Dark powered aasynchronouse completion framework for neovim
+    call dein#add('tpope/vim-commentary')                        " Comment stuff out
+    call dein#add('tpope/vim-fugitive')                          " A Git wrapper
+    call dein#add('tpope/vim-repeat')                            " Enable repeating supported plugin maps with '.'
+    call dein#add('tpope/vim-surround')                          " quoting/parenthesizing made simple
+    call dein#add('tpope/vim-vinegar')                           " combine with netrw to create a delicious salad dressing
+    call dein#add('vim-airline/vim-airline')                     " Lean & mean status/tabline for vim that's light as air
+    call dein#add('vim-airline/vim-airline-themes')              " A collection of themes for vim-airline
+    call dein#add('kshenoy/vim-signature')                       " Plugin to toggle, display and navigate marks
+    call dein#add('vimwiki/vimwiki', { 'rev' : 'dev' })          " vimwiki (needed for taskwiki)
     " call dein#add('')
     " tyru/open-browser.vim
 call dein#end()
@@ -446,11 +448,14 @@ let g:startify_list_order         = [
                                    \ ['    Bookmarks'], 'bookmarks',
                                    \ ['    Sessions'], 'sessions']
 let g:startify_bookmarks          = [
-                                   \ {'r': '~/Stuff/daily_routine'},
+                                   \ {'w': '~/.vim/vimwiki/index.wiki'},
+                                   \ {'W': '~/.vim/vimwiki/diary/diary.wiki'},
+                                   \ {'P': '~/Documents/work/Protokoll/'},
                                    \ {'n': '~/.vim/nvimrc'},
                                    \ {'t': '~/.vim/tmux.conf.local'},
                                    \ {'p': '~/.proverc'},
                                    \ {'c': '~/.bashrc'}, ]
+                                   " \ {'r': '~/Stuff/daily_routine'},
 let g:startify_files_number       = 15
 let g:startify_update_oldfiles    = 1
 let g:startify_change_to_dir      = 0
@@ -489,7 +494,7 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " <BS>: close popup and delete backword char, and reopen popup
 inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+" inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
 " <Esc>: close popup and exit insert mode
 inoremap <expr> deoplete#close_popup()."\<Esc>"
 inoremap <expr><Esc> deoplete#close_popup()."\<Esc>"
@@ -534,5 +539,18 @@ let g:SignatureMap = {
 
 let g:SignatureIncludeMarkers    = '=!"#$%&/()'
 let g:SignatureMarkTextHLDynamic = 1
+" }}}
+
+" Vimwiki {{{
+" on my station, <backspace> is registered as C-h
+" only on ST but del is messed up too, using konsole right now
+" nmap <C-h> <Plug>VimwikiGoBackLink
+
+let mywiki = {}
+let mywiki.path = '~/.vim/vimwiki'
+let mywiki.nested_syntaxes = { 'perl': 'perl' }
+" let mywiki.html_template = '~/public_html/template.tpl'
+
+let g:vimwiki_list = [ mywiki ]
 " }}}
 " }}}
