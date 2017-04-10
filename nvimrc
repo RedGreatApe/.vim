@@ -72,6 +72,9 @@ set nobackup           " no backup~ files.
 set noswapfile         " Write swap and backup files
 set undofile           " keep an undo file (undo changes after closing)
 
+set mouse=a
+
+
 set inccommand=nosplit " incremental command live feedback
 
 " highlight text after column 80  (81 inclusive)
