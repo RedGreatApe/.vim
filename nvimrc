@@ -291,6 +291,7 @@ nnoremap Y y$
 nnoremap <leader>ev :args ~/.config/nvim/init.vim<cr>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
 nnoremap <leader>de :setlocal spell spelllang=de_de<cr>
+nnoremap <leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/
 " }}}
 
 " Searching {{{
@@ -456,6 +457,7 @@ let g:startify_bookmarks          = [
                                    \ {'P': '~/Documents/work/Protokoll/'},
                                    \ {'n': '~/.vim/nvimrc'},
                                    \ {'t': '~/.vim/tmux.conf.local'},
+                                   \ {'T': '~/Repositories/Atikon/Test.pm'},
                                    \ {'p': '~/.proverc'},
                                    \ {'c': '~/.bashrc'}, ]
                                    " \ {'r': '~/Stuff/daily_routine'},
