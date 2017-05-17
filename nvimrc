@@ -75,7 +75,7 @@ set undofile           " keep an undo file (undo changes after closing)
 set mouse=a
 
 
-set inccommand=nosplit " incremental command live feedback
+" set inccommand=nosplit " incremental command live feedback
 
 " highlight text after column 80  (81 inclusive)
 " let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
@@ -291,7 +291,7 @@ nnoremap Y y$
 nnoremap <leader>ev :args ~/.config/nvim/init.vim<cr>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
 nnoremap <leader>de :setlocal spell spelllang=de_de<cr>
-nnoremap <leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/
+nnoremap <leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/<cr>
 " }}}
 
 " Searching {{{
