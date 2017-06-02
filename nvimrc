@@ -22,27 +22,16 @@
 if &compatible | set nocompatible | endif
 " let g:mapleader="\"
 
-" source ~/.config/nvim/files/settings.vim
-" source ~/.config/nvim/files/plugins.vim
-" source ~/.config/nvim/files/abbreviations.vim
-" source ~/.config/nvim/files/autocommands.vim
-" source ~/.config/nvim/files/mappings.vim
-
-" Terminal buffer size (:terminal)
-let g:terminal_scrollback_buffer_size = 100000
 
 " Cursor shape (bar when in insert mode)
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
-set laststatus=2       " Always show the status bar
 set number             " show line numbers
 set relativenumber     " show line number relative to current line
 set cursorline         " Highlight current line
-"set cursorcolumn       " Highlight current column
 set list               " Display invisible characters as:
 set listchars=tab:▸-   " Tabs as ▸---
 set listchars+=trail:· " Trailing space as ·
-set scrolloff=1        " 2 lines above/below cursor when scrolling
 set noshowmode         " Vim displays mode (if in Insert, or Visual, etc), disable this
 
 set cmdheight=2        " Command line height
@@ -75,23 +64,6 @@ set undofile           " keep an undo file (undo changes after closing)
 set mouse=a
 
 
-" set inccommand=nosplit " incremental command live feedback
-
-" highlight text after column 80  (81 inclusive)
-" let w:eighty_column_match = matchadd('ColorColumn', '\%81v.\+', 100)
-" }}}
-"                 _    _     _                    _       _   _
-"                / \  | |__ | |__  _ __ _____   _(_) __ _| |_(_) ___  _ __  ___
-"               / _ \ | '_ \| '_ \| '__/ _ \ \ / / |/ _` | __| |/ _ \| '_ \/ __|
-"              / ___ \| |_) | |_) | | |  __/\ V /| | (_| | |_| | (_) | | | \__ \
-"             /_/   \_\_.__/|_.__/|_|  \___| \_/ |_|\__,_|\__|_|\___/|_| |_|___/
-" {{{
-" Filetype Perl {{{
-augroup filetypeperl
-    autocmd!
-    autocmd FileType perl :iabbrev <buffer> dp use Data::Printer;
-augroup END
-" }}}
 " }}}
 "                 _         _                                                      _
 "                / \  _   _| |_ ___   ___ ___  _ __ ___  _ __ ___   __ _ _ __   __| |___
@@ -99,24 +71,13 @@ augroup END
 "              / ___ \ |_| | || (_) | (_| (_) | | | | | | | | | | | (_| | | | | (_| \__ \
 "             /_/   \_\__,_|\__\___/ \___\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_|___/
 " {{{
-"
-"      :autocmd BufNewFile * :write
-"               ^          ^ ^
-"               |          | |
-"               |          | The command to run.
-"               |          |
-"               |          A "pattern" to filter the event.
-"               |
-"               The "event" to watch for.
 
-augroup terminal_settings
+" Filetype Perl {{{
+augroup filetypeperl
     autocmd!
-    autocmd BufEnter term://* startinsert
-    autocmd BufEnter term://* setlocal nonumber
-    autocmd BufEnter term://* setlocal norelativenumber
-    autocmd FileType terminal setlocal nonumber
-    autocmd FileType terminal setlocal norelativenumber
+    autocmd FileType perl :iabbrev <buffer> dp use Data::Printer;
 augroup END
+" }}}
 
 " Syntax Settings {{{
 " *.zpt files to html syntax
@@ -171,13 +132,6 @@ augroup AutoSwap
     autocmd SwapExists *  call AS_HandleSwapfile(expand('<afile>:p'), v:swapname)
 augroup END
 
-function! AS_HandleSwapfile (filename, swapname)
-    " if swapfile is older than file itself, just get rid of it
-    if getftime(v:swapname) < getftime(a:filename)
-        call delete(v:swapname)
-        let v:swapchoice = 'e'
-    endif
-endfunction
 autocmd BufWritePost,BufReadPost,BufLeave *
             \ if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
 
@@ -191,6 +145,13 @@ augroup checktime
     endif
 augroup END
 " }}}
+
+" remove trailing whitespaces {{{
+augroup betterwhitespace
+    autocmd!
+    autocmd BufWritePre * call StripWhitespace( 0, line("$") )
+augroup END
+" }}}
 " }}}
 "              __  __                   _
 "             |  \/  | __ _ _ __  _ __ (_)_ __   __ _ ___
@@ -199,31 +160,8 @@ augroup END
 "             |_|  |_|\__,_| .__/| .__/|_|_| |_|\__, |___/
 "                          |_|   |_|            |___/
 " {{{
-" KONAMI Code {{{
-inoremap <up> <NOP>
-vnoremap <up> <NOP>
-inoremap <down> <NOP>
-vnoremap <down> <NOP>
-inoremap <left> <NOP>
-vnoremap <right> <NOP>
-inoremap <left> <NOP>
-vnoremap <right> <NOP>
-" B A <Start>
-nnoremap <up> <NOP>
-nnoremap <down> <NOP>
-nnoremap <left> <NOP>
-nnoremap <right> <NOP>
-" }}}
 
 " Toggle ColorColumn {{{
-function! g:ToggleColorColumn()
-    if &colorcolumn != ''
-        setlocal colorcolumn&
-    else
-        setlocal colorcolumn=81,101
-    endif
-endfunction
-
 nnoremap <silent><Leader>cc :call g:ToggleColorColumn()<CR>
 " }}}
 
@@ -245,15 +183,11 @@ imap <C-s> <Esc><C-s>
 vmap <C-s> <Esc><C-s>
 nnoremap <C-q> :q<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-cnoremap <expr> sudow 'w !sudo tee % > /dev/null'
+cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
 " }}}
 
 " Buffer, Window (splits) and Tab navigation {{{
-nnoremap <silent> <Left> :bprevious<CR>
-nnoremap <silent> <Right> :bnext<CR>
 nnoremap <silent> gb :bnext<CR>
-nnoremap <silent> <Up> :tabprevious<CR>
-nnoremap <silent> <Down> :tabnext<CR>
 " Do not skip wrapped lines
 nnoremap j gj
 nnoremap k gk
@@ -261,15 +195,8 @@ nnoremap k gk
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
 
-" esc to exit to normal mode in terminal emulator
-tnoremap <Esc> <C-\><C-n>
 
-" tnoremap <F1> <del>
 " use Alt keys and directionals {hklj} to change window,
-tnoremap <A-j> <C-\><C-n><C-w>j
-tnoremap <A-k> <C-\><C-n><C-w>k
-tnoremap <A-h> <C-\><C-n><C-w>h
-tnoremap <A-l> <C-\><C-n><C-w>l
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-h> <C-w>h
@@ -287,7 +214,6 @@ cnoremap <C-n> <Down>
 
 " Editing {{{
 nnoremap Y y$
-"inoremap <cr> <C-g>u<cr>
 nnoremap <leader>ev :args ~/.config/nvim/init.vim<cr>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
 nnoremap <leader>de :setlocal spell spelllang=de_de<cr>
@@ -297,10 +223,10 @@ nnoremap <leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokument
 " Searching {{{
 nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
 " auto center {{{
-nnoremap <silent> n //<CR>zz
-nnoremap <silent> N ??<CR>zz
-nnoremap <silent> * *<c-o>zz
-nnoremap <silent> # #<c-o>zz
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *<C-o>zz
+nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 nnoremap <silent> g# g#zz
 nnoremap <silent> <C-o> <C-o>zz
@@ -308,8 +234,8 @@ nnoremap <silent> <C-i> <C-i>zz
 " }}}
 
 " Buffer search
-nnoremap <leader>bs :cex []<BAR>bufdo vimgrepadd @@g %<BAR>cw<s-left><s-left><right>
-nnoremap <leader>ls :buffers<CR>
+nnoremap <leader>lb :buffers<CR>
+nnoremap <leader>lr :registers<CR>
 " }}}
 
 " Don't use register by x
@@ -318,8 +244,8 @@ nnoremap x "_x
 nnoremap Q <NOP>
 
 " Del key now works inside neovim
-" map <F1> <del>
-" map! <F1> <del>
+map <F1> <del>
+map! <F1> <del>
 
 
 " System clipboard interaction.  Mostly from:
@@ -328,6 +254,54 @@ noremap <leader>y "+y
 noremap <leader>p :set paste<CR>"+p<CR>:set nopaste<CR>
 noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
 vnoremap <leader>y "+ygv
+" }}}
+
+"              _____                 _   _
+"             |  ___|   _ _ __   ___| |_(_) ___  _ __  ___
+"             | |_ | | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+"             |  _|| |_| | | | | (__| |_| | (_) | | | \__ \
+"             |_|   \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+" {{{
+
+" Changes outside vim/nvim {{{
+function! AS_HandleSwapfile (filename, swapname)
+    " if swapfile is older than file itself, just get rid of it
+    if getftime(v:swapname) < getftime(a:filename)
+        call delete(v:swapname)
+        let v:swapchoice = 'e'
+    endif
+endfunction
+" }}}
+
+" Strip trailing whitespaces {{{
+" Taken from https://github.com/ntpeters
+" Removes all extraneous whitespace in the file
+let g:whitespace_group='[\u0009\u0020\u00a0\u1680\u180e\u2000-\u200b\u202f\u205f\u3000\ufeff]'
+let g:eol_whitespace_pattern = g:whitespace_group . '\+$'
+function! g:StripWhitespace( line1, line2 )
+    " Save the current search and cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+
+    " Strip the whitespace
+    silent! execute ':' . a:line1 . ',' . a:line2 . 's/' . g:eol_whitespace_pattern . '//e'
+
+    " Restore the saved search and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+" }}}
+
+" Toggle ColorColumn {{{
+function! g:ToggleColorColumn()
+    if &colorcolumn != ''
+        setlocal colorcolumn&
+    else
+        setlocal colorcolumn=81,101
+    endif
+endfunction
+" }}}
 
 " }}}
 
@@ -342,26 +316,26 @@ vnoremap <leader>y "+ygv
 " using dein.vim
 set runtimepath+=$HOME/.vim/repos/github.com/Shougo/dein.vim
 call dein#begin($HOME . "/.vim")
-    call dein#add('Shougo/dein.vim')                             " dein.vim manages itself
+    call dein#add('Shougo/dein.vim')                  " dein.vim manages itself
 
-    call dein#add('airblade/vim-gitgutter')                      " git diff symbols in gutter
-    call dein#add('AlessandroYorba/Alduin')                      " colorscheme
-    call dein#add('ctrlpvim/ctrlp.vim')                          " Fuzzy file, buffer, mru, tag, etc finder
-    call dein#add('jiangmiao/auto-pairs')                        " Insert or delete brackets/parens/etc in pairs
-    call dein#add('justinmk/vim-sneak')                          " The missing motion for Vim (f and t with two characters)
-    call dein#add('mbbill/undotree')                             " Undo tree history visualizer
-    call dein#add('mhinz/vim-startify')                          " The fancy start screen for vim
-    call dein#add('ntpeters/vim-better-whitespace')              " Better whitespace highlighting for vim
-    call dein#add('Shougo/deoplete.nvim')                        " Dark powered aasynchronouse completion framework for neovim
-    call dein#add('tpope/vim-commentary')                        " Comment stuff out
-    call dein#add('tpope/vim-fugitive')                          " A Git wrapper
-    call dein#add('tpope/vim-repeat')                            " Enable repeating supported plugin maps with '.'
-    call dein#add('tpope/vim-surround')                          " quoting/parenthesizing made simple
-    call dein#add('tpope/vim-vinegar')                           " combine with netrw to create a delicious salad dressing
-    call dein#add('vim-airline/vim-airline')                     " Lean & mean status/tabline for vim that's light as air
-    call dein#add('vim-airline/vim-airline-themes')              " A collection of themes for vim-airline
-    call dein#add('kshenoy/vim-signature')                       " Plugin to toggle, display and navigate marks
-    call dein#add('vimwiki/vimwiki', { 'rev' : 'dev' })          " vimwiki (needed for taskwiki)
+    call dein#add('airblade/vim-gitgutter')           " git diff symbols in gutter
+    call dein#add('AlessandroYorba/Alduin')           " colorscheme
+    call dein#add('ctrlpvim/ctrlp.vim')               " Fuzzy file, buffer, mru, tag, etc finder
+    call dein#add('jiangmiao/auto-pairs')             " Insert or delete brackets/parens/etc in pairs
+    call dein#add('justinmk/vim-sneak')               " The missing motion for Vim (f and t with two characters)
+    call dein#add('mbbill/undotree')                  " Undo tree history visualizer
+    call dein#add('mhinz/vim-startify')               " The fancy start screen for vim
+    " call dein#add('ntpeters/vim-better-whitespace')   " Better whitespace highlighting for vim
+    call dein#add('Shougo/deoplete.nvim')             " Dark powered aasynchronouse completion framework for neovim
+    call dein#add('tpope/vim-commentary')             " Comment stuff out
+    call dein#add('tpope/vim-fugitive')               " A Git wrapper
+    call dein#add('tpope/vim-repeat')                 " Enable repeating supported plugin maps with '.'
+    call dein#add('tpope/vim-surround')               " quoting/parenthesizing made simple
+    call dein#add('tpope/vim-vinegar')                " combine with netrw to create a delicious salad dressing
+    call dein#add('vim-airline/vim-airline')          " Lean & mean status/tabline for vim that's light as air
+    call dein#add('vim-airline/vim-airline-themes')   " A collection of themes for vim-airline
+    call dein#add('kshenoy/vim-signature')            " Plugin to toggle, display and navigate marks
+    call dein#add('vimwiki/vimwiki')                  " vimwiki (needed for taskwiki)
     " call dein#add('')
     " tyru/open-browser.vim
 call dein#end()
@@ -375,13 +349,6 @@ endif
 " }}}
 
 " Colorscheme settings {{{
-"    currently Alduin
-let g:alduin_Shout_Become_Ethereal   = 0 " black background
-let g:alduin_Contract_Vampirism      = 0 " gray to black @ 5pm
-let g:alduin_Shout_Aura_Whisper      = 0 " underline matching parens
-let g:alduin_Shout_Fire_Breath       = 0 " adds dark red color
-let g:alduin_Shout_Animal_Allegiance = 1 " removes background from Strings
-let g:alduin_Shout_Clear_Skies       = 0 " removes cursorline
 colorscheme alduin                       " dark gray background
 " }}}
 
@@ -390,11 +357,7 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-let g:airline_detect_modified   = 1
-let g:airline_detect_paste      = 1
-let g:airline_inactive_collapse = 0
 let g:airline_theme             = 'badwolf'
-let g:airline_powerline_fonts   = 1
 let g:airline_section_y         = 'BN: %{bufnr("%")}'
 let g:airline_left_sep          = ''
 let g:airline_left_alt_sep      = ''
@@ -410,42 +373,16 @@ let g:airline_symbols.paste     = 'ρ'
 let g:airline#extensions#ctrlp#color_template   = 'visual'
 let g:airline#extensions#tabline#enabled        = 1
 let g:airline#extensions#tabline#buffers_label  = 'Buffers'
-let g:airline#extensions#tabline#buffer_nr_show = 0
-let airline#extensions#tabline#disable_refresh  = 0
-let g:airline#extensions#whitespace#enabled     = 1
-let g:airline#extensions#hunks#enabled          = 0
-let g:airline#extensions#bufferline#enabled     = 0
-let g:airline#extensions#capslock#enabled       = 0
-let g:airline#extensions#csv#enabled            = 0
-let g:airline#extensions#ctrlspace#enabled      = 0
-let g:airline#extensions#eclim#enabled          = 0
-let g:airline#extensions#nrrwrgn#enabled        = 0
-let g:airline#extensions#promptline#enabled     = 0
-let g:airline#extensions#syntastic#enabled      = 0
-let g:airline#extensions#taboo#enabled          = 0
-let g:airline#extensions#tagbar#enabled         = 0
-let g:airline#extensions#virtualenv#enabled     = 0
-
-" }}}
-
-" Better Whitespace Settings {{{
-" Strip trailing whitespaces when saving
-augroup betterwhitespace
-    autocmd!
-    autocmd BufWritePre * StripWhitespace
-augroup END
 " }}}
 
 " CtrlP Settings {{{
 " nnoremap <Leader>p :CtrlPBuffer<CR>
 let g:ctrlp_by_filename         = 1         " <c-d> to toggle
 let g:ctrlp_show_hidden         = 1
-let g:ctrlp_open_multiple_files = '1vj'
 " }}}
 
 " Startify Settings {{{
 noremap <Leader>n :Startify<CR>
-noremap <Leader>N <C-w>v:Startify<CR>
 
 let g:startify_list_order         = [
                                    \ ['    Most Recently Used Files.'], 'files',
@@ -461,25 +398,17 @@ let g:startify_bookmarks          = [
                                    \ {'p': '~/.proverc'},
                                    \ {'c': '~/.bashrc'}, ]
                                    " \ {'r': '~/Stuff/daily_routine'},
-let g:startify_files_number       = 15
 let g:startify_update_oldfiles    = 1
 let g:startify_change_to_dir      = 0
 let g:startify_change_to_vcs_root = 1
-let g:startify_padding_left       = 4
 let g:startify_custom_indices     = ['a', 's', 'd', 'f', 'g', ]
-
-autocmd! User Startified setlocal number
-autocmd! User Startified setlocal relativenumber
-autocmd! User Startified setlocal cursorline
 " }}}
 
 " Undotree Settings {{{
 nnoremap <silent> <F5> :UndotreeToggle<CR>
 nnoremap <silent> <F6> :UndotreeFocus<CR>
 let g:undotree_WindowLayout         = 4
-let g:undotree_SetFocusWhenToggle   = 0
-let g:undotree_RelativeTimestamp    = 1
-let g:undotree_HighlightChangedText = 1
+" let g:undotree_RelativeTimestamp    = 1
 
 " navigate the undotree with k and j
 function! g:Undotree_CustomMap()
@@ -518,30 +447,7 @@ cnoremap <expr> gblame 'Gblame'
 " }}}
 
 " vim-signature Settings {{{
-let g:SignatureMap = {
-    \ 'Leader'             :  "m",
-    \ 'PlaceNextMark'      :  "m,",
-    \ 'ToggleMarkAtLine'   :  "m.",
-    \ 'PurgeMarksAtLine'   :  "m-",
-    \ 'DeleteMark'         :  "dm",
-    \ 'PurgeMarks'         :  "m<Space>",
-    \ 'PurgeMarkers'       :  "m<BS>",
-    \ 'GotoNextLineAlpha'  :  "']",
-    \ 'GotoPrevLineAlpha'  :  "'[",
-    \ 'GotoNextSpotAlpha'  :  "`]",
-    \ 'GotoPrevSpotAlpha'  :  "`[",
-    \ 'GotoNextLineByPos'  :  "]'",
-    \ 'GotoPrevLineByPos'  :  "['",
-    \ 'GotoNextSpotByPos'  :  "]`",
-    \ 'GotoPrevSpotByPos'  :  "[`",
-    \ 'GotoNextMarker'     :  "]-",
-    \ 'GotoPrevMarker'     :  "[-",
-    \ 'GotoNextMarkerAny'  :  "]=",
-    \ 'GotoPrevMarkerAny'  :  "[=",
-    \ 'ListBufferMarks'    :  "m/",
-    \ 'ListBufferMarkers'  :  "m?"
-\ }
-
+" SignatureIncludeMarkers controls marks created by 0-9
 let g:SignatureIncludeMarkers    = '=!"#$%&/()'
 let g:SignatureMarkTextHLDynamic = 1
 " }}}
@@ -549,7 +455,9 @@ let g:SignatureMarkTextHLDynamic = 1
 " Vimwiki {{{
 " on my station, <backspace> is registered as C-h
 " only on ST but del is messed up too, using konsole right now
-" nmap <C-h> <Plug>VimwikiGoBackLink
+nmap <C-h> <Plug>VimwikiGoBackLink
+
+let g:vimwiki_folding='list'
 
 let mywiki = {}
 let mywiki.path = '~/.vim/vimwiki'
@@ -558,4 +466,32 @@ let mywiki.nested_syntaxes = { 'perl': 'perl' }
 
 let g:vimwiki_list = [ mywiki ]
 " }}}
+" }}}
+"
+
+"              _____                   _             _
+"             |_   _|__ _ __ _ __ ___ (_)_ __   __ _| |
+"               | |/ _ \ '__| '_ ` _ \| | '_ \ / _` | |
+"               | |  __/ |  | | | | | | | | | | (_| | |
+"               |_|\___|_|  |_| |_| |_|_|_| |_|\__,_|_|
+
+" {{{
+augroup terminal_settings
+    autocmd!
+    autocmd BufEnter term://* startinsert
+    autocmd BufEnter term://* setlocal nonumber
+    autocmd BufEnter term://* setlocal norelativenumber
+    autocmd FileType terminal setlocal nonumber
+    autocmd FileType terminal setlocal norelativenumber
+augroup END
+
+let g:terminal_scrollback_buffer_size = 100000
+" esc to exit to normal mode in terminal emulator
+tnoremap <Esc> <C-\><C-n>
+
+tnoremap <F1> <del>
+tnoremap <A-j> <C-\><C-n><C-w>j
+tnoremap <A-k> <C-\><C-n><C-w>k
+tnoremap <A-h> <C-\><C-n><C-w>h
+tnoremap <A-l> <C-\><C-n><C-w>l
 " }}}
