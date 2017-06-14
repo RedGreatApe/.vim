@@ -4,59 +4,160 @@
 "              ___) | || (_| | |_| |_| \__ \ |___| | | | |  __/
 "             |____/ \__\__,_|\__|\__,_|___/_____|_|_| |_|\___|
 
-set laststatus=2                                " Enable the statusline
-set statusline=                                 " Initialize it
+" function! SLInit()
+"     if winnr('$') ># 1      " more than one window
+"         let l:cwin = winnr()
+"         for l:win in range(1, winnr('$'))
+"             if l:win ==# l:cwin
+"                 silent execute l:cwin . 'wincmd w'
+"                 setlocal statusline=%!ActiveStatusLine()
+"             else
+"                 silent execute l:win . 'wincmd w'
+"                 setlocal statusline=%!InactiveStatusLine()
+"                 silent execute l:cwin . 'wincmd w'
+"             endif
+"         endfor
+"     else
+"         setlocal statusline=%!ActiveStatusLine()
+"     endif
+" endfunction
 
-" To get the mode with mode() we need a lookup table
-let g:mode_lookup={
-    \ 'n'  : 'NORMAL',
-    \ 'i'  : 'INSERT',
-    \ 'c'  : 'COMMAND',
-    \ 'R'  : 'REPLACE',
-    \ 'v'  : 'VISUAL', 'V'  : 'V·LINE', '' : 'V·BLOCK',
-    \ 'Rv' : 'R', 's'  : 'S', 'S'  : 'S', '' : 'S', 'no' : 'N', '!'  : 'S',
-    \ 'cv' : 'V', 'ce' : 'E', 'r'  : 'P', 'rm' : 'M', 'r?' : 'C', 't'  : 'T',
-\}
+" "=================================================================
+" "   Active StatusLine:                                           =
+" "=================================================================
 
-set statusline+=%{ChangeModeColor()}          " Mode Color
-set statusline+=%#StatusLineMode#             " Highlight group
-set statusline+=\ %{g:mode_lookup[mode()]}\   " current mode
-set statusline+=%{&paste?'ρ\ ':''}            " paste flag
+" function! ActiveStatusLine()
+"     let l:mode = GetMode()
+"     let l:statusline = ''
+"     let l:statusline .= '%2*'
+"     let l:statusline .= ' ' . l:mode . ' '
+"     let l:statusline .= '%1*'
+"     if &paste
+"         let l:statusline .= 'ρ '
+"     endif
 
-if dein#tap('vim-fugitive')
-    set statusline+=%#String#                 " Highlight group
-    set statusline+=\ \ %{fugitive#head()}\  " Fugitive: get git branch
+"     let l:statusline .= '%3*'
+"     let l:statusline .= GetBranch()
+"     let l:statusline .= '%#StatusLine#'
+
+"     let l:statusline .='%{SLChanged(&mod)}%6*'
+"     let l:statusline .= ' [%n] %<%F '
+"     let l:statusline .= GetFlags()
+
+"     let l:statusline .= '%='
+
+"     let l:statusline .= '%#StatusLine#'
+"     let l:statusline .= '%4*'
+"     let l:statusline .= GetCursorInfo()
+
+"     return l:statusline
+" endfunction
+
+" "=================================================================
+" "   Inactive StatusLine:                                         =
+" "=================================================================
+
+" function! InactiveStatusLine()
+"     let l:statusline = ''
+
+"     let l:statusline .= ' - '
+"     if &paste
+"         let l:statusline .= '- '
+"     endif
+"     let l:statusline .= GetBranch()
+"     let l:statusline .= ' [%n] %t '
+"     let l:statusline .= GetFlags()
+"     let l:statusline .= '%#StatusLineNC#'
+"     let l:statusline .= '%='
+"     let l:statusline .= GetCursorInfo()
+
+"     return l:statusline
+" endfunction
+
+" "=================================================================
+" "   Helper Functions:                                            =
+" "=================================================================
+
+" function! GetBranch()
+"     let l:statusline = ''
+"     if dein#tap('vim-fugitive') " && len(fugitive#head()) ># 0
+"         let l:statusline .= '  %{fugitive#head()} '
+"     endif
+"     return l:statusline
+" endfunction
+
+" function! GetFlags()
+"     let l:statusline = ''
+"     let l:statusline .= '%5*'
+"     let l:statusline .= '%h%m%r%w'
+"     if &spell
+"         let l:statusline .= '[SPELL]'
+"     endif
+"     return l:statusline
+" endfunction
+
+" function! GetCursorInfo()
+"     let l:statusline = ''
+"     let l:statusline .= ' %<'
+"     let l:statusline .= ' %p%% ☰ '
+"     let l:statusline .= ' %l/%L  :%c  '
+"     return l:statusline
+" endfunction
+
+" function! GetMode()
+"     return {
+"         \ '__' : '-', 'n'  : 'N',
+"         \ 'i'  : 'I', 'R'  : 'R',
+"         \ 'v'  : 'V', 'V'  : 'V',
+"         \ 'c'  : 'C', '' : 'V',
+"         \ 's'  : 'S', 'S'  : 'S',
+"         \ '' : 'S', 't'  : 'T',
+"     \}[mode()]
+" endfunction
+
+" augroup StatusLine
+"     autocmd!
+"     autocmd BufAdd,BufDelete,BufEnter,BufLeave * call SLInit()
+"     autocmd WinEnter * call SLInit()
+"     autocmd VimEnter * call SLInit()
+" augroup END
+" call SLInit()
+
+" "=================================================================
+" "   Highlight Groups:                                            =
+" "=================================================================
+
+" highlight! User1 ctermfg=234 ctermbg=66   guibg=#5f8787  guifg=#1c1c1c  gui=NONE     cterm=NONE
+" highlight! User2 ctermfg=234 ctermbg=66   guibg=#5f8787  guifg=#1c1c1c  gui=bold     cterm=bold
+" highlight! User3 ctermfg=109 ctermbg=236  guibg=#45413b
+" highlight! User4 ctermfg=109 ctermbg=233
+" highlight! User5 ctermfg=130 ctermbg=234
+
+" function! SLChanged(modified)
+"     if a:modified
+"         highlight! User6 ctermfg=109 guibg=#121212 gui=NONE ctermbg=234 cterm=NONE
+"     else
+"         highlight! User6 guifg=#5f8787 guibg=#121212 gui=NONE ctermfg=66 ctermbg=234 cterm=NONE
+"     endif
+"     return ''
+" endfunction
+
+let g:look_up ={
+        \ '__' : '-', 'n'  : 'N',
+        \ 'i'  : 'I', 'R'  : 'R',
+        \ 'v'  : 'V', 'V'  : 'V',
+        \ 'c'  : 'C', '' : 'V',
+        \ 's'  : 'S', 'S'  : 'S',
+        \ '' : 'S', 't'  : 'T',
+    \}
+set statusline=
+set statusline+=%(\ %{g:look_up[mode()]}%)
+set statusline+=%(%{&paste?'\ p\ ':''}%)
+if dein#tap('vim-fugitive') " && len(fugitive#head()) ># 0
+    " if len(fugitive#head()) ># 1
+        set statusline+=%(\ \ %{fugitive#head()}%)
+    " endif
 endif
-
-set statusline+=%#Underlined#                 " Highlight group
-set statusline+=\ %F\                         " File path of buffer
-set statusline+=%#Number#                     " Highlight group
-set statusline+=%h%m%r%w                      " status flags
-set statusline+=%2*%{&spell?'[SPELL]':''}     " Spell flag
-set statusline+=%#Underlined#                 " Highlight group
-
-set statusline+=%=                            " Right align the rest
-
-set statusline+=%#String#                     " Highlight group
-set statusline+=\ %n\                         " Buffer number
-set statusline+=%#Normal#                     " Highlight group
-
-set statusline+=%#IncSearch#             " Highlight group
-set statusline+=\ \ %p%%\ ☰\                  " File percentage
-set statusline+=\ %l/%L\ \ \:%c\             " Line and column
-
-function! ChangeModeColor()
-    if (g:mode_lookup[mode()] ==# 'NORMAL')
-        highlight! link StatusLineMode TabLineSel
-    elseif (g:mode_lookup[mode()] =~# '\v(VISUAL|V·LINE|V·BLOCK)')
-        highlight! link StatusLineMode DiffDelete
-    elseif (g:mode_lookup[mode()] ==# 'INSERT')
-        highlight! link StatusLineMode DiffAdd
-    elseif (g:mode_lookup[mode()] =~# '\v(REPLACE)')
-        highlight! link StatusLineMode DiffChange
-    " elseif (g:mode_lookup[mode()] ==# 'COMMAND')
-    else
-        highlight! link StatusLineMode TabLineSel
-    endif
-    return ''
-endfunction
+set statusline+=%(\ [%n]\ %<%F%)
+set statusline+=%=
+set statusline+=%(\ %<\ \ %p%%\ ☰\ \ \ %l/%L\ \ :%c\ %)

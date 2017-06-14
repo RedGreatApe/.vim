@@ -31,12 +31,9 @@ augroup END
 
 " Help window {{{
 " Open in most right vertical split With number, With relativenumber
-" needs work, when undotree (plug) is on
 augroup help_window
     autocmd!
     autocmd FileType help wincmd L
-    autocmd FileType help setlocal number
-    autocmd FileType help setlocal relativenumber
 augroup END
 " }}}
 

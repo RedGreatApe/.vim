@@ -6,7 +6,7 @@
 "                          |_|   |_|            |___/
 
 " Toggle ColorColumn {{{
-nnoremap <silent><Leader>cc :call g:ToggleColorColumn()<CR>
+nnoremap <silent><Leader>cc :call ToggleColorColumn()<CR>
 " }}}
 
 " Resizing Splits {{{
@@ -22,10 +22,10 @@ nmap          <SID>ws    <Nop>
 " }}}
 
 " Save and quit {{{
-nnoremap <C-s> :update<CR>
+nnoremap <silent><C-s> :update<CR>
 imap <C-s> <Esc><C-s>
 vmap <C-s> <Esc><C-s>
-nnoremap <C-q> :q<CR>
+nnoremap <silent><C-q> :q<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
 " }}}
@@ -36,8 +36,8 @@ nnoremap <silent> gb :bnext<CR>
 nnoremap j gj
 nnoremap k gk
 
-nnoremap <Leader>v :vsplit<CR>
-nnoremap <Leader>s :split<CR>
+nnoremap <silent><Leader>v :vsplit<CR>
+nnoremap <silent><Leader>s :split<CR>
 
 " use Alt keys and directionals {hklj} to change window,
 nnoremap <A-j> <C-w>j
@@ -57,14 +57,14 @@ cnoremap <C-n> <Down>
 
 " Editing {{{
 nnoremap Y y$
-nnoremap <leader>ev :args ~/.vim/nvimrc ~/.vim/nfiles/*<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-nnoremap <leader>de :setlocal spell spelllang=de_de<cr>
-nnoremap <leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/<cr>
+nnoremap <silent><leader>ev :args ~/.vim/nvimrc ~/.vim/nfiles/*<cr>
+nnoremap <silent><leader>sv :source $MYVIMRC<cr>
+nnoremap <silent><leader>de :setlocal spell spelllang=de_de<cr>
+nnoremap <silent><leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/<cr>
 " }}}
 
 " Searching {{{
-nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent><Space> :<C-u>nohlsearch<CR><C-l>
 " auto center {{{
 nnoremap <silent> n nzz
 nnoremap <silent> N Nzz
@@ -77,14 +77,12 @@ nnoremap <silent> <C-i> <C-i>zz
 " }}}
 
 " Buffer search
-nnoremap <leader>lb :buffers<CR>
-nnoremap <leader>lr :registers<CR>
+nnoremap <silent><leader>lb :buffers<CR>
+nnoremap <silent><leader>lr :registers<CR>
 " }}}
 
 " Don't use register by x
 nnoremap x "_x
-" forget about ex mode >.>
-nnoremap Q <NOP>
 
 " Del key now works inside neovim
 map <F1> <del>
@@ -94,7 +92,7 @@ map! <F1> <del>
 " System clipboard interaction.  Mostly from:
 " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
 noremap <leader>y "+y
-noremap <leader>p :set paste<CR>"+p<CR>:set nopaste<CR>
-noremap <leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
+noremap <silent><leader>p :set paste<CR>"+p<CR>:set nopaste<CR>
+noremap <silent><leader>P :set paste<CR>"+P<CR>:set nopaste<CR>
 vnoremap <leader>y "+ygv
 " }}}

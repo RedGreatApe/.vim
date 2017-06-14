@@ -32,7 +32,7 @@ endfunction
 " }}}
 
 " Toggle ColorColumn {{{
-function! g:ToggleColorColumn()
+function! ToggleColorColumn()
     if &colorcolumn != ''
         setlocal colorcolumn&
     else

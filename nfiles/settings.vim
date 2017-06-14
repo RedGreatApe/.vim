@@ -12,6 +12,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 set number             " show line numbers
 set relativenumber     " show line number relative to current line
 set cursorline         " Highlight current line
+" set cursorcolumn       " Highlight current line
 set list               " Display invisible characters as:
 set listchars=tab:▸-   " Tabs as ▸---
 set listchars+=trail:· " Trailing space as ·
@@ -19,6 +20,7 @@ set noshowmode         " Vim displays mode (if in Insert, or Visual, etc), disab
 
 set cmdheight=2        " Command line height
 set showcmd            " show typed command in status bar
+set laststatus=2
 set showtabline=2      " Always show tab bar       (top)
 
 set expandtab          " turn a tabs into spaces
@@ -46,3 +48,4 @@ set undofile           " keep an undo file (undo changes after closing)
 
 set mouse=a
 
+set keywordprg=ack
