@@ -62,6 +62,18 @@ augroup vim_stuff
     autocmd BufRead,BufEnter */doc/* if &filetype=='help' | wincmd L | endif
 augroup END
 
+augroup filetype_missing
+    autocmd!
+    autocmd BufNewFile,BufRead,BufEnter *.js setfiletype javascript
+    autocmd BufNewFile,BufRead,BufEnter *.zpt setfiletype html
+    autocmd BufNewFile,BufRead,BufEnter *.css setfiletype css
+augroup END
+
+augroup perl_stuff
+    autocmd!
+    autocmd BufNewFile,BufRead,BufEnter *.pm,*.pl setfiletype perl
+augroup END
+
 augroup editor_stuff
     autocmd!
     autocmd FocusLost * :wa
@@ -119,15 +131,22 @@ function! ToggleColorColumn()
 endfunction
 
 function! MyHighlights() abort
+    " Colors:
+    " https://vignette3.wikia.nocookie.net/vim/images/1/16/Xterm-color-table.png/revision/latest?cb=20110121055231
+
     highlight! LineNr       ctermfg=242  ctermbg=232
     highlight! CursorLineNR ctermfg=254  ctermbg=237 gui=NONE guifg=NONE
-
     highlight! CursorLine   ctermfg=NONE ctermbg=235 cterm=NONE
 
     highlight! Whitespace   ctermfg=239  ctermbg=232
     highlight! Search       ctermfg=250  ctermbg=240
 
-    " highlight! Folded
+    highlight! SpellBad     ctermfg=0    ctermbg=224
+
+    highlight DiffAdd    cterm=bold ctermfg=2    ctermbg=0  " Line was added
+    highlight DiffDelete cterm=bold ctermfg=1    ctermbg=0  " Line was removed
+    highlight DiffChange cterm=NONE ctermfg=NONE ctermbg=60 " Line was changed
+    highlight DiffText   cterm=bold ctermfg=3    ctermbg=60 " Exact part that was changed
 
     highlight! link Visual Search
     highlight! link CursorColumn CursorLine
@@ -167,15 +186,18 @@ nnoremap <silent><leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/
 
 " Searching
 nnoremap <silent><Space> :<C-u>nohlsearch<CR><C-l>
-nnoremap <silent> * *<C-o>
+nnoremap <silent> * *<C-o>zz
+nnoremap n nzz
+nnoremap N Nzz
 
 nnoremap <silent><leader>lb :buffers<CR>
 nnoremap <silent><leader>lr :registers<CR>
 
 nnoremap x "_x
 
-" clipboard yank
+" clipboard yank & put
 noremap <leader>y "+y
+noremap <leader>p "+p
 vnoremap <leader>y "+ygv
 
 " buffer navigation
@@ -183,12 +205,16 @@ nnoremap <silent> <Left> :bprevious<CR>
 nnoremap <silent> <Home> :bprevious<CR>
 nnoremap <silent> <Right> :bnext<CR>
 
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+endif
+
 "=================================================================
 "   Plugins:                                                     =
 "=================================================================
 " Plugin Loading
 " using dein.vim
-syntax off
+syntax on
 filetype plugin indent on
 set runtimepath+=$HOME/.vim/repos/github.com/Shougo/dein.vim
 call dein#begin($HOME . "/.vim")
@@ -208,8 +234,10 @@ call dein#begin($HOME . "/.vim")
     call dein#add('tpope/vim-vinegar')        " combine with netrw to create a delicious salad dressing
     call dein#add('vimwiki/vimwiki')          " vimwiki (needed for taskwiki)
     call dein#add('mileszs/ack.vim')          " run ack from vim
+    call dein#add('w0rp/ale')
+    call dein#add('machakann/vim-highlightedyank')
 
-    " call dein#add('AlessandroYorba/Alduin')           " colorscheme
+    call dein#add('AlessandroYorba/Alduin')           " colorscheme
     " call dein#add('AlessandroYorba/Sierra')           " colorscheme
 call dein#end()
 
@@ -241,7 +269,7 @@ augroup FoldSub
     autocmd BufEnter * nmap <silent> <expr> zv  FS_FoldAroundTarget(vim_sub_pat.'\\|^\s*".*',{'context':0, 'folds':'invisible'})
 augroup END
 
-" colorscheme sierra
+colorscheme alduin
 
 " Airline settings
 let g:airline_theme            = 'minimalist'
@@ -260,12 +288,12 @@ endif
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.paste    = 'ρ'
 let g:airline_symbols.branch   = '⎇'
-let g:airline_section_x        = ''
+" let g:airline_section_x      = ''
 let g:airline_section_y        = '[%n]'
 let g:airlilne_section_z       = '%p%% ☰ %l/%L  :%c '
-let g:airline_extensions       = ['tabline', 'branch', 'quickfix']
-
+let g:airline_extensions       = ['tabline', 'branch', 'quickfix', 'ale']
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled     = 1
 
 " CtrlP Settings
 let g:ctrlp_by_filename = 1         " <c-d> to toggle
@@ -314,13 +342,23 @@ endif
 " only on ST but del is messed up too, using konsole right now
 nmap <C-h> <Plug>VimwikiGoBackLink
 
-let g:vimwiki_folding='list'
+let g:vimwiki_folding      = 'list'
 
 let mywiki                 = {}
 let mywiki.path            = '~/.vim/vimwiki'
 let mywiki.nested_syntaxes = { 'perl': 'perl' }
 
-let dnd      = {}
-let dnd.path = '/run/media/rd/imageUSB/vimwiki'
+let dnd                    = {}
+let dnd.path               = '/run/media/rd/imageUSB/vimwiki'
 
-let g:vimwiki_list = [ mywiki , dnd ]
+let g:vimwiki_list         = [ mywiki , dnd ]
+
+" ALE
+
+" let g:ale_set_loclist  = 0
+" let g:ale_set_quickfix = 1
+nnoremap <leader><leader> :ALENextWrap<cr>zz
+nnoremap <leader>N :ALEPreviousWrap<cr>zz
+
+
+silent! helptags ALL
