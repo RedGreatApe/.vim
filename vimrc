@@ -67,6 +67,7 @@ augroup filetype_missing
     autocmd BufNewFile,BufRead,BufEnter *.js setfiletype javascript
     autocmd BufNewFile,BufRead,BufEnter *.zpt setfiletype html
     autocmd BufNewFile,BufRead,BufEnter *.css setfiletype css
+    autocmd BufNewFile,BufRead,BufEnter .bashrc setfiletype sh
 augroup END
 
 augroup perl_stuff
@@ -94,10 +95,10 @@ augroup editor_stuff
     autocmd BufWritePre * call StripWhitespace( 0, line("$") )
 augroup END
 
-augroup MyColors
-    autocmd!
-    autocmd ColorScheme * call MyHighlights()
-augroup END
+" augroup MyColors
+"     autocmd!
+"     autocmd ColorScheme * call MyHighlights()
+" augroup END
 
 "=================================================================
 "   Functions:                                                   =
@@ -130,31 +131,31 @@ function! ToggleColorColumn()
     endif
 endfunction
 
-function! MyHighlights() abort
-    " Colors:
-    " https://vignette3.wikia.nocookie.net/vim/images/1/16/Xterm-color-table.png/revision/latest?cb=20110121055231
+" function! MyHighlights() abort
+"     " Colors:
+"     " https://vignette3.wikia.nocookie.net/vim/images/1/16/Xterm-color-table.png/revision/latest?cb=20110121055231
 
-    highlight! LineNr       ctermfg=242  ctermbg=232
-    highlight! CursorLineNR ctermfg=254  ctermbg=237 gui=NONE guifg=NONE
-    highlight! CursorLine   ctermfg=NONE ctermbg=235 cterm=NONE
+"     highlight! LineNr       ctermfg=242  ctermbg=232
+"     highlight! CursorLineNR ctermfg=254  ctermbg=237 gui=NONE guifg=NONE
+"     highlight! CursorLine   ctermfg=NONE ctermbg=235 cterm=NONE
 
-    highlight! Whitespace   ctermfg=239  ctermbg=232
-    highlight! Search       ctermfg=250  ctermbg=240
+"     highlight! Whitespace   ctermfg=239  ctermbg=232
+"     highlight! Search       ctermfg=250  ctermbg=240
 
-    highlight! SpellBad     ctermfg=0    ctermbg=224
+"     highlight! SpellBad     ctermfg=0    ctermbg=224
 
-    highlight DiffAdd    cterm=bold ctermfg=2    ctermbg=0  " Line was added
-    highlight DiffDelete cterm=bold ctermfg=1    ctermbg=0  " Line was removed
-    highlight DiffChange cterm=NONE ctermfg=NONE ctermbg=60 " Line was changed
-    highlight DiffText   cterm=bold ctermfg=3    ctermbg=60 " Exact part that was changed
+"     highlight DiffAdd    cterm=bold ctermfg=2    ctermbg=0  " Line was added
+"     highlight DiffDelete cterm=bold ctermfg=1    ctermbg=0  " Line was removed
+"     highlight DiffChange cterm=NONE ctermfg=NONE ctermbg=60 " Line was changed
+"     highlight DiffText   cterm=bold ctermfg=3    ctermbg=60 " Exact part that was changed
 
-    highlight! link Visual Search
-    highlight! link CursorColumn CursorLine
-    highlight! link ColorColumn  CursorLine
-    highlight! link WildMenu Search
-    highlight! link MatchParen TermCursor
-endfunction
-call MyHighlights()
+"     highlight! link Visual Search
+"     highlight! link CursorColumn CursorLine
+"     highlight! link ColorColumn  CursorLine
+"     highlight! link WildMenu Search
+"     highlight! link MatchParen TermCursor
+" endfunction
+" call MyHighlights()
 
 "=================================================================
 "   Mappings:                                                    =
@@ -237,7 +238,8 @@ call dein#begin($HOME . "/.vim")
     call dein#add('w0rp/ale')
     call dein#add('machakann/vim-highlightedyank')
 
-    call dein#add('AlessandroYorba/Alduin')           " colorscheme
+    " call dein#add('AlessandroYorba/Alduin')           " colorscheme
+    call dein#add('josuegaleas/jay')           " colorscheme
     " call dein#add('AlessandroYorba/Sierra')           " colorscheme
 call dein#end()
 
@@ -269,10 +271,11 @@ augroup FoldSub
     autocmd BufEnter * nmap <silent> <expr> zv  FS_FoldAroundTarget(vim_sub_pat.'\\|^\s*".*',{'context':0, 'folds':'invisible'})
 augroup END
 
-colorscheme alduin
+set background=dark
+colorscheme jay
 
 " Airline settings
-let g:airline_theme            = 'minimalist'
+" let g:airline_theme            = 'minimalist'
 
 let g:airline_mode_map         = {
     \ '__' : '-',   'n'  : ' N ', 'i'  : ' I ',
@@ -359,6 +362,5 @@ let g:vimwiki_list         = [ mywiki , dnd ]
 " let g:ale_set_quickfix = 1
 nnoremap <leader><leader> :ALENextWrap<cr>zz
 nnoremap <leader>N :ALEPreviousWrap<cr>zz
-
 
 silent! helptags ALL

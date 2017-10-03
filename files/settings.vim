@@ -27,10 +27,9 @@ set magic                           " change the way backslashes are used in sea
 set smartindent                     " smart auto indenting
 set smarttab                        " smart tab handling for indenting
 set encoding=utf-8                  " Self explanatory
-syntax on                           " Switch syntax highlighting on
-" }}}
 
-" System Settings  ---------------------- {{{
 set undodir=$TMPDIR         " Swap file location
 set directory=$TMPDIR       " Swap file location
 set ttyfast                 " Fast terminal, redrawing
+
+map y <Plug>(highlightedyank)
