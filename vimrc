@@ -1,7 +1,6 @@
 "=================================================================
 "   Settings:                                                    =
 "=================================================================
-" Cursor shape (bar when in insert mode)
 
 set number             " show line numbers
 set relativenumber     " show line number relative to current line
@@ -11,17 +10,15 @@ set noshowmode         " Vim displays mode (if in Insert, or Visual, etc), disab
 
 set list               " Display invisible characters as:
 set listchars=tab:▸-   " Tabs as ▸---
-set listchars+=trail:● " Trailing space as ·
-set matchpairs+=<:>
-set matchpairs+=«:»
-set matchpairs+=｢:｣
+set listchars+=trail:● " Trailing space as ● ·
+set matchpairs+=<:>    " match < and >
 
 set cmdheight=2        " Command line height
-set showcmd            " show typed command in status bar
-set laststatus=2
+set showcmd            " show typed command in command line
+set laststatus=2       " windows will always have a status bar
 set showtabline=2      " Always show tab bar       (top)
 
-set expandtab          " turn a tabs into spaces
+set expandtab          " turn all tabs into spaces
 set shiftwidth=4       " spaces for autoindents
 set softtabstop=4      " number of spaces in tab when editing
 set tabstop=4          " number of visual spaces per tab
@@ -34,20 +31,21 @@ set pastetoggle=<F3>   " Toggle set paste
 set splitbelow         " New split below the current one
 set splitright         " New split to the right
 
-set updatetime=250
-
+set updatetime=250     " swap file related, thus, 'modified elsewhere' related
 set noautoread         " together with :checktime (and set confirm), prompt to reload file
 set confirm            " get a dialog when :q, :w, or :wq fails
+
 set hidden             " able to hide modified buffers without saving
 set nobackup           " no backup~ files.
 set noswapfile         " Write swap and backup files
 set undofile           " keep an undo file (undo changes after closing)
+set directory^=~/.vim/swapfiles/
+set undodir^=~/.vim/swapfiles/
 
 set foldlevelstart=99  " Don't start new buffers folded
-
 set mouse=a
+set keywordprg=ack     " use ack with K, together with ack-vim
 
-set keywordprg=ack
 if !has('nvim')
     source ~/.vim/files/settings.vim
 endif
@@ -56,28 +54,26 @@ endif
 "   Autocommands:                                                =
 "=================================================================
 augroup vim_stuff
+    " filetypes to vimrc and help files. always open help to the most right
     autocmd!
-    autocmd BufNewFile,BufRead  vimrc    setfiletype vim
+    autocmd BufNewFile,BufRead,BufEnter vimrc setfiletype vim
     autocmd FileType vim setlocal foldmethod=marker
     autocmd BufRead,BufEnter */doc/* if &filetype=='help' | wincmd L | endif
 augroup END
 
-augroup filetype_missing
+augroup filetype_missing " missing filetypes to some file types
     autocmd!
-    autocmd BufNewFile,BufRead,BufEnter *.js setfiletype javascript
-    autocmd BufNewFile,BufRead,BufEnter *.zpt setfiletype html
-    autocmd BufNewFile,BufRead,BufEnter *.css setfiletype css
-    autocmd BufNewFile,BufRead,BufEnter .bashrc setfiletype sh
-augroup END
-
-augroup perl_stuff
-    autocmd!
+    autocmd BufNewFile,BufRead,BufEnter *.vim     setfiletype vim
+    autocmd BufNewFile,BufRead,BufEnter *.js      setfiletype javascript
+    autocmd BufNewFile,BufRead,BufEnter *.zpt     setfiletype html
+    autocmd BufNewFile,BufRead,BufEnter *.css     setfiletype css
+    autocmd BufNewFile,BufRead,BufEnter .bashrc   setfiletype sh
     autocmd BufNewFile,BufRead,BufEnter *.pm,*.pl setfiletype perl
 augroup END
 
 augroup editor_stuff
     autocmd!
-    autocmd FocusLost * :wa
+    autocmd FocusLost   * :wa
     autocmd FocusLost   * :set norelativenumber
     autocmd FocusGained * :set relativenumber
     autocmd InsertEnter * :set norelativenumber
@@ -94,11 +90,6 @@ augroup editor_stuff
     endif
     autocmd BufWritePre * call StripWhitespace( 0, line("$") )
 augroup END
-
-" augroup MyColors
-"     autocmd!
-"     autocmd ColorScheme * call MyHighlights()
-" augroup END
 
 "=================================================================
 "   Functions:                                                   =
@@ -124,68 +115,42 @@ function! g:StripWhitespace( line1, line2 )
     call cursor(l, c)
 endfunction
 
-" Toggle ColorColumn
 function! ToggleColorColumn()
     if &colorcolumn != '' | setlocal colorcolumn&
     else                  | setlocal colorcolumn=81,101
     endif
 endfunction
 
-" function! MyHighlights() abort
-"     " Colors:
-"     " https://vignette3.wikia.nocookie.net/vim/images/1/16/Xterm-color-table.png/revision/latest?cb=20110121055231
-
-"     highlight! LineNr       ctermfg=242  ctermbg=232
-"     highlight! CursorLineNR ctermfg=254  ctermbg=237 gui=NONE guifg=NONE
-"     highlight! CursorLine   ctermfg=NONE ctermbg=235 cterm=NONE
-
-"     highlight! Whitespace   ctermfg=239  ctermbg=232
-"     highlight! Search       ctermfg=250  ctermbg=240
-
-"     highlight! SpellBad     ctermfg=0    ctermbg=224
-
-"     highlight DiffAdd    cterm=bold ctermfg=2    ctermbg=0  " Line was added
-"     highlight DiffDelete cterm=bold ctermfg=1    ctermbg=0  " Line was removed
-"     highlight DiffChange cterm=NONE ctermfg=NONE ctermbg=60 " Line was changed
-"     highlight DiffText   cterm=bold ctermfg=3    ctermbg=60 " Exact part that was changed
-
-"     highlight! link Visual Search
-"     highlight! link CursorColumn CursorLine
-"     highlight! link ColorColumn  CursorLine
-"     highlight! link WildMenu Search
-"     highlight! link MatchParen TermCursor
-" endfunction
-" call MyHighlights()
-
 "=================================================================
 "   Mappings:                                                    =
 "=================================================================
-" Toggle ColorColumn
 nnoremap <silent><Leader>cc :call ToggleColorColumn()<CR>
 
-" Save and quit
 nnoremap <silent><C-s> :update<CR>
-imap <C-s> <Esc><C-s>
-vmap <C-s> <Esc><C-s>
+imap     <silent><C-s> <Esc><C-s>
+vmap     <silent><C-s> <Esc><C-s>
 nnoremap <silent><C-q> :q<CR>
+
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
-
-nnoremap <silent><Leader>v :vsplit<CR>
-nnoremap <silent><Leader>s :split<CR>
-
-" Command line History
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-" Editing
-nnoremap Y y$
-nnoremap <silent><leader>ev :args ~/.vim/vimrc<cr>
+nnoremap <silent><Leader>v :vsplit<CR>
+nnoremap <silent><Leader>s :split<CR>
+nnoremap <silent> <Left> :bprevious<CR>
+nnoremap <silent> <Home> :bprevious<CR>
+nnoremap <silent> <Right> :bnext<CR>
+
+nmap Y y$
+nnoremap <silent><leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <silent><leader>rv :source $MYVIMRC<cr>
 nnoremap <silent><leader>de :setlocal spell spelllang=de_de<cr>
 nnoremap <silent><leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/<cr>
+noremap  <leader>y "+y
+noremap  <leader>p "+p
+vnoremap <leader>y "+ygv
 
-" Searching
 nnoremap <silent><Space> :<C-u>nohlsearch<CR><C-l>
 nnoremap <silent> * *<C-o>zz
 nnoremap n nzz
@@ -193,90 +158,61 @@ nnoremap N Nzz
 
 nnoremap <silent><leader>lb :buffers<CR>
 nnoremap <silent><leader>lr :registers<CR>
-
 nnoremap x "_x
-
-" clipboard yank & put
-noremap <leader>y "+y
-noremap <leader>p "+p
-vnoremap <leader>y "+ygv
-
-" buffer navigation
-nnoremap <silent> <Left> :bprevious<CR>
-nnoremap <silent> <Home> :bprevious<CR>
-nnoremap <silent> <Right> :bnext<CR>
 
 if has('nvim')
     tnoremap <Esc> <C-\><C-n>
 endif
 
-"=================================================================
-"   Plugins:                                                     =
-"=================================================================
-" Plugin Loading
-" using dein.vim
+" =================================================================
+" Plugins:                                                        =
+" =================================================================
+" Plugin Loading using dein.vim
 syntax on
 filetype plugin indent on
 set runtimepath+=$HOME/.vim/repos/github.com/Shougo/dein.vim
-call dein#begin($HOME . "/.vim")
-    call dein#add('Shougo/dein.vim')          " dein.vim manages itself
+call dein#begin($HOME . '/.vim')
+    call dein#add('Shougo/dein.vim')               " dein.vim manages itself
 
-    call dein#add('vim-airline/vim-airline')
-    call dein#add('ctrlpvim/ctrlp.vim')       " Fuzzy file, buffer, mru, tag, etc finder
-    call dein#add('jiangmiao/auto-pairs')     " Insert or delete brackets/parens/etc in pairs
-    call dein#add('mbbill/undotree')          " Undo tree history visualizer
+    call dein#add('vim-airline/vim-airline')       " statusline and tabline
+    call dein#add('machakann/vim-highlightedyank') " styling, highlight yanked stuff
+    call dein#add('josuegaleas/jay')               " colorscheme
+    call dein#add('ctrlpvim/ctrlp.vim')            " Fuzzy file, buffer, mru, tag, etc finder
+    call dein#add('jiangmiao/auto-pairs')          " Insert or delete brackets/parens/etc in pairs
+    call dein#add('tpope/vim-commentary')          " Comment stuff out with text objects
+    call dein#add('tpope/vim-fugitive')            " A Git wrapper, use git commands in vim
+    call dein#add('tpope/vim-repeat')              " Enable repeating supported plugin maps with '.'
+    call dein#add('tpope/vim-surround')            " quoting/parenthesizing made simple with text objects
+    call dein#add('tpope/vim-vinegar')             " combine with netrw to create a delicious salad dressing
+    call dein#add('mileszs/ack.vim')               " run ack from vim, together with K and keywordprg
+    call dein#add('w0rp/ale')                      " Linter engine, used for Perl and Javascript
+    call dein#add('mbbill/undotree')               " Undo tree history visualizer (MARKED FOR DELETION)
+    call dein#add('vimwiki/vimwiki')               " vimwiki (MARKED FOR DELETION)
+
     if has('nvim')
-        call dein#add('Shougo/deoplete.nvim') " Dark powered aasynchronouse completion framework for neovim
+        call dein#add('Shougo/deoplete.nvim')      " Dark powered aasynchronouse completion framework for neovim
     endif
-    call dein#add('tpope/vim-commentary')     " Comment stuff out
-    call dein#add('tpope/vim-fugitive')       " A Git wrapper
-    call dein#add('tpope/vim-repeat')         " Enable repeating supported plugin maps with '.'
-    call dein#add('tpope/vim-surround')       " quoting/parenthesizing made simple
-    call dein#add('tpope/vim-vinegar')        " combine with netrw to create a delicious salad dressing
-    call dein#add('vimwiki/vimwiki')          " vimwiki (needed for taskwiki)
-    call dein#add('mileszs/ack.vim')          " run ack from vim
-    call dein#add('w0rp/ale')
-    call dein#add('machakann/vim-highlightedyank')
 
-    " call dein#add('AlessandroYorba/Alduin')           " colorscheme
-    call dein#add('josuegaleas/jay')           " colorscheme
-    " call dein#add('AlessandroYorba/Sierra')           " colorscheme
+    " call dein#add('AlessandroYorba/Alduin')           " colorscheme (MARKED FOR DELETION)
+    " call dein#add('AlessandroYorba/Sierra')           " colorscheme (MARKED FOR DELETION)
 call dein#end()
 
-" Install not installed plugins on startup.
-if dein#check_install()
-    call dein#install()
-endif
+if dein#check_install() | call dein#install() | endi " Install not installed plugins on startup
 
 source ~/.vim/files/eqalignsimple.vim
 source ~/.vim/files/foldsearches.vim
-source ~/.vim/files/yankmatches.vim
 
 "=================================================================
 "   Plugin Settings:                                             =
 "=================================================================
 
+" Ack vim
 nnoremap <silent> K yiw:Ack! <C-r>0<cr>
-
-" Search Folding
-nmap <silent> <expr>  <leader>zz  FS_ToggleFoldAroundSearch({'context':1})
-let perl_sub_pat = '^\s*\%(sub\|func\|method\|package\)\s\+\k\+'
-let vim_sub_pat  = '^\s*fu\%[nction!]\s\+\k\+'
-augroup FoldSub
-    autocmd!
-    autocmd BufEnter * nmap <silent> <expr>  <leader>zp  FS_FoldAroundTarget(perl_sub_pat,{'context':1})
-    autocmd BufEnter * nmap <silent> <expr>  <leader>za  FS_FoldAroundTarget(perl_sub_pat.'\zs\\|^\s*#.*',{'context':0, 'folds':'invisible'})
-    autocmd BufEnter *.vim,.vimrc,vimrc nmap <silent> <expr>  <leader>zp  FS_FoldAroundTarget(vim_sub_pat,{'context':1})
-    autocmd BufEnter *.vim,.vimrc,vimrc nmap <silent> <expr>  <leader>za  FS_FoldAroundTarget(vim_sub_pat.'\\|^\s*".*',{'context':0, 'folds':'invisible'})
-    autocmd BufEnter * nmap <silent> <expr> zv  FS_FoldAroundTarget(vim_sub_pat.'\\|^\s*".*',{'context':0, 'folds':'invisible'})
-augroup END
 
 set background=dark
 colorscheme jay
 
 " Airline settings
-" let g:airline_theme            = 'minimalist'
-
 let g:airline_mode_map         = {
     \ '__' : '-',   'n'  : ' N ', 'i'  : ' I ',
     \ 'R'  : ' R ', 'c'  : ' C ', 'v'  : ' V ',
@@ -284,17 +220,13 @@ let g:airline_mode_map         = {
     \ 'S'  : ' S ', '' : ' S ',
     \ }
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols      = {}
-endif
-" let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.paste    = 'ρ'
-let g:airline_symbols.branch   = '⎇'
-" let g:airline_section_x      = ''
-let g:airline_section_y        = '[%n]'
-let g:airlilne_section_z       = '%p%% ☰ %l/%L  :%c '
-let g:airline_extensions       = ['tabline', 'branch', 'quickfix', 'ale']
+if !exists('g:airline_symbols') | let g:airline_symbols = {} | endif
+let g:airline_symbols.readonly           = ''
+let g:airline_symbols.paste              = 'ρ'
+let g:airline_symbols.branch             = '⎇'
+let g:airline_section_y                  = '%n'
+let g:airlilne_section_z                 = '%p%% ☰ %l/%L  :%c '
+let g:airline_extensions                 = ['tabline', 'branch', 'quickfix', 'ale']
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled     = 1
 
@@ -307,20 +239,15 @@ nnoremap <silent> <F5> :UndotreeToggle<CR>
 nnoremap <silent> <F6> :UndotreeFocus<CR>
 let g:undotree_WindowLayout         = 2
 let g:undotree_HighlightChangedText = 0
-
-" navigate the undotree with k and j
 function! g:Undotree_CustomMap()
     nmap <buffer> k <plug>UndotreeGoNextState
     nmap <buffer> j <plug>UndotreeGoPreviousState
 endfunc
 
-
 " Vinegar Settings
 let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
-"
 
 if has('nvim')
-    " deoplete
     let g:deoplete#enable_at_startup = 1
     " use <Tab> to navigate the popup
     inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -341,25 +268,17 @@ if has('nvim')
 endif
 
 " Vimwiki
-" on my station, <backspace> is registered as C-h
-" only on ST but del is messed up too, using konsole right now
 nmap <C-h> <Plug>VimwikiGoBackLink
 
 let g:vimwiki_folding      = 'list'
-
 let mywiki                 = {}
 let mywiki.path            = '~/.vim/vimwiki'
 let mywiki.nested_syntaxes = { 'perl': 'perl' }
-
 let dnd                    = {}
 let dnd.path               = '/run/media/rd/imageUSB/vimwiki'
-
 let g:vimwiki_list         = [ mywiki , dnd ]
 
 " ALE
-
-" let g:ale_set_loclist  = 0
-" let g:ale_set_quickfix = 1
 nnoremap <leader><leader> :ALENextWrap<cr>zz
 nnoremap <leader>N :ALEPreviousWrap<cr>zz
 
