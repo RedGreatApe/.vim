@@ -25,6 +25,7 @@ set tabstop=4          " number of visual spaces per tab
 
 set ignorecase         " case insensitive searching
 set smartcase          " unless I use caps
+set wildignorecase     " case insensitive wildmenu
 set incsearch          " Highlight the next match while still typing the pattern
 set pastetoggle=<F3>   " Toggle set paste
 
@@ -46,15 +47,12 @@ set foldlevelstart=99  " Don't start new buffers folded
 set mouse=a
 set keywordprg=ack     " use ack with K, together with ack-vim
 
-if !has('nvim')
-    source ~/.vim/files/settings.vim
-endif
+if !has('nvim') | source ~/.vim/files/settings.vim | endif
 
 "=================================================================
 "   Autocommands:                                                =
 "=================================================================
-augroup vim_stuff
-    " filetypes to vimrc and help files. always open help to the most right
+augroup vim_stuff " filetypes to vimrc and help files. always open help to the most right
     autocmd!
     autocmd BufNewFile,BufRead,BufEnter vimrc setfiletype vim
     autocmd FileType vim setlocal foldmethod=marker
@@ -68,6 +66,7 @@ augroup filetype_missing " missing filetypes to some file types
     autocmd BufNewFile,BufRead,BufEnter *.zpt     setfiletype html
     autocmd BufNewFile,BufRead,BufEnter *.css     setfiletype css
     autocmd BufNewFile,BufRead,BufEnter .bashrc   setfiletype sh
+    autocmd BufNewFile,BufRead,BufEnter sam       setfiletype sh
     autocmd BufNewFile,BufRead,BufEnter *.pm,*.pl setfiletype perl
 augroup END
 
@@ -117,47 +116,48 @@ endfunction
 
 function! ToggleColorColumn()
     if &colorcolumn != '' | setlocal colorcolumn&
-    else                  | setlocal colorcolumn=81,101
+    else                  | setlocal colorcolumn=80,100
     endif
 endfunction
 
 "=================================================================
 "   Mappings:                                                    =
 "=================================================================
-nnoremap <silent><Leader>cc :call ToggleColorColumn()<CR>
+nnoremap <Leader>cc :call ToggleColorColumn()<CR>
 
-nnoremap <silent><C-s> :update<CR>
-imap     <silent><C-s> <Esc><C-s>
-vmap     <silent><C-s> <Esc><C-s>
-nnoremap <silent><C-q> :q<CR>
+nnoremap <C-s> :update<CR>
+imap     <C-s> <Esc><C-s>
+xmap     <C-s> <Esc><C-s>
+nnoremap <C-q> :q<CR>
 
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
-nnoremap <silent><Leader>v :vsplit<CR>
-nnoremap <silent><Leader>s :split<CR>
-nnoremap <silent> <Left> :bprevious<CR>
-nnoremap <silent> <Home> :bprevious<CR>
-nnoremap <silent> <Right> :bnext<CR>
+nnoremap <Leader>v :vsplit<CR>
+nnoremap <Leader>s :split<CR>
+nnoremap <Leader>b :bprevious<CR>
+nnoremap <Leader>n :bnext<CR>
 
-nmap Y y$
-nnoremap <silent><leader>ev :e ~/.vim/vimrc<cr>
-nnoremap <silent><leader>rv :source $MYVIMRC<cr>
-nnoremap <silent><leader>de :setlocal spell spelllang=de_de<cr>
-nnoremap <silent><leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/<cr>
-noremap  <leader>y "+y
-noremap  <leader>p "+p
-vnoremap <leader>y "+ygv
+nnoremap Y y$
+nnoremap <Leader>ev :e ~/.vim/vimrc<cr>
+nnoremap <Leader>rv :source $MYVIMRC<cr>
+nnoremap <Leader>de :setlocal spell spelllang=de_de<cr>
+nnoremap <Leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/<cr>
+nnoremap <Leader>y "+y
+nnoremap <Leader>p "+p
+xnoremap <Leader>y "+y
+xnoremap <Leader>p "+p
+xnoremap <Leader>y "+ygv
 
-nnoremap <silent><Space> :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
 nnoremap <silent> * *<C-o>zz
 nnoremap n nzz
 nnoremap N Nzz
 
-nnoremap <silent><leader>lb :buffers<CR>
-nnoremap <silent><leader>lr :registers<CR>
+nnoremap <Leader>lb :buffers<CR>
+nnoremap <Leader>lr :registers<CR>
 nnoremap x "_x
 
 if has('nvim')
@@ -177,6 +177,9 @@ call dein#begin($HOME . '/.vim')
     call dein#add('vim-airline/vim-airline')       " statusline and tabline
     call dein#add('machakann/vim-highlightedyank') " styling, highlight yanked stuff
     call dein#add('josuegaleas/jay')               " colorscheme
+    " Other colorschemes I like:
+    " https://github.com/fcpg/vim-farout
+    " https://github.com/AlessandroYorba/alduin
     call dein#add('ctrlpvim/ctrlp.vim')            " Fuzzy file, buffer, mru, tag, etc finder
     call dein#add('jiangmiao/auto-pairs')          " Insert or delete brackets/parens/etc in pairs
     call dein#add('tpope/vim-commentary')          " Comment stuff out with text objects
@@ -188,13 +191,13 @@ call dein#begin($HOME . '/.vim')
     call dein#add('w0rp/ale')                      " Linter engine, used for Perl and Javascript
     call dein#add('mbbill/undotree')               " Undo tree history visualizer (MARKED FOR DELETION)
     call dein#add('vimwiki/vimwiki')               " vimwiki (MARKED FOR DELETION)
+    " call dein#add('blueyed/vim-diminactive')          " dim inactive windows,
+    call dein#add('edkolev/tmuxline.vim')
 
     if has('nvim')
-        call dein#add('Shougo/deoplete.nvim')      " Dark powered aasynchronouse completion framework for neovim
+        call dein#add('Shougo/deoplete.nvim')      " Dark powered asynchronous completion framework for neovim
     endif
 
-    " call dein#add('AlessandroYorba/Alduin')           " colorscheme (MARKED FOR DELETION)
-    " call dein#add('AlessandroYorba/Sierra')           " colorscheme (MARKED FOR DELETION)
 call dein#end()
 
 if dein#check_install() | call dein#install() | endi " Install not installed plugins on startup
@@ -213,7 +216,8 @@ set background=dark
 colorscheme jay
 
 " Airline settings
-let g:airline_mode_map         = {
+let g:airline_powerline_fonts = 1
+let g:airline_mode_map        = {
     \ '__' : '-',   'n'  : ' N ', 'i'  : ' I ',
     \ 'R'  : ' R ', 'c'  : ' C ', 'v'  : ' V ',
     \ 'V'  : ' V ', '' : ' V ', 's'  : ' S ',
@@ -279,7 +283,7 @@ let dnd.path               = '/run/media/rd/imageUSB/vimwiki'
 let g:vimwiki_list         = [ mywiki , dnd ]
 
 " ALE
-nnoremap <leader><leader> :ALENextWrap<cr>zz
-nnoremap <leader>N :ALEPreviousWrap<cr>zz
+nnoremap <Leader><Leader> :ALENextWrap<cr>zz
+nnoremap <Leader>N :ALEPreviousWrap<cr>zz
 
 silent! helptags ALL
