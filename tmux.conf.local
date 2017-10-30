@@ -1,5 +1,7 @@
 # https://github.com/gpakosz/.tmux
-# (‑●‑●)> released under the WTFPL v2 license, by Gregory Pakosz (@gpakosz)
+# (‑●‑●)> dual licensed under the WTFPL v2 license and the MIT license,
+#         without any warranty.
+#         Copyright 2012— Gregory Pakosz (@gpakosz).
 
 
 # -- navigation ----------------------------------------------------------------
@@ -22,7 +24,7 @@ tmux_conf_new_window_retain_current_path=false
 # new pane retains current path, possible values are:
 #   - true (default)
 #   - false
-tmux_conf_new_pane_retain_current_path=false
+tmux_conf_new_pane_retain_current_path=true
 
 # new pane tries to reconnect ssh sessions (experimental), possible values are:
 #   - true
@@ -37,7 +39,7 @@ tmux_conf_new_session_prompt=false
 
 # -- display -------------------------------------------------------------------
 
-# RGB 24-bit colour support (since tmux 2.2), possible values are:
+# RGB 24-bit colour support (tmux >= 2.2), possible values are:
 #  - true
 #  - false (default)
 tmux_conf_theme_24b_colour=false
@@ -46,7 +48,7 @@ tmux_conf_theme_24b_colour=false
 tmux_conf_theme_window_fg='default'
 tmux_conf_theme_window_bg='default'
 
-# highlight focused pane (tmux 2.1+), possible values are:
+# highlight focused pane (tmux >= 2.1), possible values are:
 #   - true
 #   - false (default)
 tmux_conf_theme_highlight_focused_pane=false
@@ -62,15 +64,15 @@ tmux_conf_theme_pane_border_style=thin
 
 # pane borders colours:
 tmux_conf_theme_pane_border='#444444'                   # gray
-tmux_conf_theme_pane_active_border='#afd700'            # bright green
+tmux_conf_theme_pane_active_border='#00afff'            # light blue
 
 # pane indicator colours
-tmux_conf_theme_pane_indicator='#afd700'                # bright green
-tmux_conf_theme_pane_active_indicator='#afd700'         # bright green
+tmux_conf_theme_pane_indicator='#00afff'                # light blue
+tmux_conf_theme_pane_active_indicator='#00afff'         # light blue
 
 # status line style
-tmux_conf_theme_message_fg='#87ffaf'                    # bright green
-tmux_conf_theme_message_bg='#080808'                    # black
+tmux_conf_theme_message_fg='#000000'                    # black
+tmux_conf_theme_message_bg='#ffff00'                    # yellow
 tmux_conf_theme_message_attr='bold'
 
 # status line command style (<prefix> : Escape)
@@ -91,28 +93,27 @@ tmux_conf_theme_status_attr='none'
 # window status style
 #   - built-in variables are:
 #     - #{circled_window_index}
-tmux_conf_theme_window_status_fg='#ffd787'              # light gray
-tmux_conf_theme_window_status_bg='#262626'              # gold
+tmux_conf_theme_window_status_fg='#8a8a8a'              # light gray
+tmux_conf_theme_window_status_bg='#080808'              # dark gray
 tmux_conf_theme_window_status_attr='none'
-tmux_conf_theme_window_status_format=' #I |#{?window_activity_flag,#[fg=colour154],#[fg=colour121,bg=colour235]} #W#{?window_zoomed_flag,-Z,} '
-
-#tmux_conf_theme_window_status_format='#{circled_window_index} #W'
-#tmux_conf_theme_window_status_format='#I #W#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}'
+tmux_conf_theme_window_status_format='#I #W'
+# tmux_conf_theme_window_status_format='#{circled_window_index} #W'
+# tmux_conf_theme_window_status_format='#I #W#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}'
 
 # window current status style
 #   - built-in variables are:
 #     - #{circled_window_index}
-tmux_conf_theme_window_status_current_fg='#ffd787'      # some other bright green
-tmux_conf_theme_window_status_current_bg='#444444'      # dark grey
-tmux_conf_theme_window_status_current_attr=''
-tmux_conf_theme_window_status_current_format='#I |#[fg=colour154,bg=colour238,bold] #W#{?window_zoomed_flag,-Z,}'
+tmux_conf_theme_window_status_current_fg='#000000'      # black
+tmux_conf_theme_window_status_current_bg='#00afff'      # light blue
+tmux_conf_theme_window_status_current_attr='bold'
+tmux_conf_theme_window_status_current_format='#I #W'
 #tmux_conf_theme_window_status_current_format='#{circled_window_index} #W'
 #tmux_conf_theme_window_status_current_format='#I #W#{?window_zoomed_flag,🔍,}'
 
 # window activity status style
 tmux_conf_theme_window_status_activity_fg='default'
 tmux_conf_theme_window_status_activity_bg='default'
-tmux_conf_theme_window_status_activity_attr='none'
+tmux_conf_theme_window_status_activity_attr='underscore'
 
 # window bell status style
 tmux_conf_theme_window_status_bell_fg='#ffff00'         # yellow
@@ -120,7 +121,7 @@ tmux_conf_theme_window_status_bell_bg='default'
 tmux_conf_theme_window_status_bell_attr='blink,bold'
 
 # window last status style
-tmux_conf_theme_window_status_last_fg='default'
+tmux_conf_theme_window_status_last_fg='#00afff'         # light blue
 tmux_conf_theme_window_status_last_bg='default'
 tmux_conf_theme_window_status_last_attr='none'
 
@@ -129,9 +130,9 @@ tmux_conf_theme_left_separator_main=''
 tmux_conf_theme_left_separator_sub='|'
 tmux_conf_theme_right_separator_main=''
 tmux_conf_theme_right_separator_sub='|'
-#tmux_conf_theme_left_separator_main=''  # /!\ you don't need to install powerline
+#tmux_conf_theme_left_separator_main=''  # /!\ you don't need to install Powerline
 #tmux_conf_theme_left_separator_sub=''   #   you only need fonts patched with
-#tmux_conf_theme_right_separator_main='' #   powerline symbols or the standalone
+#tmux_conf_theme_right_separator_main='' #   Powerline symbols or the standalone
 #tmux_conf_theme_right_separator_sub=''  #   PowerlineSymbols.otf font
 
 # status left/right content:
@@ -156,36 +157,34 @@ tmux_conf_theme_right_separator_sub='|'
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-# tmux_conf_theme_status_left=' ❐ #S:#I.#P | ↑#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
-# tmux_conf_theme_status_right='#{prefix}#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
-tmux_conf_theme_status_left='#{?client_prefix,#[fg=colour232]#[bg=colour214],} #S:#I.#P ||'
-tmux_conf_theme_status_right=', %R , %d %b ,| #[bold]#{username}#{root} | #{hostname} '
+tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
+tmux_conf_theme_status_right='#{prefix}#{pairing} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
-tmux_conf_theme_status_left_bg='#afd700,#ff00af,#00afff'  # bright-green, pink, white blue
+tmux_conf_theme_status_left_bg='#ffff00,#ff00af,#00afff'  # yellow, pink, white blue
 tmux_conf_theme_status_left_attr='bold,none,none'
 
 # status right style
-tmux_conf_theme_status_right_fg='#ffd787,#afd700,#000000' # light gray, white, black
-tmux_conf_theme_status_right_bg='#262626,#444444,#afd700' # gold, dark grey, bright green
+tmux_conf_theme_status_right_fg='#8a8a8a,#e4e4e4,#000000' # light gray, white, black
+tmux_conf_theme_status_right_bg='#080808,#d70000,#e4e4e4' # dark gray, red, white
 tmux_conf_theme_status_right_attr='none,none,bold'
 
 # pairing indicator
-tmux_conf_theme_pairing='👓'          # U+1F453
+tmux_conf_theme_pairing='👓 '          # U+1F453
 tmux_conf_theme_pairing_fg='none'
 tmux_conf_theme_pairing_bg='none'
 tmux_conf_theme_pairing_attr='none'
 
 # prefix indicator
-tmux_conf_theme_prefix='⌨'            # U+2328
+tmux_conf_theme_prefix='⌨ '            # U+2328
 tmux_conf_theme_prefix_fg='none'
 tmux_conf_theme_prefix_bg='none'
 tmux_conf_theme_prefix_attr='none'
 
 # root indicator
-tmux_conf_theme_root=' !'
-tmux_conf_theme_root_fg='white'
+tmux_conf_theme_root='!'
+tmux_conf_theme_root_fg='none'
 tmux_conf_theme_root_bg='none'
 tmux_conf_theme_root_attr='bold,blink'
 
@@ -222,23 +221,61 @@ tmux_conf_battery_vbar_palette='gradient'
 #tmux_conf_battery_vbar_palette='#d70000,#ff5f00,#5fff00'  # red, orange, green
 
 # symbols used to indicate whether battery is charging or discharging
-tmux_conf_battery_status_charging='⚡'     # U+26A1
-tmux_conf_battery_status_discharging='🔋'  # U+1F50B
+tmux_conf_battery_status_charging='↑'       # U+2191
+tmux_conf_battery_status_discharging='↓'    # U+2193
+#tmux_conf_battery_status_charging='⚡ '    # U+26A1
+#tmux_conf_battery_status_charging='🔌 '    # U+1F50C
+#tmux_conf_battery_status_discharging='🔋 ' # U+1F50B
 
 # clock style
-tmux_conf_theme_clock_colour='#afd700'  # bright green
+tmux_conf_theme_clock_colour='#00afff'  # light blue
 tmux_conf_theme_clock_style='24'
 
 
-# ------------------------------------------------------------------------------
+# -- clipboard -----------------------------------------------------------------
+
+# in copy mode, copying selection also copies to the OS clipboard
+#   - true
+#   - false (default)
+# on macOS, this requires installing reattach-to-user-namespace, see README.md
+# on Linux, this requires xsel or xclip
+tmux_conf_copy_to_os_clipboard=false
+
 
 ######################
 ###    OVERRIDES   ###
 ######################
 
+# -- user customizations -------------------------------------------------------
+
+tmux_conf_theme_right_separator_main=''
+tmux_conf_theme_right_separator_sub=''
+
+# status line message style
+tmux_conf_theme_message_bg='#5fd75f'     # pale green 3
+
+# Left Status
+tmux_conf_theme_status_left_attr='none,none,none'
+tmux_conf_theme_status_left='#{?client_prefix,#[fg=#262626]#[bg=#5f87d7],#[fg=#262626]#[bg=#5fd75f]} #S:#I.#P #{?client_prefix,#[fg=#5f87d7]#[bg=#080808],#[fg=#5fd75f]#[bg=#080808]}'
+
+# Right Status
+tmux_conf_theme_pairing='⌨ '          # U+1F453
+tmux_conf_theme_status_right_fg='#bcbcbc,#e4e4e4,#262626' # grey74, grey89, grey15
+tmux_conf_theme_status_right_bg='#444444,#5f87d7,#5fd75f' # grey27, palegreen3, steelblue3
+tmux_conf_theme_status_right=' %R , %d %b |#[bold]#{pairing}#{root}|#{hostname_ssh} '
+
+# Window Style & Current Window Style
+tmux_conf_theme_window_status_format='#[fg=#080808,bg=#080808]#[fg=#bcbcbc,bg=#080808] #I #[fg=#bcbcbc,bg=#080808] #W #[fg=#080808,bg=#080808]'
+tmux_conf_theme_window_status_current_format='#[fg=#080808,bg=#444444]#[fg=#bcbcbc,bg=#444444] #I #[fg=#bcbcbc,bg=#444444] #W #[fg=#444444,bg=#080808]'
+
+
+
 # -- general -------------------------------------------------------------------
 
+set-option -s escape-time 0                     # fastest command sequences
 # Change the prefix from Ctrl+b to Ctrl+a
+unbind C-a
+unbind C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
 set-option -g history-limit 100000
@@ -246,13 +283,15 @@ set-option -g history-limit 100000
 # -- display -------------------------------------------------------------------
 
 set -g set-titles-string '#S ● #W'
-set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'   # nvim cursor change
+set -g status-interval 5     # redraw status line every 5 seconds
+# set -g -a terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[2 q'   # nvim cursor change NOT WORKING?
 set -g display-time 2000      # slightly longer status messages display time
 # only clear screen
 
 # keep histoy after clearing window
 unbind-key -n C-l
 bind-key -n C-l send-keys C-l
+set-option -g window-status-separator ''
 
 # -- navigation ----------------------------------------------------------------
 
@@ -264,7 +303,7 @@ bind-key - split-window -v -c "#{pane_current_path}"
 
 # new window
 unbind-key c
-bind-key c new-window -ac "#{pane_current_path}"
+bind-key c new-window -c "#{pane_current_path}"
 
 # Use Alt-arrow keys without prefix key to switch panes
 unbind-key -n M-Left
@@ -317,7 +356,7 @@ bind-key u run-shell "cut -c3- ~/.tmux.conf | sh -s _urlview #{pane_id}"
 unbind-key [
 unbind-key -T copy-mode-vi Escape
 unbind-key -T copy-mode-vi Enter
-unbind-key p
+# unbind-key p # using .tmux.conf binding
 unbind-key -T copy-mode-vi Space
 unbind-key -T copy-mode-vi y
 unbind-key -T copy-mode-vi C-c
@@ -356,3 +395,5 @@ set-window-option -g mode-keys vi
 
 unbind-key C-s
 bind-key C-s set-window-option synchronize-panes \; display "Synchronization Toggled."
+
+# bind r source-file ~/.tmux.conf

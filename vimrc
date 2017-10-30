@@ -40,8 +40,8 @@ set hidden             " able to hide modified buffers without saving
 set nobackup           " no backup~ files.
 set noswapfile         " Write swap and backup files
 set undofile           " keep an undo file (undo changes after closing)
-set directory^=~/.vim/swapfiles/
-set undodir^=~/.vim/swapfiles/
+set directory^=~/.vim/.swapfiles/
+set undodir^=~/.vim/.swapfiles/
 
 set foldlevelstart=99  " Don't start new buffers folded
 set mouse=a
@@ -61,18 +61,19 @@ augroup END
 
 augroup filetype_missing " missing filetypes to some file types
     autocmd!
-    autocmd BufNewFile,BufRead,BufEnter *.vim     setfiletype vim
-    autocmd BufNewFile,BufRead,BufEnter *.js      setfiletype javascript
-    autocmd BufNewFile,BufRead,BufEnter *.zpt     setfiletype html
-    autocmd BufNewFile,BufRead,BufEnter *.css     setfiletype css
-    autocmd BufNewFile,BufRead,BufEnter .bashrc   setfiletype sh
-    autocmd BufNewFile,BufRead,BufEnter sam       setfiletype sh
-    autocmd BufNewFile,BufRead,BufEnter *.pm,*.pl setfiletype perl
+    autocmd BufNewFile,BufRead,BufEnter *.vim            setfiletype vim
+    autocmd BufNewFile,BufRead,BufEnter *.js             setfiletype javascript
+    autocmd BufNewFile,BufRead,BufEnter *.zpt            setfiletype html
+    autocmd BufNewFile,BufRead,BufEnter *.css            setfiletype css
+    autocmd BufNewFile,BufRead,BufEnter *.sql            setfiletype sql
+    autocmd BufNewFile,BufRead,BufEnter *.lua            setfiletype lua
+    autocmd BufNewFile,BufRead,BufEnter *.sh,sam,.bashrc setfiletype sh
+    autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl    setfiletype perl
 augroup END
 
 augroup editor_stuff
     autocmd!
-    autocmd FocusLost   * :wa
+    " autocmd FocusLost   * :wa
     autocmd FocusLost   * :set norelativenumber
     autocmd FocusGained * :set relativenumber
     autocmd InsertEnter * :set norelativenumber
@@ -87,7 +88,7 @@ augroup editor_stuff
         autocmd BufEnter,CursorMoved,CursorMovedI       * checktime
         autocmd FocusGained,BufEnter,FocusLost,WinLeave * checktime
     endif
-    autocmd BufWritePre * call StripWhitespace( 0, line("$") )
+    autocmd BufWritePre * call StripWhitespace()
 augroup END
 
 "=================================================================
@@ -105,12 +106,11 @@ endfunction
 " Taken from https://github.com/ntpeters
 let g:whitespace_group='[\u0009\u0020\u00a0\u1680\u180e\u2000-\u200b\u202f\u205f\u3000\ufeff]'
 let g:eol_whitespace_pattern = g:whitespace_group . '\+$'
-function! g:StripWhitespace( line1, line2 )
-    let _s = @/
+function! g:StripWhitespace()
     let l  = line(".")
     let c  = col(".")
-    silent! execute ':' . a:line1 . ',' . a:line2 . 's/' . g:eol_whitespace_pattern . '//e'
-    let @/=_s
+    silent! execute ':' . 0 . ',' . line("$") . 's/' . g:eol_whitespace_pattern . '//e'
+    call histdel('search', -1)
     call cursor(l, c)
 endfunction
 
@@ -140,7 +140,6 @@ nnoremap <Leader>s :split<CR>
 nnoremap <Leader>b :bprevious<CR>
 nnoremap <Leader>n :bnext<CR>
 
-nnoremap Y y$
 nnoremap <Leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <Leader>rv :source $MYVIMRC<cr>
 nnoremap <Leader>de :setlocal spell spelllang=de_de<cr>
@@ -150,6 +149,8 @@ nnoremap <Leader>p "+p
 xnoremap <Leader>y "+y
 xnoremap <Leader>p "+p
 xnoremap <Leader>y "+ygv
+nnoremap <Leader>Y "+y$
+nnoremap Y y$
 
 nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
 nnoremap <silent> * *<C-o>zz
@@ -186,13 +187,17 @@ call dein#begin($HOME . '/.vim')
     call dein#add('tpope/vim-fugitive')            " A Git wrapper, use git commands in vim
     call dein#add('tpope/vim-repeat')              " Enable repeating supported plugin maps with '.'
     call dein#add('tpope/vim-surround')            " quoting/parenthesizing made simple with text objects
-    call dein#add('tpope/vim-vinegar')             " combine with netrw to create a delicious salad dressing
+    call dein#add('tpope/vim-eunuch')              " Vim sugar for the UNIX shell commands that need it the most.
+    call dein#add('justinmk/vim-dirvish')          " Path navigator designed to work with Vim's built-in mechanisms
+    call dein#add('justinmk/vim-syntax-extra')     " A collection of syntax definitions not yet shipped with stock vim.
     call dein#add('mileszs/ack.vim')               " run ack from vim, together with K and keywordprg
     call dein#add('w0rp/ale')                      " Linter engine, used for Perl and Javascript
-    call dein#add('mbbill/undotree')               " Undo tree history visualizer (MARKED FOR DELETION)
     call dein#add('vimwiki/vimwiki')               " vimwiki (MARKED FOR DELETION)
+    call dein#add('mbbill/undotree')               " Undo tree history visualizer (MARKED FOR DELETION)
+    " call dein#add('junegunn/fzf', { 'rpt': './plugin', 'type' : 'raw' })
+    call dein#add('junegunn/fzf.vim')
     " call dein#add('blueyed/vim-diminactive')          " dim inactive windows,
-    call dein#add('edkolev/tmuxline.vim')
+    " call dein#add('edkolev/tmuxline.vim')
 
     if has('nvim')
         call dein#add('Shougo/deoplete.nvim')      " Dark powered asynchronous completion framework for neovim
@@ -200,7 +205,7 @@ call dein#begin($HOME . '/.vim')
 
 call dein#end()
 
-if dein#check_install() | call dein#install() | endi " Install not installed plugins on startup
+if dein#check_install() | call dein#install() | endif " Install not installed plugins on startup
 
 source ~/.vim/files/eqalignsimple.vim
 source ~/.vim/files/foldsearches.vim
@@ -248,27 +253,14 @@ function! g:Undotree_CustomMap()
     nmap <buffer> j <plug>UndotreeGoPreviousState
 endfunc
 
-" Vinegar Settings
-let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+" Dirvish Settings
+let g:dirvish_mode = ':sort ,^.*[\/],'
 
 if has('nvim')
     let g:deoplete#enable_at_startup = 1
     " use <Tab> to navigate the popup
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    " <BS>: close popup and delete backword char, and reopen popup
-    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-    " inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
-    " <Esc>: close popup and exit insert mode
-    inoremap <expr> deoplete#close_popup()."\<Esc>"
-    inoremap <expr><Esc> deoplete#close_popup()."\<Esc>"
-    " <CR>: close popup and save indent.
-    inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-    inoremap <expr><CR> deoplete#close_popup()."\<CR>"
-
-    function! s:my_cr_function() abort
-        return deoplete#close_popup() . "\<CR>"
-    endfunction
-    "
+    inoremap <expr><Tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    inoremap <expr><S-Tab> pumvisible() ? "\<c-p>" : "\<tab>"
 endif
 
 " Vimwiki
