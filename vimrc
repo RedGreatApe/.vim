@@ -137,8 +137,8 @@ cnoremap <C-n> <Down>
 
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
-nnoremap <Leader>b :bprevious<CR>
-nnoremap <Leader>n :bnext<CR>
+" nnoremap <Leader>b :bprevious<CR>
+" nnoremap <Leader>n :bnext<CR>
 
 nnoremap <Leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <Leader>rv :source $MYVIMRC<cr>
@@ -157,8 +157,8 @@ nnoremap <silent> * *<C-o>zz
 nnoremap n nzz
 nnoremap N Nzz
 
-nnoremap <Leader>lb :buffers<CR>
-nnoremap <Leader>lr :registers<CR>
+" nnoremap <Leader>lb :buffers<CR>
+" nnoremap <Leader>lr :registers<CR>
 nnoremap x "_x
 
 if has('nvim')
@@ -168,44 +168,33 @@ endif
 " =================================================================
 " Plugins:                                                        =
 " =================================================================
-" Plugin Loading using dein.vim
-syntax on
-filetype plugin indent on
-set runtimepath+=$HOME/.vim/repos/github.com/Shougo/dein.vim
-call dein#begin($HOME . '/.vim')
-    call dein#add('Shougo/dein.vim')               " dein.vim manages itself
+" Plugin Loading with vim-plug
 
-    call dein#add('vim-airline/vim-airline')       " statusline and tabline
-    call dein#add('machakann/vim-highlightedyank') " styling, highlight yanked stuff
-    call dein#add('josuegaleas/jay')               " colorscheme
-    " Other colorschemes I like:
-    " https://github.com/fcpg/vim-farout
-    " https://github.com/AlessandroYorba/alduin
-    call dein#add('ctrlpvim/ctrlp.vim')            " Fuzzy file, buffer, mru, tag, etc finder
-    call dein#add('jiangmiao/auto-pairs')          " Insert or delete brackets/parens/etc in pairs
-    call dein#add('tpope/vim-commentary')          " Comment stuff out with text objects
-    call dein#add('tpope/vim-fugitive')            " A Git wrapper, use git commands in vim
-    call dein#add('tpope/vim-repeat')              " Enable repeating supported plugin maps with '.'
-    call dein#add('tpope/vim-surround')            " quoting/parenthesizing made simple with text objects
-    call dein#add('tpope/vim-eunuch')              " Vim sugar for the UNIX shell commands that need it the most.
-    call dein#add('justinmk/vim-dirvish')          " Path navigator designed to work with Vim's built-in mechanisms
-    call dein#add('justinmk/vim-syntax-extra')     " A collection of syntax definitions not yet shipped with stock vim.
-    call dein#add('mileszs/ack.vim')               " run ack from vim, together with K and keywordprg
-    call dein#add('w0rp/ale')                      " Linter engine, used for Perl and Javascript
-    call dein#add('vimwiki/vimwiki')               " vimwiki (MARKED FOR DELETION)
-    call dein#add('mbbill/undotree')               " Undo tree history visualizer (MARKED FOR DELETION)
-    " call dein#add('junegunn/fzf', { 'rpt': './plugin', 'type' : 'raw' })
-    call dein#add('junegunn/fzf.vim')
-    " call dein#add('blueyed/vim-diminactive')          " dim inactive windows,
-    " call dein#add('edkolev/tmuxline.vim')
+call plug#begin('~/.vim/plugged')
 
-    if has('nvim')
-        call dein#add('Shougo/deoplete.nvim')      " Dark powered asynchronous completion framework for neovim
-    endif
+    Plug 'vim-airline/vim-airline'       " statusline and tabline
+    Plug 'machakann/vim-highlightedyank' " styling, highlight yanked stuff
+    Plug 'josuegaleas/jay'               " colorscheme
+    Plug 'jiangmiao/auto-pairs'          " Insert or delete brackets/parens/etc in pairs
 
-call dein#end()
+    Plug 'tpope/vim-commentary'          " Comment stuff out with text objects
+    Plug 'tpope/vim-fugitive'            " A Git wrapper, use git commands in vim
+    Plug 'tpope/vim-repeat'              " Enable repeating supported plugin maps with '.'
+    Plug 'tpope/vim-surround'            " quoting/parenthesizing made simple with text objects
+    Plug 'tpope/vim-eunuch'              " Vim sugar for the UNIX shell commands that need it the most.
 
-if dein#check_install() | call dein#install() | endif " Install not installed plugins on startup
+    Plug 'justinmk/vim-dirvish'          " Path navigator designed to work with Vim's built-in mechanisms
+    Plug 'justinmk/vim-syntax-extra'     " A collection of syntax definitions not yet shipped with stock vim.
+
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+    Plug 'junegunn/fzf.vim'              " fzf ❤️ vim
+
+    Plug 'mileszs/ack.vim'               " run ack from vim, together with K and keywordprg
+    Plug 'w0rp/ale'                      " Linter engine, used for Perl and Javascript
+    Plug 'vimwiki/vimwiki'               " vimwiki (MARKED FOR DELETION)
+    Plug 'mbbill/undotree'               " Undo tree history visualizer (MARKED FOR DELETION)
+
+call plug#end()
 
 source ~/.vim/files/eqalignsimple.vim
 source ~/.vim/files/foldsearches.vim
@@ -219,6 +208,23 @@ nnoremap <silent> K yiw:Ack! <C-r>0<cr>
 
 set background=dark
 colorscheme jay
+
+" FZF settings
+nnoremap <Leader>f :FZF<cr>
+nnoremap <Leader>b :Buffers<cr>
+nnoremap <Leader>l :Lines<cr>
+nnoremap <Leader>c :Commits<cr>
+nnoremap <Leader>w :Windows<cr>
+nnoremap <Leader>cbc :BCommits<cr>
+nnoremap <Leader>cbl :Lines<cr>
+" Need more mappings
+" for :Buffers
+" for :Lines  (lines in all buffers)
+" for :Blines  (lines in current buffers)
+" for :Windows
+" for :Commits
+" for :BCommits
+
 
 " Airline settings
 let g:airline_powerline_fonts = 1
@@ -239,10 +245,6 @@ let g:airline_extensions                 = ['tabline', 'branch', 'quickfix', 'al
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#ale#enabled     = 1
 
-" CtrlP Settings
-let g:ctrlp_by_filename = 1         " <c-d> to toggle
-let g:ctrlp_show_hidden = 1
-
 " Undotree Settings
 nnoremap <silent> <F5> :UndotreeToggle<CR>
 nnoremap <silent> <F6> :UndotreeFocus<CR>
@@ -255,13 +257,6 @@ endfunc
 
 " Dirvish Settings
 let g:dirvish_mode = ':sort ,^.*[\/],'
-
-if has('nvim')
-    let g:deoplete#enable_at_startup = 1
-    " use <Tab> to navigate the popup
-    inoremap <expr><Tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    inoremap <expr><S-Tab> pumvisible() ? "\<c-p>" : "\<tab>"
-endif
 
 " Vimwiki
 nmap <C-h> <Plug>VimwikiGoBackLink
