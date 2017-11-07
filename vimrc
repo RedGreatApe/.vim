@@ -1,7 +1,6 @@
 "=================================================================
 "   Settings:                                                    =
 "=================================================================
-
 set number             " show line numbers
 set relativenumber     " show line number relative to current line
 set cursorline         " Highlight current line
@@ -47,6 +46,7 @@ set foldlevelstart=99  " Don't start new buffers folded
 set mouse=a
 set keywordprg=ack     " use ack with K, together with ack-vim
 
+source ~/.vim/files/statusline.vim
 if !has('nvim') | source ~/.vim/files/settings.vim | endif
 
 "=================================================================
@@ -54,14 +54,13 @@ if !has('nvim') | source ~/.vim/files/settings.vim | endif
 "=================================================================
 augroup vim_stuff " filetypes to vimrc and help files. always open help to the most right
     autocmd!
-    autocmd BufNewFile,BufRead,BufEnter vimrc setfiletype vim
     autocmd FileType vim setlocal foldmethod=marker
     autocmd BufRead,BufEnter */doc/* if &filetype=='help' | wincmd L | endif
+    autocmd BufNewFile,BufRead,BufEnter *.vim,vimrc      setfiletype vim
 augroup END
 
 augroup filetype_missing " missing filetypes to some file types
     autocmd!
-    autocmd BufNewFile,BufRead,BufEnter *.vim            setfiletype vim
     autocmd BufNewFile,BufRead,BufEnter *.js             setfiletype javascript
     autocmd BufNewFile,BufRead,BufEnter *.zpt            setfiletype html
     autocmd BufNewFile,BufRead,BufEnter *.css            setfiletype css
@@ -73,35 +72,16 @@ augroup END
 
 augroup editor_stuff
     autocmd!
-    " autocmd FocusLost   * :wa
     autocmd FocusLost   * :set norelativenumber
     autocmd FocusGained * :set relativenumber
     autocmd InsertEnter * :set norelativenumber
     autocmd InsertLeave * :set relativenumber
-
-" Detect file modified elsewhere
-" forgot where i got it from :(
-    autocmd SwapExists *  call AS_HandleSwapfile(expand('<afile>:p'), v:swapname)
-    autocmd BufWritePost,BufReadPost,BufLeave *
-            \ if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
-    if !has("gui_running")
-        autocmd BufEnter,CursorMoved,CursorMovedI       * checktime
-        autocmd FocusGained,BufEnter,FocusLost,WinLeave * checktime
-    endif
     autocmd BufWritePre * call StripWhitespace()
 augroup END
 
 "=================================================================
 "   Functions:                                                   =
 "=================================================================
-" Changes outside vim/nvim
-function! AS_HandleSwapfile (filename, swapname)
-    if getftime(v:swapname) < getftime(a:filename)
-        call delete(v:swapname)
-        let v:swapchoice = 'e'
-    endif
-endfunction
-
 " Strip trailing whitespaces
 " Taken from https://github.com/ntpeters
 let g:whitespace_group='[\u0009\u0020\u00a0\u1680\u180e\u2000-\u200b\u202f\u205f\u3000\ufeff]'
@@ -137,17 +117,13 @@ cnoremap <C-n> <Down>
 
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
-" nnoremap <Leader>b :bprevious<CR>
-" nnoremap <Leader>n :bnext<CR>
+nnoremap <Leader>n :bnext<CR>
+nnoremap <Leader>p :bprevious<CR>
 
 nnoremap <Leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <Leader>rv :source $MYVIMRC<cr>
-nnoremap <Leader>de :setlocal spell spelllang=de_de<cr>
-nnoremap <Leader>file :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/<cr>
 nnoremap <Leader>y "+y
-nnoremap <Leader>p "+p
 xnoremap <Leader>y "+y
-xnoremap <Leader>p "+p
 xnoremap <Leader>y "+ygv
 nnoremap <Leader>Y "+y$
 nnoremap Y y$
@@ -157,43 +133,30 @@ nnoremap <silent> * *<C-o>zz
 nnoremap n nzz
 nnoremap N Nzz
 
-" nnoremap <Leader>lb :buffers<CR>
-" nnoremap <Leader>lr :registers<CR>
 nnoremap x "_x
 
-if has('nvim')
-    tnoremap <Esc> <C-\><C-n>
-endif
+if has('nvim') | tnoremap <Esc> <C-\><C-n> | endif
 
 " =================================================================
 " Plugins:                                                        =
 " =================================================================
 " Plugin Loading with vim-plug
-
 call plug#begin('~/.vim/plugged')
-
-    Plug 'vim-airline/vim-airline'       " statusline and tabline
-    Plug 'machakann/vim-highlightedyank' " styling, highlight yanked stuff
     Plug 'josuegaleas/jay'               " colorscheme
     Plug 'jiangmiao/auto-pairs'          " Insert or delete brackets/parens/etc in pairs
-
+    Plug 'lifepillar/vim-mucomplete'     "  Chained completion that works the way you want!
     Plug 'tpope/vim-commentary'          " Comment stuff out with text objects
     Plug 'tpope/vim-fugitive'            " A Git wrapper, use git commands in vim
     Plug 'tpope/vim-repeat'              " Enable repeating supported plugin maps with '.'
     Plug 'tpope/vim-surround'            " quoting/parenthesizing made simple with text objects
     Plug 'tpope/vim-eunuch'              " Vim sugar for the UNIX shell commands that need it the most.
-
     Plug 'justinmk/vim-dirvish'          " Path navigator designed to work with Vim's built-in mechanisms
-    Plug 'justinmk/vim-syntax-extra'     " A collection of syntax definitions not yet shipped with stock vim.
-
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
     Plug 'junegunn/fzf.vim'              " fzf ❤️ vim
-
     Plug 'mileszs/ack.vim'               " run ack from vim, together with K and keywordprg
     Plug 'w0rp/ale'                      " Linter engine, used for Perl and Javascript
-    Plug 'vimwiki/vimwiki'               " vimwiki (MARKED FOR DELETION)
-    Plug 'mbbill/undotree'               " Undo tree history visualizer (MARKED FOR DELETION)
-
+    Plug 'vimwiki/vimwiki'               " vimwiki
+    Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' } " Undo tree history visualizer (hardly use it, but VERY handy)
 call plug#end()
 
 source ~/.vim/files/eqalignsimple.vim
@@ -202,10 +165,6 @@ source ~/.vim/files/foldsearches.vim
 "=================================================================
 "   Plugin Settings:                                             =
 "=================================================================
-
-" Ack vim
-nnoremap <silent> K yiw:Ack! <C-r>0<cr>
-
 set background=dark
 colorscheme jay
 
@@ -217,37 +176,21 @@ nnoremap <Leader>c :Commits<cr>
 nnoremap <Leader>w :Windows<cr>
 nnoremap <Leader>cbc :BCommits<cr>
 nnoremap <Leader>cbl :Lines<cr>
-" Need more mappings
-" for :Buffers
-" for :Lines  (lines in all buffers)
-" for :Blines  (lines in current buffers)
-" for :Windows
-" for :Commits
-" for :BCommits
 
-
-" Airline settings
-let g:airline_powerline_fonts = 1
-let g:airline_mode_map        = {
-    \ '__' : '-',   'n'  : ' N ', 'i'  : ' I ',
-    \ 'R'  : ' R ', 'c'  : ' C ', 'v'  : ' V ',
-    \ 'V'  : ' V ', '' : ' V ', 's'  : ' S ',
-    \ 'S'  : ' S ', '' : ' S ',
-    \ }
-
-if !exists('g:airline_symbols') | let g:airline_symbols = {} | endif
-let g:airline_symbols.readonly           = ''
-let g:airline_symbols.paste              = 'ρ'
-let g:airline_symbols.branch             = '⎇'
-let g:airline_section_y                  = '%n'
-let g:airlilne_section_z                 = '%p%% ☰ %l/%L  :%c '
-let g:airline_extensions                 = ['tabline', 'branch', 'quickfix', 'ale']
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#ale#enabled     = 1
+" Mucomplete
+let g:mucomplete#enable_auto_at_startup = 1
+set completeopt=longest,menuone,preview,noinsert
+inoremap <expr> <Esc> mucomplete#popup_exit("\<Esc>")
+inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+set shortmess+=c       " Shut off completion messages
+set showcmd            " show typed command in command line
+set noshowmode         " Vim displays mode (if in Insert, or Visual, etc), disable this
 
 " Undotree Settings
-nnoremap <silent> <F5> :UndotreeToggle<CR>
-nnoremap <silent> <F6> :UndotreeFocus<CR>
+nnoremap <F5> :UndotreeToggle<CR>
+nnoremap <F6> :UndotreeFocus<CR>
 let g:undotree_WindowLayout         = 2
 let g:undotree_HighlightChangedText = 0
 function! g:Undotree_CustomMap()
@@ -255,12 +198,17 @@ function! g:Undotree_CustomMap()
     nmap <buffer> j <plug>UndotreeGoPreviousState
 endfunc
 
+" Ack vim
+nnoremap <silent> K yiw:Ack! <C-r>0<cr>
+
 " Dirvish Settings
 let g:dirvish_mode = ':sort ,^.*[\/],'
 
+" ALE
+nnoremap <Leader><Leader> :ALENextWrap<cr>zz
+
 " Vimwiki
 nmap <C-h> <Plug>VimwikiGoBackLink
-
 let g:vimwiki_folding      = 'list'
 let mywiki                 = {}
 let mywiki.path            = '~/.vim/vimwiki'
@@ -268,9 +216,5 @@ let mywiki.nested_syntaxes = { 'perl': 'perl' }
 let dnd                    = {}
 let dnd.path               = '/run/media/rd/imageUSB/vimwiki'
 let g:vimwiki_list         = [ mywiki , dnd ]
-
-" ALE
-nnoremap <Leader><Leader> :ALENextWrap<cr>zz
-nnoremap <Leader>N :ALEPreviousWrap<cr>zz
 
 silent! helptags ALL

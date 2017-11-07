@@ -26,10 +26,25 @@ set smarttab                    " smart tab handling for indenting
 set encoding=utf-8              " Self explanatory
 set ttyfast                     " Fast terminal, redrawing
 
-map y <Plug>(highlightedyank)
+nnoremap <Leader>sshfile :e scp://rd@file.atikon.io:2222//srv/share/intern/Dokumentation/Protokolle/<cr>
+
+" Changes outside vim/nvim
+" function! AS_HandleSwapfile (filename, swapname)
+"     if getftime(v:swapname) < getftime(a:filename)
+"         call delete(v:swapname)
+"         let v:swapchoice = 'e'
+"     endif
+" endfunction
 
 
-
+    " Detect file modified elsewhere, forgot where i got it from :(
+    " autocmd SwapExists *  call AS_HandleSwapfile(expand('<afile>:p'), v:swapname)
+    " autocmd BufWritePost,BufReadPost,BufLeave *
+    "         \ if isdirectory(expand("<amatch>:h")) | let &swapfile = &modified | endif
+    " if !has("gui_running")
+    "     autocmd BufEnter,CursorMoved,CursorMovedI       * checktime
+    "     autocmd FocusGained,BufEnter,FocusLost,WinLeave * checktime
+    " endif
 
 " augroup MyColors
 "     autocmd!
@@ -61,4 +76,23 @@ map y <Plug>(highlightedyank)
 "     highlight! link MatchParen TermCursor
 " endfunction
 " call MyHighlights()
+
+" Airline settings
+" let g:airline_powerline_fonts = 1
+" let g:airline_mode_map        = {
+"     \ '__' : '-',   'n'  : ' N ', 'i'  : ' I ',
+"     \ 'R'  : ' R ', 'c'  : ' C ', 'v'  : ' V ',
+"     \ 'V'  : ' V ', '' : ' V ', 's'  : ' S ',
+"     \ 'S'  : ' S ', '' : ' S ',
+"     \ }
+
+" if !exists('g:airline_symbols') | let g:airline_symbols = {} | endif
+" let g:airline_symbols.readonly           = ''
+" let g:airline_symbols.paste              = 'ρ'
+" let g:airline_symbols.branch             = '⎇'
+" let g:airline_section_y                  = '%n'
+" let g:airlilne_section_z                 = '%p%% ☰ %l/%L  :%c '
+" let g:airline_extensions                 = ['tabline', 'branch', 'quickfix', 'ale']
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#ale#enabled     = 1
 
