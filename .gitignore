@@ -12,6 +12,7 @@
 
 #   Plugin Folder   #
 #####################
+plugged/
 
 #  Git config file  #
 #####################
@@ -21,3 +22,6 @@
 
 
 .netrwhist
+.cache/
+.swapfiles/
+autoload/

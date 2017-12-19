@@ -6,55 +6,51 @@ set relativenumber     " show line number relative to current line
 set cursorline         " Highlight current line
 set cursorcolumn       " Highlight current column
 set noshowmode         " Vim displays mode (if in Insert, or Visual, etc), disable this
-
 set list               " Display invisible characters as:
 set listchars=tab:▸-   " Tabs as ▸---
 set listchars+=trail:● " Trailing space as ● ·
 set matchpairs+=<:>    " match < and >
-
 set cmdheight=2        " Command line height
 set showcmd            " show typed command in command line
 set laststatus=2       " windows will always have a status bar
 set showtabline=2      " Always show tab bar       (top)
-
 set expandtab          " turn all tabs into spaces
 set shiftwidth=4       " spaces for autoindents
 set softtabstop=4      " number of spaces in tab when editing
 set tabstop=4          " number of visual spaces per tab
-
 set ignorecase         " case insensitive searching
 set smartcase          " unless I use caps
 set wildignorecase     " case insensitive wildmenu
 set incsearch          " Highlight the next match while still typing the pattern
 set pastetoggle=<F3>   " Toggle set paste
-
 set splitbelow         " New split below the current one
 set splitright         " New split to the right
-
-set updatetime=250     " swap file related, thus, 'modified elsewhere' related
+set updatetime=2000    " swap file related, thus, 'modified elsewhere' related
 set noautoread         " together with :checktime (and set confirm), prompt to reload file
 set confirm            " get a dialog when :q, :w, or :wq fails
-
 set hidden             " able to hide modified buffers without saving
 set nobackup           " no backup~ files.
 set noswapfile         " Write swap and backup files
 set undofile           " keep an undo file (undo changes after closing)
 set directory^=~/.vim/.swapfiles/
 set undodir^=~/.vim/.swapfiles/
-
-set foldlevelstart=99  " Don't start new buffers folded
 set mouse=a
 set keywordprg=ack     " use ack with K, together with ack-vim
+set wildmenu           " completion with menu
+set hlsearch           " Highlight all matches in file when performing search
+set autoindent         " Automatically indent every new line
+set smartindent        " smart auto indenting
+set smarttab           " smart tab handling for indenting
+set backspace=indent,eol,start
+set wildcharm=<C-z>
 
 source ~/.vim/files/statusline.vim
-if !has('nvim') | source ~/.vim/files/settings.vim | endif
 
 "=================================================================
 "   Autocommands:                                                =
 "=================================================================
 augroup vim_stuff " filetypes to vimrc and help files. always open help to the most right
     autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
     autocmd BufRead,BufEnter */doc/* if &filetype=='help' | wincmd L | endif
     autocmd BufNewFile,BufRead,BufEnter *.vim,vimrc      setfiletype vim
 augroup END
@@ -72,8 +68,8 @@ augroup END
 
 augroup editor_stuff
     autocmd!
-    autocmd FocusLost   * :set norelativenumber
-    autocmd FocusGained * :set relativenumber
+    " autocmd FocusLost   * :set norelativenumber
+    " autocmd FocusGained * :set relativenumber
     autocmd InsertEnter * :set norelativenumber
     autocmd InsertLeave * :set relativenumber
     autocmd BufWritePre * call StripWhitespace()
@@ -84,12 +80,12 @@ augroup END
 "=================================================================
 " Strip trailing whitespaces
 " Taken from https://github.com/ntpeters
-let g:whitespace_group='[\u0009\u0020\u00a0\u1680\u180e\u2000-\u200b\u202f\u205f\u3000\ufeff]'
-let g:eol_whitespace_pattern = g:whitespace_group . '\+$'
 function! g:StripWhitespace()
+    let l:whitespace_group='[\u0009\u0020\u00a0\u1680\u180e\u2000-\u200b\u202f\u205f\u3000\ufeff]'
+    let l:eol_whitespace_pattern = l:whitespace_group . '\+$'
     let l  = line(".")
     let c  = col(".")
-    silent! execute ':' . 0 . ',' . line("$") . 's/' . g:eol_whitespace_pattern . '//e'
+    silent! execute ':' . 0 . ',' . line("$") . 's/' . l:eol_whitespace_pattern . '//e'
     call histdel('search', -1)
     call cursor(l, c)
 endfunction
@@ -117,11 +113,14 @@ cnoremap <C-n> <Down>
 
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>s :split<CR>
-nnoremap <Leader>n :bnext<CR>
-nnoremap <Leader>p :bprevious<CR>
+
+nnoremap <Leader>b :ls<CR>:b *
+nnoremap <Left> :bprevious<CR>
+nnoremap <Right> :bnext<CR>
 
 nnoremap <Leader>ev :e ~/.vim/vimrc<cr>
 nnoremap <Leader>rv :source $MYVIMRC<cr>
+
 nnoremap <Leader>y "+y
 xnoremap <Leader>y "+y
 xnoremap <Leader>y "+ygv
@@ -132,6 +131,10 @@ nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
 nnoremap <silent> * *<C-o>zz
 nnoremap n nzz
 nnoremap N Nzz
+cnoremap <expr> <Tab>   getcmdtype() == "/" ? "<C-g>" : getcmdtype() == "?" ? "<C-t>" : "<C-z>"
+cnoremap <expr> <S-Tab> getcmdtype() == "/" ? "<C-t>" : getcmdtype() == "?" ? "<C-g>" : "<S-Tab>"
+
+command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
 
 nnoremap x "_x
 
@@ -140,23 +143,26 @@ if has('nvim') | tnoremap <Esc> <C-\><C-n> | endif
 " =================================================================
 " Plugins:                                                        =
 " =================================================================
+syntax on
+filetype plugin indent on
 " Plugin Loading with vim-plug
 call plug#begin('~/.vim/plugged')
-    Plug 'josuegaleas/jay'               " colorscheme
-    Plug 'jiangmiao/auto-pairs'          " Insert or delete brackets/parens/etc in pairs
-    Plug 'lifepillar/vim-mucomplete'     "  Chained completion that works the way you want!
-    Plug 'tpope/vim-commentary'          " Comment stuff out with text objects
-    Plug 'tpope/vim-fugitive'            " A Git wrapper, use git commands in vim
-    Plug 'tpope/vim-repeat'              " Enable repeating supported plugin maps with '.'
-    Plug 'tpope/vim-surround'            " quoting/parenthesizing made simple with text objects
-    Plug 'tpope/vim-eunuch'              " Vim sugar for the UNIX shell commands that need it the most.
-    Plug 'justinmk/vim-dirvish'          " Path navigator designed to work with Vim's built-in mechanisms
+    " Plug 'josuegaleas/jay'                             " colorscheme
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'morhetz/gruvbox'                             " colorscheme
+    Plug 'jiangmiao/auto-pairs'                        " Insert or delete brackets/parens/etc in pairs
+    Plug 'lifepillar/vim-mucomplete'                   " Chained completion that works the way you want!
+    Plug 'tpope/vim-commentary'                        " Comment stuff out with text objects
+    Plug 'tpope/vim-fugitive'                          " A Git wrapper, use git commands in vim
+    Plug 'tpope/vim-repeat'                            " Enable repeating supported plugin maps with '.'
+    Plug 'tpope/vim-surround'                          " quoting/parenthesizing made simple with text objects
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
-    Plug 'junegunn/fzf.vim'              " fzf ❤️ vim
-    Plug 'mileszs/ack.vim'               " run ack from vim, together with K and keywordprg
-    Plug 'w0rp/ale'                      " Linter engine, used for Perl and Javascript
-    Plug 'vimwiki/vimwiki'               " vimwiki
+    Plug 'junegunn/fzf.vim'                            " fzf ❤️ vim
+    Plug 'mileszs/ack.vim'                             " run ack from vim, together with K and keywordprg
+    Plug 'w0rp/ale'                                    " Linter engine, used for Perl and Javascript
+    Plug 'vimwiki/vimwiki'                             " vimwiki
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' } " Undo tree history visualizer (hardly use it, but VERY handy)
+    Plug 'romainl/vim-tinyMRU'
 call plug#end()
 
 source ~/.vim/files/eqalignsimple.vim
@@ -165,17 +171,11 @@ source ~/.vim/files/foldsearches.vim
 "=================================================================
 "   Plugin Settings:                                             =
 "=================================================================
-set background=dark
-colorscheme jay
-
 " FZF settings
 nnoremap <Leader>f :FZF<cr>
-nnoremap <Leader>b :Buffers<cr>
-nnoremap <Leader>l :Lines<cr>
-nnoremap <Leader>c :Commits<cr>
-nnoremap <Leader>w :Windows<cr>
-nnoremap <Leader>cbc :BCommits<cr>
-nnoremap <Leader>cbl :Lines<cr>
+" nnoremap <Leader>b :Buffers<cr>
+nnoremap <Leader>c :BCommits<cr>
+nnoremap <Leader>l :BLines<cr>
 
 " Mucomplete
 let g:mucomplete#enable_auto_at_startup = 1
@@ -201,9 +201,6 @@ endfunc
 " Ack vim
 nnoremap <silent> K yiw:Ack! <C-r>0<cr>
 
-" Dirvish Settings
-let g:dirvish_mode = ':sort ,^.*[\/],'
-
 " ALE
 nnoremap <Leader><Leader> :ALENextWrap<cr>zz
 
@@ -216,5 +213,27 @@ let mywiki.nested_syntaxes = { 'perl': 'perl' }
 let dnd                    = {}
 let dnd.path               = '/run/media/rd/imageUSB/vimwiki'
 let g:vimwiki_list         = [ mywiki , dnd ]
+
+" vim indent guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme,VimEnter,BufEnter * call MyHighlights()
+augroup END
+
+function! MyHighlights() abort
+    " a bit stronger than background   (234)
+    " a bit stronger than cursorcolumn (235)
+    highlight! IndentGuidesEven ctermbg=236
+    highlight! IndentGuidesOdd  ctermbg=236
+endfunction
+
+set background=dark
+colorscheme gruvbox
+call MyHighlights()
 
 silent! helptags ALL
