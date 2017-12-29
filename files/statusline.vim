@@ -1,14 +1,14 @@
 "=================================================================
 "   StatusLine:                                                  =
 "=================================================================
-let g:look_up ={
-        \ '__' : '-', 'n'  : 'N',
-        \ 'i'  : 'I', 'R'  : 'R',
-        \ 'v'  : 'V', 'V'  : 'V',
-        \ 'c'  : 'C', '' : 'V',
-        \ 's'  : 'S', 'S'  : 'S',
-        \ '' : 'S', 't'  : 'T',
-    \}
+let g:look_up = {
+    \ '__' : '-', 'n'  : 'N',
+    \ 'i'  : 'I', 'R'  : 'R',
+    \ 'v'  : 'V', 'V'  : 'V',
+    \ 'c'  : 'C', '' : 'V',
+    \ 's'  : 'S', 'S'  : 'S',
+    \ '' : 'S', 't'  : 'T',
+\}
 
 set statusline=
 set statusline+=%(\ %{g:look_up[mode()]}%)
@@ -17,19 +17,30 @@ set statusline+=%(\ \ %{fugitive#head()}%)
 set statusline+=%(\ %<%F%)
 set statusline+=\ %h%m%r%w
 set statusline+=%=
-set statusline+=%([%n]%<\ %p%%\ ☰\ \ %l/%L\ \ :%c\ %)
+" set statusline+=%([%n]%)
+set statusline+=%{LinterStatus()}
+set statusline+=%(%<\ %p%%\ ☰\ \ %l/%L\ \ :%c\ %)
+
+function! LinterStatus() abort
+    let l:counts         = ale#statusline#Count(bufnr(''))
+    let l:all_errors     = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
 
 "=================================================================
 "   TabLine: (view %%functions.vim)                              =
 "=================================================================
-
 " From:
 " https://github.com/KabbAmine/myVimFiles/blob/master/config/tabline.vim
 " and the vim-airline tabline extension
-
 function! TLInit() abort
     if tabpagenr('$') ==# 1
-        let l:bufs = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+        let l:bufs       = filter(range(1, bufnr('$')), 'buflisted(v:val)')
         let &showtabline = len(l:bufs) ># 1 ? 2 : &showtabline
         set tabline=%!MyBufLine()
     else
@@ -82,7 +93,7 @@ endfunction
 function! MyTabLine() abort
     let l:tabline = ''
     for i in range(tabpagenr('$'))
-        let l:tabno = i + 1
+        let l:tabno    = i + 1
         let l:tabline .= (l:tabno ==# tabpagenr()) ? ' %#TabLineSel#' : ' %#TabLine#'
         let l:tabline .= '%' . l:tabno . 'T '
         let l:tabline .= tabpagenr('$') >=# 5
@@ -90,9 +101,9 @@ function! MyTabLine() abort
                         \: pathshorten(fnamemodify(gettabvar(l:tabno, 'cwd'), ':~'))
         let l:tabline .= ' %#TabLineFill#'
     endfor
-    let l:tabline .= '%='
-    let l:tabline .= '%' . tabpagenr() . 'X ' . '%#TabLineFill# X %X'
-    let l:tabline .= '%#TabLineSel# Tabs %T'
+    let l:tabline     .= '%='
+    let l:tabline     .= '%' . tabpagenr() . 'X ' . '%#TabLineFill# X %X'
+    let l:tabline     .= '%#TabLineSel# Tabs %T'
     return l:tabline
 endfunction
 
@@ -101,25 +112,25 @@ endfunction
     "=================================================================
     " Not working as desired when there are too many buffers (I think)
 function! GetVisibleBuffers()
-    let buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)')
-    let current = bufnr('%')
-
+    let buffers     = filter(range(1, bufnr('$')), 'buflisted(v:val)')
+    let current     = bufnr('%')
     " Get Total width of all buffer names, and width of longest buffern ame
     let total_width = 0
     let max_width   = 0
+
     for nr in buffers
-        let width = len(GetBufName(nr)) + 4
+        let width        = len(GetBufName(nr)) + 4
         let total_width += width
-        let max_width = max([max_width, width])
+        let max_width    = max([max_width, width])
     endfor
 
     " Only show current and surrounding buffers (if too many buffers)
-    let position = index(buffers, current)
-    let vimwidth = &columns
-    if total_width > vimwidth && position > -1
-        let buf_count = len(buffers)
+    let position      = index(buffers, current)
+    let vimwidth      = &columns
 
+    if total_width > vimwidth && position > -1
         " determine how many to show (one on the right and rest on left)
+        let buf_count = len(buffers)
         let buf_max   = vimwidth / max_width
         let buf_right = 5
         let buf_left  = max([5, buf_max - buf_right])
@@ -157,9 +168,9 @@ endfunction
     "   GetBufName:                                                  =
     "=================================================================
 function! GetBufName(bufno)
-    let l:mod = (getbufvar(a:bufno, '&modified') ==# 1 ? ' +' : '')
+    let l:mod  = (getbufvar(a:bufno, '&modified') ==# 1 ? ' +' : '')
     let l:name = pathshorten(fnamemodify(bufname(a:bufno), ':.'))
-    let l:tag = ( !empty(l:name) ? l:name . l:mod : '[No Name]' . l:mod)
+    let l:tag  = ( !empty(l:name) ? l:name . l:mod : '[No Name]' . l:mod)
     return l:tag
 endfunction
 
