@@ -13,12 +13,12 @@ let g:look_up = {
 set statusline=
 set statusline+=%(\ %{g:look_up[mode()]}%)
 set statusline+=%(%{&paste?'\ p\ ':''}%)
-set statusline+=%(\ \ %{fugitive#head()}%)
+" set statusline+=%(\ \ %{fugitive#head()}%)
 set statusline+=%(\ %<%F%)
 set statusline+=\ %h%m%r%w
 set statusline+=%=
 " set statusline+=%([%n]%)
-set statusline+=%{LinterStatus()}
+" set statusline+=%{LinterStatus()}
 set statusline+=%(%<\ %p%%\ ☰\ \ %l/%L\ \ :%c\ %)
 
 function! LinterStatus() abort
@@ -196,7 +196,8 @@ endfunction
 augroup TabBufLine
     autocmd!
     autocmd BufAdd,BufDelete,BufEnter * call TLInit()
-    autocmd TabEnter,TabClosed,TabNew,TabLeave * call TLInit()
+    " autocmd TabEnter,TabClosed,TabNew,TabLeave * call TLInit()
     autocmd VimEnter * call TLInit()
 augroup END
+
 call TLInit()

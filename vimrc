@@ -40,7 +40,6 @@ set confirm            " get a dialog when :q, :w, or :wq fails
 set hidden             " able to hide modified buffers without saving
 set splitbelow         " New split below the current one
 set splitright         " New split to the right
-set switchbuf+=vsplit
 
 set nobackup           " no backup~ files.
 set noswapfile         " Write swap and backup files
@@ -59,7 +58,7 @@ source ~/.vim/files/statusline.vim
 "===============================================================================
 augroup vim_stuff " filetypes to vimrc. always open help to the most right
     autocmd!
-    autocmd BufRead,BufEnter */doc/* if &filetype=='help' | wincmd L | endif
+    autocmd BufRead,BufEnter */doc/* wincmd L
     autocmd BufNewFile,BufRead,BufEnter *.vim,vimrc      setfiletype vim
 augroup END
 
@@ -97,30 +96,32 @@ function! g:StripWhitespace()
     let whitespaces  = '[\u0009\u0020\u00a0\u1680\u180e\u2000-'
     let whitespaces .= '\u200b\u202f\u205f\u3000\ufeff]'
     let pattern      = whitespaces . '\+$'
-    let l            = line(".")
-    let c            = col(".")
+    let line         = line(".")
+    let column       = col(".")
     silent! execute ':0,' . line("$") . 's/' . pattern . '//e'
     call histdel('search', -1)
-    call cursor(l, c)
+    call cursor(line, column)
 endfunction
 
 function! ToggleColorColumn()
-    if &colorcolumn != '' | setlocal colorcolumn&
-    else                  | setlocal colorcolumn=80,100
+    if &colorcolumn != ''
+        setlocal colorcolumn&
+    else
+        setlocal colorcolumn=80,100
     endif
 endfunction
 
 " used for copy/pasting dndbeyond
 function! FixQuotes() abort
-    let l  = line(".")
-    let c  = col(".")
+    let line = line(".")
+    let col  = col(".")
     global!/\(===\)\|\(\[\[\)/s/’/'/g
     call histdel('search', -1)
     %s/”/"/ge
     call histdel('search', -1)
     %s/“/"/ge
     call histdel('search', -1)
-    call cursor(l, c)
+    call cursor(line, col)
 endfunction
 
 function! MyHighlights() abort
@@ -169,11 +170,11 @@ nnoremap N Nzz
 cnoremap <expr> <Tab>   getcmdtype() == "/" ? "<C-g>" : getcmdtype() == "?" ? "<C-t>" : "<C-z>"
 cnoremap <expr> <S-Tab> getcmdtype() == "/" ? "<C-t>" : getcmdtype() == "?" ? "<C-g>" : "<S-Tab>"
 
-command! SC vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
-
 nnoremap x "_x
 
-if has('nvim') | tnoremap <Esc> <C-\><C-n> | endif
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+endif
 
 "===============================================================================
 " Plugins: =
@@ -190,18 +191,16 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive'              " use git commands in vim
     Plug 'tpope/vim-repeat'                " use '.' in supported plugin maps
     Plug 'tpope/vim-surround'              " quoting with text objects
-    Plug 'junegunn/fzf.vim'                " fzf ❤️ vim
     Plug 'mileszs/ack.vim'                 " run ack from vim
     Plug 'w0rp/ale'                        " Linter engine
     Plug 'vimwiki/vimwiki'                 " vimwiki
-    Plug 'romainl/vim-tinyMRU'             " provide an alternative to :oldfile
     Plug 'nathanaelkane/vim-indent-guides' " visually display indent levels
-    Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+    Plug 'junegunn/fzf.vim'                " fzf ❤️ vim
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
+    Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 call plug#end()
 
 source ~/.vim/files/eqalignsimple.vim
-source ~/.vim/files/foldsearches.vim
 
 "===============================================================================
 "   Plugin Settings:                                                           =
@@ -214,7 +213,7 @@ nnoremap <Leader>l :BLines<cr>
 
 " Mucomplete
 let g:mucomplete#enable_auto_at_startup = 1
-set completeopt=longest,menuone,preview,noinsert
+" set completeopt=longest,menuone,preview,noinsert
 inoremap <expr> <Esc> mucomplete#popup_exit("\<Esc>")
 inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
 inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
@@ -240,11 +239,9 @@ let g:vimwiki_folding      = 'list'
 let mywiki                 = {}
 let mywiki.path            = '~/.vim/vimwiki'
 let mywiki.nested_syntaxes = { 'perl': 'perl' }
-let dnd                    = {}
-let dnd.path               = '/run/media/rd/imageUSB/vimwiki'
 let lmop                   = {}
 let lmop.path              = '~/lmop'
-let g:vimwiki_list         = [ mywiki , dnd, lmop ]
+let g:vimwiki_list         = [ mywiki , lmop ]
 
 " vim indent guides
 let g:indent_guides_enable_on_vim_startup = 1
