@@ -272,14 +272,15 @@ tmux_conf_theme_window_status_current_format='#[fg=#080808,bg=#444444]#[fg=#b
 
 # -- general -------------------------------------------------------------------
 
-set-option -s escape-time 0                     # fastest command sequences
-set-option -s repeat-time 200
+set-option -g escape-time 0                     # fastest command sequences
+set-option -g repeat-time 200
 # Change the prefix from Ctrl+b to Ctrl+a
 unbind C-a
 unbind C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
 set-option -g history-limit 100000
+set-window-option -g aggressive-resize on
 
 # -- display -------------------------------------------------------------------
 
