@@ -2,6 +2,7 @@
 set nocompatible
 set matchpairs+=<:>
 set noshowmode laststatus=2 showtabline=2
+set cmdheight=2
 set tabstop=4 softtabstop=4 shiftwidth=4
 set list listchars=tab:▸-,trail:●
 set expandtab autoindent
@@ -60,7 +61,6 @@ augroup filetype_missing " missing filetypes to some file types
     autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl         setfiletype perl
     autocmd BufNewFile,BufRead,BufEnter *.t6,*.pm6,*.pl6,*.p6 setfiletype perl
 augroup END
-
 
 " PLUGINS:
 filetype plugin on
