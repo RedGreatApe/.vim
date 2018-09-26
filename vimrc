@@ -1,8 +1,9 @@
 " SETTINGS:
 set nocompatible
+set ttimeoutlen=0
 set matchpairs+=<:>
 set noshowmode laststatus=2 showtabline=2
-set cmdheight=2
+set cmdheight=1
 set tabstop=4 softtabstop=4 shiftwidth=4
 set list listchars=tab:▸-,trail:●
 set expandtab autoindent
@@ -15,6 +16,7 @@ set hlsearch incsearch
 set splitbelow splitright
 set backspace=indent,eol,start
 set background=dark
+set mouse=a
 set cursorcolumn cursorline
 
 " STATUSLINE:
@@ -33,9 +35,22 @@ set statusline+=%(%{&paste?'p\ ':''}%)\|
 set statusline+=%(\ %<%F\ %)
 set statusline+=\ %h%m%r%w
 
-nnoremap <silent> <Space> :<C-u>nohlsearch<CR><C-l>
-command! CCToggle if &colorcolumn != '' | setlocal colorcolumn& | else | setlocal colorcolumn=80,100 | endif
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
+nnoremap <space> <leader>
+" nnoremap <C-?> <C-^>
+nnoremap <silent><leader>json :%!python -m json.tool<cr>
+
 cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
+
+" CCToggle
+command! CCToggle call CCToggle()
+function! g:CCToggle()
+    if &colorcolumn != ''
+        setlocal colorcolumn&
+    else
+        setlocal colorcolumn=80,100
+    endif
+endfunction
 
 " WHITESPACE:
 command! StripWhitespace call StripWhitespace()
@@ -52,14 +67,12 @@ endfunction
 
 augroup filetype_missing " missing filetypes to some file types
     autocmd!
-    autocmd BufNewFile,BufRead,BufEnter *.js                  setfiletype javascript
-    autocmd BufNewFile,BufRead,BufEnter *.zpt                 setfiletype html
-    autocmd BufNewFile,BufRead,BufEnter *.css                 setfiletype css
-    autocmd BufNewFile,BufRead,BufEnter *.sql                 setfiletype sql
-    autocmd BufNewFile,BufRead,BufEnter *.lua                 setfiletype lua
-    autocmd BufNewFile,BufRead,BufEnter *.sh,sam,.bashrc      setfiletype sh
-    autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl         setfiletype perl
-    autocmd BufNewFile,BufRead,BufEnter *.t6,*.pm6,*.pl6,*.p6 setfiletype perl
+    autocmd BufNewFile,BufRead,BufEnter *.js             setfiletype javascript
+    autocmd BufNewFile,BufRead,BufEnter *.zpt            setfiletype html
+    autocmd BufNewFile,BufRead,BufEnter *.css            setfiletype css
+    autocmd BufNewFile,BufRead,BufEnter *.sql            setfiletype sql
+    autocmd BufNewFile,BufRead,BufEnter *.sh,sam,.bashrc setfiletype sh
+    autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl    setfiletype perl
 augroup END
 
 " PLUGINS:
@@ -72,7 +85,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
-    Plug 'morhetz/gruvbox'
+    " Plug 'arcticicestudio/nord-vim'
+    Plug 'AlessandroYorba/Despacio'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
@@ -80,7 +94,19 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " Vimwiki
-nmap <C-h> <Plug>VimwikiGoBackLink
+augroup back_previous " missing filetypes to some file types
+    autocmd!
+    autocmd BufNewFile,BufRead,BufEnter * call BackspaceNMap()
+augroup END
+
+function! BackspaceNMap() abort
+    if &ft == 'vimwiki'
+        nnoremap <C-h> :VimwikiGoBackLink<CR>
+    else
+        nnoremap <C-h> <C-^>
+    endif
+endfunction
+
 let mywiki                 = {}
 let mywiki.path            = '~/.vim/vimwiki'
 let lmop                   = {}
@@ -90,4 +116,17 @@ let g:vimwiki_list         = [ mywiki , lmop ]
 " Undotree
 let g:undotree_WindowLayout         = 2
 let g:undotree_HighlightChangedText = 0
-colorscheme gruvbox
+function! MyHighlights() abort
+    highlight! link Statusline TablineSel
+    highlight! Comment ctermfg=6
+endfunction
+augroup MyColors
+    autocmd!
+    autocmd ColorScheme,VimEnter,BufEnter * call MyHighlights()
+augroup END
+" colorscheme nord
+colorscheme despacio
+
+" FZF
+nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
+
