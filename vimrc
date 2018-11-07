@@ -39,6 +39,7 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
 nnoremap <space> <leader>
 " nnoremap <C-?> <C-^>
 nnoremap <silent><leader>json :%!python -m json.tool<cr>
+nnoremap <right> :bNext<cr>
 
 cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
 
