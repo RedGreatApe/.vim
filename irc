@@ -1,0 +1,9 @@
+tmux has-session -t IRC
+if [ $? != 0 ]
+then
+    tmux new-session -s IRC -n Irssi -d
+    tmux send-keys -t IRC:1 'irssi' C-m
+    tmux set status off
+fi
+    # st -f "Cousine for Powerline:size=9" -t Chat -e tmux attach -t IRC
+    konsole -e tmux a -t IRC
