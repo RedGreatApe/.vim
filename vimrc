@@ -1,25 +1,18 @@
-" SETTINGS:
-set nocompatible
-set ttimeoutlen=0
-set matchpairs+=<:>
+" Settings:
 set noshowmode laststatus=2 showtabline=2
-set cmdheight=1
 set tabstop=4 softtabstop=4 shiftwidth=4
 set list listchars=tab:▸-,trail:●
 set expandtab autoindent
 set number relativenumber
-set showcmd hidden noswapfile nobackup
+set showcmd hidden noswapfile
 set undofile undodir=~/.vim/.swapfiles/
+set viminfo+=n~/.vim/viminfo
 set ignorecase smartcase
 set wildmenu wildignorecase
 set hlsearch incsearch
 set splitbelow splitright
-set backspace=indent,eol,start
-set background=dark
-set mouse=a
-set cursorcolumn cursorline
 
-" STATUSLINE:
+" Statusline:
 let g:look_up = {
     \ '__' : '-', 'n'  : 'Normal',
     \ 'R'  : 'R', 'i'  : 'Insert',
@@ -33,17 +26,19 @@ set statusline=
 set statusline+=%(\ %{g:look_up[mode()]}\ %)
 set statusline+=%(%{&paste?'p\ ':''}%)\|
 set statusline+=%(\ %<%F\ %)
-set statusline+=\ %h%m%r%w
+set statusline+=%#warningmsg#
+set statusline+=%h%m%r%w
+set statusline+=%*
+set statusline+=%=%(%l,%c%V\ \ \ \ \ \ \ \ \ %=\ %P%)
 
+" Mappings:
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
 nnoremap <space> <leader>
-" nnoremap <C-?> <C-^>
 nnoremap <silent><leader>json :%!python -m json.tool<cr>
-nnoremap <right> :bNext<cr>
-
+nnoremap <right> :bn<cr>
 cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
 
-" CCToggle
+" CCToggle:
 command! CCToggle call CCToggle()
 function! g:CCToggle()
     if &colorcolumn != ''
@@ -53,7 +48,7 @@ function! g:CCToggle()
     endif
 endfunction
 
-" WHITESPACE:
+" StripWhitespace:
 command! StripWhitespace call StripWhitespace()
 function! g:StripWhitespace()
     let whitespaces  = '[\u0009\u0020\u00a0\u1680\u180e\u2000-'
@@ -66,6 +61,7 @@ function! g:StripWhitespace()
     call cursor(line, column)
 endfunction
 
+" Autocmds:
 augroup filetype_missing " missing filetypes to some file types
     autocmd!
     autocmd BufNewFile,BufRead,BufEnter *.js             setfiletype javascript
@@ -76,22 +72,22 @@ augroup filetype_missing " missing filetypes to some file types
     autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl    setfiletype perl
 augroup END
 
-" PLUGINS:
+" Plugins:
 filetype plugin on
 syntax on
 
 source ~/.vim/files/eqalignsimple.vim
+
 call plug#begin('~/.vim/plugged')
-    Plug 'vimwiki/vimwiki'
-    Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-    Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
-    " Plug 'arcticicestudio/nord-vim'
     Plug 'AlessandroYorba/Despacio'
+    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf',    { 'dir': '~/.fzf', 'do': './install --all'  }
+    Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
+    Plug 'vimwiki/vimwiki'
 call plug#end()
 
 " Vimwiki
@@ -102,32 +98,45 @@ augroup END
 
 function! BackspaceNMap() abort
     if &ft == 'vimwiki'
-        nnoremap <C-h> :VimwikiGoBackLink<CR>
+        nnoremap <C-?> :VimwikiGoBackLink<CR>
     else
-        nnoremap <C-h> <C-^>
+        nnoremap <C-?> <C-^>
     endif
 endfunction
 
-let mywiki                 = {}
-let mywiki.path            = '~/.vim/vimwiki'
-let lmop                   = {}
-let lmop.path              = '~/lmop'
-let g:vimwiki_list         = [ mywiki , lmop ]
+let mywiki         = {}
+let mywiki.path    = '~/.vim/vimwiki'
+let g:vimwiki_list = [ mywiki ]
 
 " Undotree
 let g:undotree_WindowLayout         = 2
 let g:undotree_HighlightChangedText = 0
-function! MyHighlights() abort
-    highlight! link Statusline TablineSel
-    highlight! Comment ctermfg=6
-endfunction
-augroup MyColors
-    autocmd!
-    autocmd ColorScheme,VimEnter,BufEnter * call MyHighlights()
-augroup END
-" colorscheme nord
+function! g:Undotree_CustomMap()
+    nmap <buffer> k <plug>UndotreeNextState
+    nmap <buffer> j <plug>UndotreePreviousState
+endfunc
+
 colorscheme despacio
 
 " FZF
 nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
 
+" set background=dark
+" set mouse=a
+" set showcmd hidden noswapfile nobackup
+" set nocompatible
+" set ttimeoutlen=0
+" set matchpairs+=<:>
+" set cmdheight=1
+" set backspace=indent,eol,start
+" set cursorcolumn cursorline
+
+" function! MyHighlights() abort
+"     highlight! link Statusline TablineSel
+"     highlight! Comment ctermfg=6
+" endfunction
+
+" augroup MyColors
+"     autocmd!
+"     autocmd ColorScheme,VimEnter,BufEnter * call MyHighlights()
+" augroup END
