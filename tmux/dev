@@ -1,23 +1,24 @@
 #!/bin/bash
-tmux has-session -t DEV
-if [ $? != 0 ]
-then
-    tmux new-session -s DEV -n Server -d
-    tmux send-keys -t DEV:1 'ssh beta -X' C-m
-    tmux send-keys -t DEV:1 'sh ~/Repositories/pull_repos.sh' C-m
-    tmux send-keys -t DEV:1 'cd ~/Repositories/Intranet' C-m
-    tmux send-keys -t DEV:1 'perl script/atikon_intranet_server.pl -rf --restart_directory /home/rd/Repositories/Intranet --restart_directory /home/rd/Repositories/Atikon -p 3210' C-m
+# tmux has-session -t DEV
+# if [ $? != 0 ]
+# then
+#     tmux new-session -s DEV -n Server -d
+#     tmux send-keys -t DEV:1 'ssh beta -X' C-m
+#     tmux send-keys -t DEV:1 'sh ~/Repositories/pull_repos.sh' C-m
+#     tmux send-keys -t DEV:1 'cd ~/Repositories/Intranet' C-m
+#     tmux send-keys -t DEV:1 'perl script/atikon_intranet_server.pl -rf --restart_directory /home/rd/Repositories/Intranet --restart_directory /home/rd/Repositories/Atikon -p 3210' C-m
 
-    tmux new-window -t DEV -n PSQL
-    tmux send-keys -t DEV:2 'ssh beta -X' C-m
-    tmux send-keys -t DEV:2 'psql timemngt_rd' C-m
+#     tmux new-window -t DEV -n PSQL
+#     tmux send-keys -t DEV:2 'ssh beta -X' C-m
+#     tmux send-keys -t DEV:2 'psql timemngt_rd' C-m
 
-    tmux new-window -t DEV -n Tests
-    tmux send-keys -t DEV:3 'ssh beta -X' C-m
-    tmux send-keys -t DEV:3 'cd ~/Repositories' C-m
+#     tmux new-window -t DEV -n Tests
+#     tmux send-keys -t DEV:3 'ssh beta -X' C-m
+#     tmux send-keys -t DEV:3 'cd ~/Repositories' C-m
 
-    tmux select-window -t DEV:1
-    tmux set status on
-fi
-    # st -f "Cousine for Powerline:size=9" -t Developer -e tmux attach -t DEV
-    konsole -e tmux a -t DEV
+#     tmux select-window -t DEV:1
+#     tmux set status on
+# fi
+#     # st -f "Cousine for Powerline:size=9" -t Developer -e tmux attach -t DEV
+#     konsole -e tmux a -t DEV
+konsole -e ssh beta -X -t tmux attach -t DEV

@@ -36,6 +36,7 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
 nnoremap <space> <leader>
 nnoremap <silent><leader>json :%!python -m json.tool<cr>
 nnoremap <right> :bn<cr>
+nnoremap <left> :bp<cr>
 cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
 
 " CCToggle:
@@ -122,7 +123,6 @@ colorscheme despacio
 nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
 
 " set background=dark
-" set mouse=a
 " set showcmd hidden noswapfile nobackup
 " set nocompatible
 " set ttimeoutlen=0
@@ -130,6 +130,7 @@ nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
 " set cmdheight=1
 " set backspace=indent,eol,start
 " set cursorcolumn cursorline
+" set mouse=a
 
 " function! MyHighlights() abort
 "     highlight! link Statusline TablineSel
@@ -140,3 +141,4 @@ nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
 "     autocmd!
 "     autocmd ColorScheme,VimEnter,BufEnter * call MyHighlights()
 " augroup END
+
