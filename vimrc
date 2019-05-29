@@ -1,35 +1,15 @@
 " Settings:
-set noshowmode laststatus=2 showtabline=2
+set laststatus=2 showtabline=2
 set tabstop=4 softtabstop=4 shiftwidth=4
-set list listchars=tab:▸-,trail:●
 set expandtab autoindent
 set number relativenumber
-set showcmd hidden noswapfile
+set list listchars=tab:▸-,trail:●
+set hidden noswapfile
 set undofile undodir=~/.vim/.swapfiles/
-set viminfo+=n~/.vim/viminfo
-set ignorecase smartcase
 set wildmenu wildignorecase
 set hlsearch incsearch
+set ignorecase smartcase
 set splitbelow splitright
-
-" Statusline:
-let g:look_up = {
-    \ '__' : '-', 'n'  : 'Normal',
-    \ 'R'  : 'R', 'i'  : 'Insert',
-    \ '' : 'S', 'v'  : 'Visual',
-    \ 't'  : 'T', 'V'  : 'V-Line',
-    \ 'S'  : 'S', '' : 'V-Bloc',
-    \ 's'  : 'S', 'c'  : 'Command',
-\}
-
-set statusline=
-set statusline+=%(\ %{g:look_up[mode()]}\ %)
-set statusline+=%(%{&paste?'p\ ':''}%)\|
-set statusline+=%(\ %<%F\ %)
-set statusline+=%#warningmsg#
-set statusline+=%h%m%r%w
-set statusline+=%*
-set statusline+=%=%(%l,%c%V\ \ \ \ \ \ \ \ \ %=\ %P%)
 
 " Mappings:
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
@@ -71,6 +51,7 @@ augroup filetype_missing " missing filetypes to some file types
     autocmd BufNewFile,BufRead,BufEnter *.sql            setfiletype sql
     autocmd BufNewFile,BufRead,BufEnter *.sh,sam,.bashrc setfiletype sh
     autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl    setfiletype perl
+    autocmd BufNewFile,BufRead,BufEnter *.pm6,*.pl6      setfiletype perl
 augroup END
 
 " Plugins:
@@ -82,7 +63,7 @@ source ~/.vim/files/eqalignsimple.vim
 call plug#begin('~/.vim/plugged')
     Plug 'AlessandroYorba/Despacio'
     Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/fzf',    { 'dir': '~/.fzf', 'do': './install --all'  }
+    Plug 'junegunn/fzf',    { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
