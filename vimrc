@@ -1,19 +1,18 @@
 " Settings:
 set laststatus=2 showtabline=2
-set tabstop=4 softtabstop=4 shiftwidth=4
-set expandtab autoindent
-set number relativenumber
-set list listchars=tab:▸-,trail:●
-set hidden noswapfile
-set undofile undodir=~/.vim/.swapfiles/
-set wildmenu wildignorecase
-set hlsearch incsearch
-set ignorecase smartcase
-set splitbelow splitright
+set tabstop=4    softtabstop=4 shiftwidth=4
+set expandtab    autoindent
+set number       relativenumber
+set list         listchars=tab:▸-,trail:●
+set hidden       noswapfile
+set undofile     undodir=~/.vim/undodir/
+set wildmenu     wildignorecase
+set hlsearch     incsearch
+set ignorecase   smartcase
+set splitbelow   splitright
 
 " Mappings:
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
-nnoremap <space> <leader>
 nnoremap <silent><leader>json :%!python -m json.tool<cr>
 nnoremap <right> :bn<cr>
 nnoremap <left> :bp<cr>
@@ -51,7 +50,7 @@ augroup filetype_missing " missing filetypes to some file types
     autocmd BufNewFile,BufRead,BufEnter *.sql            setfiletype sql
     autocmd BufNewFile,BufRead,BufEnter *.sh,sam,.bashrc setfiletype sh
     autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl    setfiletype perl
-    autocmd BufNewFile,BufRead,BufEnter *.pm6,*.pl6      setfiletype perl
+    autocmd BufNewFile,BufRead,BufEnter *.pm6,*.pl6      setfiletype perl6
 augroup END
 
 " Plugins:
@@ -70,6 +69,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'vimwiki/vimwiki'
+    Plug 'vim-perl/vim-perl6'
 call plug#end()
 
 " Vimwiki
@@ -112,6 +112,10 @@ nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
 " set backspace=indent,eol,start
 " set cursorcolumn cursorline
 " set mouse=a
+" set showcmd
+" set splitbelow splitright
+" set noshowmode
+" set viminfo+=n~/.vim/viminfo
 
 " function! MyHighlights() abort
 "     highlight! link Statusline TablineSel
@@ -122,4 +126,23 @@ nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
 "     autocmd!
 "     autocmd ColorScheme,VimEnter,BufEnter * call MyHighlights()
 " augroup END
+
+" Statusline:
+" let g:look_up = {
+"     \ '__' : '-', 'n'  : 'Normal',
+"     \ 'R'  : 'R', 'i'  : 'Insert',
+"     \ '' : 'S', 'v'  : 'Visual',
+"     \ 't'  : 'T', 'V'  : 'V-Line',
+"     \ 'S'  : 'S', '' : 'V-Bloc',
+"     \ 's'  : 'S', 'c'  : 'Command',
+" \}
+
+" set statusline=
+" set statusline+=%(\ %{g:look_up[mode()]}\ %)
+" set statusline+=%(%{&paste?'p\ ':''}%)\|
+" set statusline+=%(\ %<%F\ %)
+" set statusline+=%#warningmsg#
+" set statusline+=%h%m%r%w
+" set statusline+=%*
+" set statusline+=%=%(%l,%c%V\ \ \ \ \ \ \ \ \ %=\ %P%)
 
