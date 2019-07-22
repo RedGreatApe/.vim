@@ -15,4 +15,4 @@
 # fi
 #     # st -f "Cousine for Powerline:size=9" -t Samuel -e tmux attach -t RD
 #     konsole -e tmux a -t RD
-konsole -e ssh beta -t tmux attach -t RD
+konsole -e ssh beta -X -t tmux attach -t RD
