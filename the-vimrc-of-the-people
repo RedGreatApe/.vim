@@ -1,0 +1,22 @@
+set laststatus=2                " Displayt he status bar (filename, row, column, file %).
+set tabstop=4                   " Number of spaces that a <tab> counts for.
+set softtabstop=4               " Same but for editing operations (tab key or backspace).
+set autoindent                  " Copy indent from current line when starting a new line.
+set shiftwidth=4                " Number of spaces used for autoindent.
+set expandtab                   " Use the appropriate number of spaces to insert a <tab>
+set list                        " Show unprintable characters
+set listchars=tab:▸-,trail:●    " ^^ only show tabs and trailing whitespaces.
+set number                      " Show line number.
+set hidden                      " Short story: can switch file with unsaved changes. long story, type   :h hidden
+set noswapfile                  " Do not use swapfiles (open file in multiple vims and no *.swp created).
+set undofile                    " Save undo history. Persistent undo!
+set undodir=~/.vim/.swapfiles/  " the undo file will be here (need to make that directory).
+set ignorecase                  " ignore case in search patterns.
+set smartcase                   " UNLESS you actually use an uppercase character.
+set wildmenu                    " Command-line completion lists possible matches.
+set wildignorecase              " Ignore case when completing file names and dirs.
+set hlsearch                    " Highlight search pattern matches.
+set incsearch                   " While typing search, show first match, and highlight matches.
+set showtabline=2               " Always show the tabline.
+
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
