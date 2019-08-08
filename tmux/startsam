@@ -1,0 +1,18 @@
+#!/bin/bash
+# tmux has-session -t RD
+# if [ $? != 0 ]
+# then
+    tmux new-session -s RD -n Vim -d
+    # tmux send-keys -t RD:1 'ssh beta -X' C-m
+    tmux send-keys -t RD:1 'cd Repositories/Intranet' C-m
+    tmux send-keys -t RD:1 'vim' C-m
+
+    tmux new-window -t RD -n Console
+    # tmux send-keys -t RD:2 'ssh beta -X' C-m
+
+    tmux select-window -t RD:1
+    tmux set status off
+# fi
+#     # st -f "Cousine for Powerline:size=9" -t Samuel -e tmux attach -t RD
+#     konsole -e tmux a -t RD
+# konsole -e ssh beta -t tmux attach -t RD
