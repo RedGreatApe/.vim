@@ -21,10 +21,8 @@ cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
 " CCToggle:
 command! CCToggle call CCToggle()
 function! g:CCToggle()
-    if &colorcolumn != ''
-        setlocal colorcolumn&
-    else
-        setlocal colorcolumn=80,100
+    if &colorcolumn != '' | setlocal colorcolumn&
+    else                  | setlocal colorcolumn=80,100
     endif
 endfunction
 
@@ -79,10 +77,8 @@ augroup back_previous " missing filetypes to some file types
 augroup END
 
 function! BackspaceNMap() abort
-    if &ft == 'vimwiki'
-        nnoremap <C-?> :VimwikiGoBackLink<CR>
-    else
-        nnoremap <C-?> <C-^>
+    if &ft == 'vimwiki' | nnoremap <C-?> :VimwikiGoBackLink<CR>
+    else                | nnoremap <C-?> <C-^>
     endif
 endfunction
 
