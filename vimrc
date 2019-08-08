@@ -59,16 +59,20 @@ syntax on
 source ~/.vim/files/eqalignsimple.vim
 
 call plug#begin('~/.vim/plugged')
-    Plug 'AlessandroYorba/Despacio'
+    " Plug 'AlessandroYorba/Despacio'
     Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/fzf',    { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+    Plug 'junegunn/fzf',       { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
     Plug 'vimwiki/vimwiki'
-    Plug 'vim-perl/vim-perl6'
+    Plug 'vim-perl/vim-perl6', { 'for': 'perl6' }
+
+    Plug 'tpope/vim-dadbod'
+    Plug 'tpope/vim-tbone'
+    Plug 'tpope/vim-eunuch'
 call plug#end()
 
 " Vimwiki
@@ -95,10 +99,15 @@ function! g:Undotree_CustomMap()
     nmap <buffer> j <plug>UndotreePreviousState
 endfunc
 
-colorscheme despacio
+" colorscheme despacio
+colorscheme darkblue
 
 " FZF
 nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
+
+" DadBod
+let g:time = 'postgres:///timemngt_rd'
+nnoremap <leader>psql :DB g:time
 
 " set background=dark
 " set showcmd hidden noswapfile nobackup
