@@ -10,6 +10,7 @@ set wildmenu     wildignorecase
 set hlsearch     incsearch
 set ignorecase   smartcase
 set splitbelow   splitright
+set autoread
 
 " Mappings:
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
@@ -48,7 +49,7 @@ augroup filetype_missing " missing filetypes to some file types
     autocmd BufNewFile,BufRead,BufEnter *.sql            setfiletype sql
     autocmd BufNewFile,BufRead,BufEnter *.sh,sam,.bashrc setfiletype sh
     autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl    setfiletype perl
-    autocmd BufNewFile,BufRead,BufEnter *.pm6,*.pl6      setfiletype perl6
+    autocmd BufNewFile,BufRead,BufEnter *.pm6,*.pl6,*.t6 setfiletype perl6
 augroup END
 
 " Plugins:
