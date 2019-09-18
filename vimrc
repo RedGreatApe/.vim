@@ -59,7 +59,7 @@ syntax on
 source ~/.vim/files/eqalignsimple.vim
 
 call plug#begin('~/.vim/plugged')
-    " Plug 'AlessandroYorba/Despacio'
+    Plug 'AlessandroYorba/Despacio'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf',       { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
@@ -99,8 +99,8 @@ function! g:Undotree_CustomMap()
     nmap <buffer> j <plug>UndotreePreviousState
 endfunc
 
-" colorscheme despacio
-colorscheme darkblue
+colorscheme despacio
+" colorscheme darkblue
 
 " FZF
 nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
