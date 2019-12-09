@@ -11,6 +11,7 @@ set hlsearch     incsearch
 set ignorecase   smartcase
 set splitbelow   splitright
 set autoread
+set backspace=indent,eol,start
 
 " Mappings:
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
@@ -104,6 +105,7 @@ colorscheme despacio
 
 " FZF
 nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
+nnoremap \b :Buffers<cr>
 
 " DadBod
 let g:time = 'postgres:///timemngt_rd'
