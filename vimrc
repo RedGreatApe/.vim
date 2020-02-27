@@ -1,5 +1,5 @@
 " Settings:
-set laststatus=2 showtabline=2
+set laststatus=2 showtabline=2 ruler
 set tabstop=4    softtabstop=4 shiftwidth=4
 set expandtab    autoindent
 set number       relativenumber
@@ -50,7 +50,8 @@ augroup filetype_missing " missing filetypes to some file types
     autocmd BufNewFile,BufRead,BufEnter *.sql            setfiletype sql
     autocmd BufNewFile,BufRead,BufEnter *.sh,sam,.bashrc setfiletype sh
     autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl    setfiletype perl
-    autocmd BufNewFile,BufRead,BufEnter *.pm6,*.pl6,*.t6 setfiletype perl6
+    autocmd BufNewFile,BufRead,BufEnter *.pm6,*.pl6,*.t6 setfiletype perl
+    autocmd BufNewFile,BufRead,BufEnter *.raku,*.rakumod setfiletype perl
 augroup END
 
 " Plugins:
