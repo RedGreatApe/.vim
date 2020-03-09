@@ -63,7 +63,7 @@ source ~/.vim/files/eqalignsimple.vim
 call plug#begin('~/.vim/plugged')
     Plug 'AlessandroYorba/Despacio'
     Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/fzf',       { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
@@ -105,8 +105,32 @@ colorscheme despacio
 " colorscheme darkblue
 
 " FZF
-nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
+" nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
+nnoremap \f :call fzf#run(fzf#wrap({
+    \ 'source': 'git ls-files',
+    \ 'options': '--multi --reverse --preview "head -100 {}"',
+    \ }))<cr>
 nnoremap \b :Buffers<cr>
+
+
+function! GetCat()
+    let buffer = bufname("%")
+    let grecom = '| grep -E "\w{4,}" -o'
+    return join(["cat", buffer, grecom], ' ')
+endfunction
+
+inoremap <expr> <c-x><c-k> fzf#vim#complete(GetCat())
+
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
+
 
 " DadBod
 let g:time = 'postgres:///timemngt_rd'
