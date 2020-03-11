@@ -105,31 +105,24 @@ colorscheme despacio
 " colorscheme darkblue
 
 " FZF
-" nnoremap \f :call fzf#run(fzf#wrap({'source': 'git ls-files'}))<cr>
-nnoremap \f :call fzf#run(fzf#wrap({
-    \ 'source': 'git ls-files',
-    \ 'options': '--multi --reverse --preview "head -100 {}"',
-    \ }))<cr>
-nnoremap \b :Buffers<cr>
+command! -bang -nargs=? -complete=dir GFiles
+    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({
+    \   'options': ['--layout=reverse']
+    \ }), <bang>0)
 
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({
+    \   'options': ['--layout=reverse']
+    \ }), <bang>0)
 
-function! GetCat()
-    let buffer = bufname("%")
-    let grecom = '| grep -E "\w{4,}" -o'
-    return join(["cat", buffer, grecom], ' ')
-endfunction
+command! -bang -nargs=? -complete=dir Buffers
+    \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview({
+    \   'options': ['--layout=reverse']
+    \ }), <bang>0)
 
-inoremap <expr> <c-x><c-k> fzf#vim#complete(GetCat())
-
-function! s:fzf_statusline()
-  " Override statusline as you like
-  highlight fzf1 ctermfg=161 ctermbg=251
-  highlight fzf2 ctermfg=23 ctermbg=251
-  highlight fzf3 ctermfg=237 ctermbg=251
-  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+nnoremap <leader>f :Files<cr>
+nnoremap <leader>g :GFiles<cr>
+nnoremap <leader>b :Buffers<cr>
 
 
 " DadBod
