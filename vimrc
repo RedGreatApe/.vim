@@ -12,6 +12,9 @@ set ignorecase   smartcase
 set splitbelow   splitright
 set autoread
 set backspace=indent,eol,start
+set vb t_vb=
+set mouse=a
+set cursorcolumn cursorline
 
 " Mappings:
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
@@ -63,7 +66,7 @@ source ~/.vim/files/eqalignsimple.vim
 call plug#begin('~/.vim/plugged')
     Plug 'AlessandroYorba/Despacio'
     Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf'
     Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
@@ -115,10 +118,10 @@ command! -bang -nargs=? -complete=dir Files
     \   'options': ['--layout=reverse']
     \ }), <bang>0)
 
-command! -bang -nargs=? -complete=dir Buffers
-    \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview({
-    \   'options': ['--layout=reverse']
-    \ }), <bang>0)
+" command! -bang -nargs=? -complete=dir Buffers
+"     \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview({
+"     \   'options': ['--layout=reverse']
+"     \ }), <bang>0)
 
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>g :GFiles<cr>
@@ -136,7 +139,6 @@ nnoremap <leader>psql :DB g:time
 " set matchpairs+=<:>
 " set cmdheight=1
 " set backspace=indent,eol,start
-" set cursorcolumn cursorline
 " set mouse=a
 " set showcmd
 " set splitbelow splitright
