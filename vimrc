@@ -78,7 +78,7 @@ Plug 'vim-perl/vim-perl6', { 'for': 'perl6' }
 Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-eunuch'
-Plug 'ghifarit53/tokyonight.vim'
+Plug 'ghifarit53/tokyonight-vim'
 call plug#end()
 
 " Vimwiki
