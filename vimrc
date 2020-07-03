@@ -64,20 +64,21 @@ syntax on
 source ~/.vim/files/eqalignsimple.vim
 
 call plug#begin('~/.vim/plugged')
-    Plug 'AlessandroYorba/Despacio'
-    Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/fzf'
-    Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
-    Plug 'tpope/vim-commentary'
-    Plug 'tpope/vim-fugitive'
-    Plug 'tpope/vim-repeat'
-    Plug 'tpope/vim-surround'
-    Plug 'vimwiki/vimwiki'
-    Plug 'vim-perl/vim-perl6', { 'for': 'perl6' }
+Plug 'AlessandroYorba/Despacio'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf' ",       { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'vimwiki/vimwiki'
+Plug 'vim-perl/vim-perl6', { 'for': 'perl6' }
 
-    Plug 'tpope/vim-dadbod'
-    Plug 'tpope/vim-tbone'
-    Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-tbone'
+Plug 'tpope/vim-eunuch'
+Plug 'ghifarit53/tokyonight.vim'
 call plug#end()
 
 " Vimwiki
@@ -104,8 +105,15 @@ function! g:Undotree_CustomMap()
     nmap <buffer> j <plug>UndotreePreviousState
 endfunc
 
-colorscheme despacio
+" set termguicolors
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 0
+let g:tokyonight_disable_italic_comment = 1
+
+" colorscheme despacio
 " colorscheme darkblue
+colorscheme tokyonight
+
 
 " FZF
 command! -bang -nargs=? -complete=dir GFiles
@@ -130,7 +138,9 @@ nnoremap <leader>b :Buffers<cr>
 
 " DadBod
 let g:time = 'postgres:///timemngt_rd'
+let g:zms  = 'postgres:///zms_rd'
 nnoremap <leader>psql :DB g:time
+nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
 
 " set background=dark
 " set showcmd hidden noswapfile nobackup
