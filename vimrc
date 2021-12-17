@@ -13,10 +13,12 @@ set splitbelow   splitright
 set autoread
 set backspace=indent,eol,start
 set vb t_vb=
-set mouse=a
+set mouse=
 set cursorcolumn cursorline
+set showcmd
 
 " Mappings:
+nnoremap Q gq
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
 nnoremap <silent><leader>json :%!python -m json.tool<cr>
 nnoremap <right> :bn<cr>
@@ -64,9 +66,9 @@ syntax on
 source ~/.vim/files/eqalignsimple.vim
 
 call plug#begin('~/.vim/plugged')
-Plug 'AlessandroYorba/Despacio'
+" Plug 'AlessandroYorba/Despacio'
 Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf' ",       { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf',       { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -114,7 +116,6 @@ let g:tokyonight_disable_italic_comment = 1
 " colorscheme darkblue
 colorscheme tokyonight
 
-
 " FZF
 command! -bang -nargs=? -complete=dir GFiles
     \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({
@@ -126,15 +127,14 @@ command! -bang -nargs=? -complete=dir Files
     \   'options': ['--layout=reverse']
     \ }), <bang>0)
 
-" command! -bang -nargs=? -complete=dir Buffers
-"     \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview({
-"     \   'options': ['--layout=reverse']
-"     \ }), <bang>0)
+command! -bang -nargs=? -complete=dir Buffers
+    \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview({
+    \   'options': ['--layout=reverse']
+    \ }), <bang>0)
 
 nnoremap <leader>f :Files<cr>
 nnoremap <leader>g :GFiles<cr>
 nnoremap <leader>b :Buffers<cr>
-
 
 " DadBod
 let g:time = 'postgres:///timemngt_rd'
@@ -150,7 +150,6 @@ nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
 " set cmdheight=1
 " set backspace=indent,eol,start
 " set mouse=a
-" set showcmd
 " set splitbelow splitright
 " set noshowmode
 " set viminfo+=n~/.vim/viminfo
@@ -184,3 +183,4 @@ nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
 " set statusline+=%*
 " set statusline+=%=%(%l,%c%V\ \ \ \ \ \ \ \ \ %=\ %P%)
 
+command! ClearRegisters for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
