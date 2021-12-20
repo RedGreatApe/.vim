@@ -138,8 +138,12 @@ nnoremap <leader>b :Buffers<cr>
 
 " DadBod
 let g:time = 'postgres:///timemngt_rd'
+let g:mein = 'postgres:///meinatikon_rd'
+let g:tool = 'postgres:///onlinetools_rd'
 let g:zms  = 'postgres:///zms_rd'
 nnoremap <leader>psql :DB g:time
+nnoremap <leader>mein :DB g:mein
+nnoremap <leader>tool :DB g:tool
 nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
 
 " set background=dark
