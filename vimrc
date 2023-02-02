@@ -14,8 +14,10 @@ set autoread
 set backspace=indent,eol,start
 set vb t_vb=
 set mouse=
-set cursorcolumn cursorline
+" set cursorcolumn cursorline
+set cursorline
 set showcmd
+set nocompatible
 
 " Mappings:
 nnoremap Q gq
@@ -23,10 +25,20 @@ nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
 nnoremap <silent><leader>json :%!python -m json.tool<cr>
 nnoremap <right> :bn<cr>
 nnoremap <left> :bp<cr>
+" nnoremap <right> <right>
+" nnoremap <left> <left>
 cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
+cnoremap gblame Git blame
+
+nnoremap <leader>note :split ~/scratch<cr>
+
+nnoremap <leader>dump /SUPER<cr>oskip_load_external=>1,overwrite_modifications=>1,<esc>ZZ
 
 " CCToggle:
+
 command! CCToggle call CCToggle()
+nnoremap <leader>t :CCToggle<cr>
+
 function! g:CCToggle()
     if &colorcolumn != '' | setlocal colorcolumn&
     else                  | setlocal colorcolumn=80,100
@@ -62,25 +74,34 @@ augroup END
 " Plugins:
 filetype plugin on
 syntax on
+syntax enable
 
 source ~/.vim/files/eqalignsimple.vim
 
 call plug#begin('~/.vim/plugged')
-" Plug 'AlessandroYorba/Despacio'
-Plug 'junegunn/fzf.vim'
-Plug 'junegunn/fzf',       { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'vimwiki/vimwiki'
-Plug 'vim-perl/vim-perl6', { 'for': 'perl6' }
 
-Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-tbone'
-Plug 'tpope/vim-eunuch'
-Plug 'ghifarit53/tokyonight-vim'
+    Plug 'mbbill/undotree',    { 'on': 'UndotreeToggle' }
+
+    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-dadbod'
+    Plug 'tpope/vim-tbone'
+    Plug 'tpope/vim-eunuch'
+
+    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf',       { 'dir': '~/.fzf', 'do': './install --all' }
+    Plug 'junegunn/goyo.vim'
+    Plug 'junegunn/seoul256.vim'
+    Plug 'junegunn/limelight.vim'
+    Plug 'junegunn/vim-peekaboo'
+    Plug 'junegunn/vim-journal'
+
+    Plug 'vimwiki/vimwiki'
+    Plug 'vim-perl/vim-perl6', { 'for': 'perl6' }
+    Plug 'vim-airline/vim-airline'
+
 call plug#end()
 
 " Vimwiki
@@ -107,14 +128,17 @@ function! g:Undotree_CustomMap()
     nmap <buffer> j <plug>UndotreePreviousState
 endfunc
 
-" set termguicolors
-let g:tokyonight_style = 'night' " available: night, storm
-let g:tokyonight_enable_italic = 0
-let g:tokyonight_disable_italic_comment = 1
+" goyo
+" let g:goyo_linenr = 1
+let g:goyo_width  = 100
+nnoremap <leader>goyo :Goyo<cr>
 
-" colorscheme despacio
-" colorscheme darkblue
-colorscheme tokyonight
+" nord
+
+"   needed for cursorline cursorcolumn and visual highlighting
+" set termguicolors
+
+colorscheme seoul256
 
 " FZF
 command! -bang -nargs=? -complete=dir GFiles
@@ -146,9 +170,15 @@ nnoremap <leader>mein :DB g:mein
 nnoremap <leader>tool :DB g:tool
 nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
 
+" vim-airline
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_sep = ''
+" let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+
 " set background=dark
 " set showcmd hidden noswapfile nobackup
-" set nocompatible
 " set ttimeoutlen=0
 " set matchpairs+=<:>
 " set cmdheight=1
@@ -172,9 +202,9 @@ nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
 " let g:look_up = {
 "     \ '__' : '-', 'n'  : 'Normal',
 "     \ 'R'  : 'R', 'i'  : 'Insert',
-"     \ '' : 'S', 'v'  : 'Visual',
+"     \ '' : 'S', 'v'  : 'Visual',
 "     \ 't'  : 'T', 'V'  : 'V-Line',
-"     \ 'S'  : 'S', '' : 'V-Bloc',
+"     \ 'S'  : 'S', '' : 'V-Bloc',
 "     \ 's'  : 'S', 'c'  : 'Command',
 " \}
 
