@@ -218,3 +218,48 @@ let g:airline_right_sep = ''
 " set statusline+=%=%(%l,%c%V\ \ \ \ \ \ \ \ \ %=\ %P%)
 
 command! ClearRegisters for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
+
+
+nnoremap <leader>n :cnext<cr>
+nnoremap <leader>p :cprev<cr>
+
+function! DiffQF(...)
+    let commit = a:0 == 0 ? '' : a:1
+
+    let command = 'git diff --name-only ' . commit
+    let flist = system(command)
+    let flist = split(flist, '\n')
+
+    let list = []
+    for f in flist
+        let dic = {'filename': f, "lnum": 1}
+        call add(list, dic)
+    endfor
+
+    call setqflist(list)
+    call setqflist([], 'a', {'title' : command})
+    copen
+endfunction
+
+function! CommitQF(...)
+    let commit = a:0 == 0 ? '' : a:1
+
+    let command = 'git diff-tree --no-commit-id --name-only -r ' . commit
+    let flist = system(command)
+    let flist = split(flist, '\n')
+
+    let list = []
+    for f in flist
+        let dic = {'filename': f, "lnum": 1}
+        call add(list, dic)
+    endfor
+
+    call setqflist(list)
+    call setqflist([], 'a', {'title' : command})
+    copen
+endfunction
+
+
+command! -nargs=1 Diff call DiffQF(<f-args>)
+command! DiffMaster call DiffQF('master')
+command! -nargs=1 GShow call CommitQF(<f-args>)
