@@ -3,7 +3,7 @@ set laststatus=2 showtabline=2 ruler
 set tabstop=4    softtabstop=4 shiftwidth=4
 set expandtab    autoindent
 set number       relativenumber
-set list         listchars=tab:▸-,trail:●
+set list         listchars=tab:▸-,trail:• " ▸- ● • o x
 set hidden       noswapfile
 set undofile     undodir=~/.vim/undodir/
 set wildmenu     wildignorecase
@@ -31,7 +31,6 @@ cnoremap <expr> w!! 'w !sudo tee % > /dev/null'
 cnoremap gblame Git blame
 
 nnoremap <leader>note :split ~/scratch<cr>
-
 nnoremap <leader>dump /SUPER<cr>oskip_load_external=>1,overwrite_modifications=>1,<esc>ZZ
 
 " CCToggle:
@@ -67,8 +66,6 @@ augroup filetype_missing " missing filetypes to some file types
     autocmd BufNewFile,BufRead,BufEnter *.sql            setfiletype sql
     autocmd BufNewFile,BufRead,BufEnter *.sh,sam,.bashrc setfiletype sh
     autocmd BufNewFile,BufRead,BufEnter *.t,*.pm,*.pl    setfiletype perl
-    autocmd BufNewFile,BufRead,BufEnter *.pm6,*.pl6,*.t6 setfiletype perl
-    autocmd BufNewFile,BufRead,BufEnter *.raku,*.rakumod setfiletype perl
 augroup END
 
 " Plugins:
@@ -99,7 +96,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/vim-journal'
 
     Plug 'vimwiki/vimwiki'
-    Plug 'vim-perl/vim-perl6', { 'for': 'perl6' }
     Plug 'vim-airline/vim-airline'
 
 call plug#end()
@@ -109,6 +105,12 @@ augroup back_previous " missing filetypes to some file types
     autocmd!
     autocmd BufNewFile,BufRead,BufEnter * call BackspaceNMap()
 augroup END
+
+augroup goyo_limelight
+    autocmd! User GoyoEnter Limelight
+    autocmd! User GoyoLeave Limelight!
+augroup END
+
 
 function! BackspaceNMap() abort
     if &ft == 'vimwiki' | nnoremap <C-?> :VimwikiGoBackLink<CR>
@@ -132,11 +134,6 @@ endfunc
 " let g:goyo_linenr = 1
 let g:goyo_width  = 100
 nnoremap <leader>goyo :Goyo<cr>
-
-" nord
-
-"   needed for cursorline cursorcolumn and visual highlighting
-" set termguicolors
 
 colorscheme seoul256
 
@@ -171,11 +168,54 @@ nnoremap <leader>tool :DB g:tool
 nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
 
 " vim-airline
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_sep = ''
-" let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
+
+command! ClearRegisters for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
+
+nnoremap <leader>n :cnext<cr>
+nnoremap <leader>p :cprev<cr>
+
+function! DiffQF(...)
+    let commit = a:0 == 0 ? '' : a:1
+
+    let command = 'git diff --name-only ' . commit
+    let flist = system(command)
+    let flist = split(flist, '\n')
+
+    let list = []
+    for f in flist
+        let dic = {'filename': f, "lnum": 1}
+        call add(list, dic)
+    endfor
+
+    call setqflist(list)
+    call setqflist([], 'a', {'title' : command})
+    copen
+endfunction
+
+function! CommitQF(...)
+    let commit = a:0 == 0 ? '' : a:1
+
+    let command = 'git diff-tree --no-commit-id --name-only -r ' . commit
+    let flist = system(command)
+    let flist = split(flist, '\n')
+
+    let list = []
+    for f in flist
+        let dic = {'filename': f, "lnum": 1}
+        call add(list, dic)
+    endfor
+
+    call setqflist(list)
+    call setqflist([], 'a', {'title' : command})
+    copen
+endfunction
+
+command! -nargs=1 Diff call DiffQF(<f-args>)
+command! DiffMaster call DiffQF('master')
+command! -nargs=1 GShow call CommitQF(<f-args>)
+
 
 " set background=dark
 " set showcmd hidden noswapfile nobackup
@@ -217,49 +257,3 @@ let g:airline_right_sep = ''
 " set statusline+=%*
 " set statusline+=%=%(%l,%c%V\ \ \ \ \ \ \ \ \ %=\ %P%)
 
-command! ClearRegisters for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
-
-
-nnoremap <leader>n :cnext<cr>
-nnoremap <leader>p :cprev<cr>
-
-function! DiffQF(...)
-    let commit = a:0 == 0 ? '' : a:1
-
-    let command = 'git diff --name-only ' . commit
-    let flist = system(command)
-    let flist = split(flist, '\n')
-
-    let list = []
-    for f in flist
-        let dic = {'filename': f, "lnum": 1}
-        call add(list, dic)
-    endfor
-
-    call setqflist(list)
-    call setqflist([], 'a', {'title' : command})
-    copen
-endfunction
-
-function! CommitQF(...)
-    let commit = a:0 == 0 ? '' : a:1
-
-    let command = 'git diff-tree --no-commit-id --name-only -r ' . commit
-    let flist = system(command)
-    let flist = split(flist, '\n')
-
-    let list = []
-    for f in flist
-        let dic = {'filename': f, "lnum": 1}
-        call add(list, dic)
-    endfor
-
-    call setqflist(list)
-    call setqflist([], 'a', {'title' : command})
-    copen
-endfunction
-
-
-command! -nargs=1 Diff call DiffQF(<f-args>)
-command! DiffMaster call DiffQF('master')
-command! -nargs=1 GShow call CommitQF(<f-args>)
