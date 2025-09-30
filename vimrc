@@ -20,6 +20,9 @@ set showcmd
 set nocompatible
 
 " Mappings:
+
+tnoremap <F1> <C-W>N
+
 nnoremap Q gq
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR>
 nnoremap <silent><leader>json :%!python -m json.tool<cr>
@@ -57,6 +60,15 @@ function! g:StripWhitespace()
     call cursor(line, column)
 endfunction
 
+" CopyMatches:
+function! CopyMatches(reg)
+    let hits = []
+    %s//\=len(add(hits, submatch(0))) ? submatch(0) : ''/gne
+    let reg = empty(a:reg) ? '+' : a:reg
+    execute 'let @'.reg.' = join(hits, "\n") . "\n"'
+endfunction
+command! -register CopyMatches call CopyMatches(<q-reg>)
+
 " Autocmds:
 augroup filetype_missing " missing filetypes to some file types
     autocmd!
@@ -86,6 +98,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-dadbod'
     Plug 'tpope/vim-tbone'
     Plug 'tpope/vim-eunuch'
+    Plug 'tpope/vim-jdaddy'
 
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf',       { 'dir': '~/.fzf', 'do': './install --all' }
@@ -94,6 +107,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/limelight.vim'
     Plug 'junegunn/vim-peekaboo'
     Plug 'junegunn/vim-journal'
+    Plug 'junegunn/gv.vim' " requires vim-commentary
 
     Plug 'vimwiki/vimwiki'
     Plug 'vim-airline/vim-airline'
@@ -110,7 +124,6 @@ augroup goyo_limelight
     autocmd! User GoyoEnter Limelight
     autocmd! User GoyoLeave Limelight!
 augroup END
-
 
 function! BackspaceNMap() abort
     if &ft == 'vimwiki' | nnoremap <C-?> :VimwikiGoBackLink<CR>
@@ -132,7 +145,7 @@ endfunc
 
 " goyo
 " let g:goyo_linenr = 1
-let g:goyo_width  = 100
+let g:goyo_width = 100
 nnoremap <leader>goyo :Goyo<cr>
 
 colorscheme seoul256
@@ -168,7 +181,7 @@ nnoremap <leader>tool :DB g:tool
 nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
 
 " vim-airline
-let g:airline_left_sep = ''
+let g:airline_left_sep  = ''
 let g:airline_right_sep = ''
 
 command! ClearRegisters for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
@@ -177,13 +190,13 @@ nnoremap <leader>n :cnext<cr>
 nnoremap <leader>p :cprev<cr>
 
 function! DiffQF(...)
-    let commit = a:0 == 0 ? '' : a:1
+    let commit  = a:0 == 0 ? '' : a:1
 
     let command = 'git diff --name-only ' . commit
-    let flist = system(command)
-    let flist = split(flist, '\n')
+    let flist   = system(command)
+    let flist   = split(flist, '\n')
 
-    let list = []
+    let list    = []
     for f in flist
         let dic = {'filename': f, "lnum": 1}
         call add(list, dic)
@@ -198,8 +211,8 @@ function! CommitQF(...)
     let commit = a:0 == 0 ? '' : a:1
 
     let command = 'git diff-tree --no-commit-id --name-only -r ' . commit
-    let flist = system(command)
-    let flist = split(flist, '\n')
+    let flist   = system(command)
+    let flist   = split(flist, '\n')
 
     let list = []
     for f in flist
@@ -242,9 +255,9 @@ command! -nargs=1 GShow call CommitQF(<f-args>)
 " let g:look_up = {
 "     \ '__' : '-', 'n'  : 'Normal',
 "     \ 'R'  : 'R', 'i'  : 'Insert',
-"     \ '' : 'S', 'v'  : 'Visual',
+"     \ ''   : 'S', 'v'  : 'Visual',
 "     \ 't'  : 'T', 'V'  : 'V-Line',
-"     \ 'S'  : 'S', '' : 'V-Bloc',
+"     \ 'S'  : 'S', ''   : 'V-Bloc',
 "     \ 's'  : 'S', 'c'  : 'Command',
 " \}
 
