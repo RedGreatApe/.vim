@@ -103,14 +103,35 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/fzf',       { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/goyo.vim'
-    Plug 'junegunn/seoul256.vim'
     Plug 'junegunn/limelight.vim'
     Plug 'junegunn/vim-peekaboo'
     Plug 'junegunn/vim-journal'
     Plug 'junegunn/gv.vim' " requires vim-commentary
 
+    Plug 'junegunn/seoul256.vim'
+    Plug 'AlessandroYorba/Despacio'
+
+
     Plug 'vimwiki/vimwiki'
     Plug 'vim-airline/vim-airline'
+
+" vim-airline (before plug#end — bootstrap reads these on load)
+let g:airline_theme           = 'despacio'
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep        = ''
+let g:airline_right_sep       = ''
+let g:airline_symbols = {
+      \ 'linenr':     ' ln:',
+      \ 'colnr':      ' col:',
+      \ 'maxlinenr':  '',
+      \ 'branch':     '',
+      \ 'readonly':   'RO',
+      \ 'whitespace': '!',
+      \ 'dirty':      '!',
+      \ 'crypt':      'cr',
+      \ 'executable': 'x',
+      \ 'notexists':  '?',
+      \ }
 
 call plug#end()
 
@@ -148,7 +169,8 @@ endfunc
 let g:goyo_width = 100
 nnoremap <leader>goyo :Goyo<cr>
 
-colorscheme seoul256
+" colorscheme seoul256
+colorscheme despacio
 
 " FZF
 command! -bang -nargs=? -complete=dir GFiles
@@ -179,10 +201,6 @@ nnoremap <leader>psql :DB g:time
 nnoremap <leader>mein :DB g:mein
 nnoremap <leader>tool :DB g:tool
 nnoremap <leader>zms :DB g:zms set search_path = 'anifit.de';
-
-" vim-airline
-let g:airline_left_sep  = ''
-let g:airline_right_sep = ''
 
 command! ClearRegisters for i in range(34,122) | silent! call setreg(nr2char(i), []) | endfor
 
