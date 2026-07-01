@@ -1,0 +1,129 @@
+# Sample .bashrc
+#
+# There are 3 different types of shells in bash: the login shell, normal shell
+# and interactive shell. Login shells read ~/.profile and interactive shells
+# read ~/.bashrc; in our setup, /etc/profile sources ~/.bashrc - thus all
+# settings made here will also take effect in a login shell.
+#
+# NOTE: It is recommended to make language settings in ~/.profile rather than
+# here, since multilingual X sessions would not work properly if LANG is over-
+# ridden in every subshell.
+
+# Some applications read the EDITOR variable to determine your favourite text
+# editor. So uncomment the line below and enter the editor of your choice :-)
+#export EDITOR=/usr/bin/vim
+#export EDITOR=/usr/bin/mcedit
+
+# export PATH="$HOME/.local/bin:$PATH" # maybe?
+
+alias o='less'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias cd..='cd ..'
+
+alias dir='ls -l'
+alias ll='ls -l'
+alias la='ls -la'
+alias l='ls -alF'
+alias ls-l='ls -l'
+
+alias grep='grep --color=auto'
+
+alias lld='ls -ld */'
+alias lhd='ls -ld .*/'
+alias xcom='git rebase HEAD~1 --ignore-date'
+alias detach='tmux detach-client -a'
+alias killall='pkill -U `id -u`'
+
+
+
+# Sample .profile
+#
+# This file is read each time a login shell is started.
+# All other interactive shells will only read .bashrc; this is particularly
+# important for language settings, see below.
+
+# ----- Git Repo Status
+# GIT_PS1_SHOWDIRTYSTATE=1
+# GIT_PS1_SHOWUPSTREAM="auto"
+# GIT_PS1_SHOWCOLORHINTS=1
+PROMPT_COMMAND='__git_ps1 "[ \$(date +%T) ] \w" " $ "'        # the nifty git branch thingy
+
+
+
+
+# The whole ls.bash
+# case "$-" in
+# *i*)
+#     #
+#     # Colored file listings
+#     #
+#     if test -x /usr/bin/dircolors ; then
+#         #
+#         # set up the color-ls environment variables:
+#         #
+#         if test -f $HOME/.dir_colors ; then
+# 	    eval "`/usr/bin/dircolors -b $HOME/.dir_colors`"
+#         elif test -f /etc/DIR_COLORS ; then
+# 	    eval "`/usr/bin/dircolors -b /etc/DIR_COLORS`"
+#         fi
+#     fi
+    
+#     #
+#     # ls color option depends on the terminal
+#     # If LS_COLORS is set but empty, the terminal has no colors.
+#     #
+#     if test "${LS_COLORS+empty}" = "${LS_COLORS:+empty}" ; then
+#         LS_OPTIONS=--color=tty
+#     else
+#         LS_OPTIONS=--color=none
+#     fi
+#     if test "$UID" = 0 ; then
+#         LS_OPTIONS="-A -N $LS_OPTIONS -T 0"
+#     else
+#         LS_OPTIONS="-N $LS_OPTIONS -T 0"
+#     fi
+    
+#     #
+#     # Avoid trouble with Emacs shell mode
+#     #
+#     if test "$EMACS" = "t" ; then
+#         LS_OPTIONS='-N --color=none -T 0';
+#     fi
+#     export LS_OPTIONS
+    
+#     #
+#     # useful ls aliases
+#     #
+#     if test "$is" != "ash" ; then
+# 	unalias ls 2>/dev/null
+#     fi
+#     case "$is" in
+# 	bash|dash|ash)
+# 	    _ls ()
+# 	    {
+# 		local IFS=' '
+# 		command ls $LS_OPTIONS ${1+"$@"}
+# 	    }
+# 	    alias ls=_ls
+# 	    ;;
+# 	zsh)
+# 	    test -s /etc/profile.d/ls.zsh && . /etc/profile.d/ls.zsh
+# 	    ;;
+# 	ksh)
+# 	    function _ls
+# 	    {
+# 		typeset IFS=' '
+# 		command -p ls $LS_OPTIONS ${1+"$@"}
+# 	    }
+# 	    alias ls=_ls
+# 	    ;;
+# 	*)  alias ls='/bin/ls $LS_OPTIONS' ;;
+#     esac
+#     alias dir='ls -l'
+#     alias ll='ls -l'
+#     alias la='ls -la'
+#     alias l='ls -alF'
+#     alias ls-l='ls -l'
+#     ;;
+# esac
